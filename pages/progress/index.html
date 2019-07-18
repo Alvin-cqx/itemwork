@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>天鹅堡项目(进度管理)</title>
+    <script src="/js/plugins/jquery.min.js"></script>
+    <script src="/js/plugins/echarts.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/css/common.css">
+    <style>
+        .leftData span::before {
+            content: '';
+            display: inline-block;
+            height: 8px;
+            width: 8px;
+            /* margin-right: 10px; */
+            border-radius: 100%;
+            /* background: #4879FF */
+        }
+
+        .gxysPro {
+            overflow: hidden;
+        }
+
+        .scslPro .leftData span::before {
+            content: '';
+            display: inline-block;
+            height: 8px;
+            width: 8px;
+            margin-right: 10px;
+            border-radius: 100%;
+            background: #4879FF
+        }
+
+        .page {
+            position: absolute;
+            top: 0px;
+            bottom: 0;
+            left: 0;
+            right: 0;
+             /* height: 950px; */
+            margin: 0 10px;
+            /* min-height: 750px; */
+            /* height: 1090px; */
+            background: rgba(5, 12, 39, 0.3);
+            box-shadow: 0px 1px 13px 0px rgba(70, 90, 201, 0.48);
+            border: 1px solid rgba(60, 71, 92, 0.2);
+        }
+
+        .content {
+            height: 99%;
+            /* min-height: 750px */
+        }
+
+        .content>div {
+            width: 100%;
+            height: 33%;
+            /* height:300px; */
+            position: relative;
+            background: rgba(5, 12, 39, 0.3);
+            box-shadow: 0px 1px 13px 0px rgba(70, 90, 201, 0.48) inset;
+            border: 1px solid rgba(85, 143, 255, 0.2);
+            margin-bottom: 5px;
+            /* width: calc(100% - 40px); */
+            margin-right: 20px
+        }
+
+        .content p {
+            text-align: center;
+            font-size: 16px;
+            margin-top: 8px;
+            color: #3CFFFA;
+        }
+
+        .box {
+            display: flex;
+            height: 90%;
+            justify-content: space-between
+        }
+
+        .box>div {
+            width: 33%;
+            height: 100%;
+            /* background-color: rgb(99, 109, 109); */
+        }
+
+        .leftData {
+            margin-left: 10%;
+            width: 100px;
+            margin-top: 3%;
+            height: 100%;
+        }
+
+        .leftData span {
+            font-size: 16px;
+            display: inline-block;
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            /* margin-left: 40%; */
+        }
+
+        .leftData ul {
+            /* margin-top: 14%; */
+            /* color: #A8ABE2; */
+            /* margin-left: 46%; */
+        }
+
+        .choose {
+            display: flex;
+            justify-content: flex-start;
+            margin-left: 62px;
+        }
+
+        .project img,
+        .house img {
+            vertical-align: middle;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .project ul {
+
+            position: absolute;
+            left: 120px;
+            width: 110px;
+            background-color: #121465;
+            text-align: center;
+            z-index: 3;
+            display: none;
+            box-shadow: 0px 1px 13px 0px rgba(70, 90, 201, 0.48) inset;
+            border-radius: 5%;
+            border: 1px solid rgba(85, 143, 255, 0.2)
+        }
+
+        .house {
+            margin-left: 20px;
+            position: relative;
+        }
+
+        .house ul {
+            position: absolute;
+            left: 24px;
+            width: 80px;
+            background-color: #121465;
+            text-align: center;
+            z-index: 2;
+            display: none;
+        }
+
+        .project ul li,
+        .house ul li {
+            height: 30px;
+            line-height: 30px;
+        }
+
+        .project span,
+        .house span {
+            cursor: pointer;
+        }
+
+        .project ul li:hover,
+        .house ul li:hover {
+            color: #00FFF9;
+            cursor: pointer;
+        }
+
+        /* .gsysBox .left,.gsysBox .content,.gsysBox .right{
+            display: none;
+        } */
+        .gxysPro .rightData {
+            /* overflow: hidden; */
+            overflow: auto;
+        }
+
+        .gxysPro .rightData::-webkit-scrollbar {
+            display: none;
+        }
+
+        .navBox {
+            position: absolute;
+            /* height: 31px; */
+            z-index: 2;
+            /* background-color: #051253; */
+            /* display: none; */
+            padding: 5px;
+            border-radius: 5%;
+            width: 154px;
+        }
+
+        .navBox li,
+        .myDiv {
+            /* background-color: #051253; */
+            height: 26px;
+            line-height: 26px;
+        }
+
+        .parent-item {
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .navBox li img {
+            vertical-align: middle;
+            margin-bottom: 18px;
+        }
+
+        .parent-item li:hover {
+            color: #00FFF9;
+            cursor: pointer
+        }
+
+        .child-item {
+            margin-left: 30px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="content">
+            <div class="gxysPro">
+                <img class="module_ys" src="/images/pic_ys.png" alt="">
+                <img class="module_yx" src="/images/pic_yx.png" alt="">
+                <img class="module_zs" src="/images/pic_zs.png" alt="">
+                <img class="module_zx" src="/images/pic_zx.png" alt="">
+                <p>工序验收形象进度</p>
+                <div class="choose">
+                    <div class="project">
+                        <li>当前工程：<span>四海时代</span><img src="./../quality/img/icon_select01.png" alt="">
+                            <ul>
+                                <li>四海时代</li>
+                                <li>四海云创</li>
+                            </ul>
+                        </li>
+                    </div>
+                    <div class="house">
+                        <li><span></span></li>
+                    </div>
+                    <!-- <div class="house">
+                        <li>楼栋：<span>A栋</span><img src="./../quality/img/icon_select01.png" alt="">
+                            <ul>
+                                <li>A栋</li>
+                                <li>B栋</li>
+                            </ul>
+                        </li>
+                    </div> -->
+                </div>
+                <div class="box gsysBox">
+                    <div class="left box">
+                        <div class="leftData" style="width:160px">
+
+                            <div class="navBox0" type='0' floolId='JDGL00' barId='JDGL0'>
+
+                            </div>
+                        </div>
+                        <div class="middleData middleData0" style="width:200px">
+                            <div class="chart" id="JDGL0" style="height:100%"></div>
+                        </div>
+                        <div class="rightData rightData0" style="width:300px;">
+                            <!-- <div class="chart" id="JDGL00" style="height:520px"></div> -->
+                        </div>
+                    </div>
+                    <div class="box center">
+                        <div class="leftData" style="width:160px">
+
+                            <div class="navBox1" type='1' floolId='JDGL01' barId='JDGL1'>
+
+                            </div>
+                        </div>
+                        <div class="middleData middleData1" style="width:200px">
+                            <div class="chart" id="JDGL1" style="height:100%"></div>
+                        </div>
+                        <div class="rightData rightData1" style="width:300px;">
+                            <!-- <div class="chart" id="JDGL01" style="height:520px"></div> -->
+                        </div>
+                    </div>
+                    <div class="box right">
+                        <div class="leftData" style="width:160px">
+
+                            <div class="navBox2" type='2' floolId='JDGL02' barId='JDGL2'>
+
+                            </div>
+                        </div>
+                        <div class="middleData middleData2" style="width:200px">
+                            <div class="chart" id="JDGL2" style="height:100%"></div>
+                        </div>
+                        <div class="rightData rightData2" style="width:300px;">
+                            <!-- <div class="chart" id="JDGL02" style="height:520px"></div> -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="scslPro">
+                <img class="module_ys" src="/images/pic_ys.png" alt="">
+                <img class="module_yx" src="/images/pic_yx.png" alt="">
+                <img class="module_zs" src="/images/pic_zs.png" alt="">
+                <img class="module_zx" src="/images/pic_zx.png" alt="">
+                <p>实测试量形象进度</p>
+                <div class="box gsysBox">
+                    <div class="left box">
+                        <div class="leftData" style="width:160px">
+                            <span>主体结构</span>
+                            <ul>
+                                <li>砌体</li>
+                                <li>门窗</li>
+                            </ul>
+                        </div>
+                        <div class="middleData" style="width:200px">
+                            <div class="chart" id="JDGL04" style="height:100%"></div>
+                        </div>
+                        <div class="rightData" style="width:300px">
+                            <div class="chart" id="JDGL004" style="height:100%"></div>
+                        </div>
+                    </div>
+                    <div class="middle box">
+                        <div class="leftData" style="width:160px">
+                            <span>主体结构</span>
+                            <ul>
+                                <li>砌体</li>
+                                <li>门窗</li>
+                            </ul>
+                        </div>
+                        <div class="middleData" style="width:200px">
+                            <div class="chart" id="JDGL05" style="height:100%"></div>
+                        </div>
+                        <div class="rightData" style="width:300px">
+                            <div class="chart" id="JDGL005" style="height:100%"></div>
+                        </div>
+                    </div>
+                    <div class="rigth box">
+                        <div class="leftData" style="width:160px">
+                            <span>主体结构</span>
+                            <ul>
+                                <li>砌体</li>
+                                <li>门窗</li>
+                        </div>
+                        <div class="middleData" style="width:200px">
+                            <div class="chart" id="JDGL06" style="height:100%"></div>
+                        </div>
+                        <div class="rightData" style="width:300px">
+                            <div class="chart" id="JDGL006" style="height:100%"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="bzgq">
+                <img class="module_ys" src="/images/pic_ys.png" alt="">
+                <img class="module_yx" src="/images/pic_yx.png" alt="">
+                <img class="module_zs" src="/images/pic_zs.png" alt="">
+                <img class="module_zx" src="/images/pic_zx.png" alt="">
+                <p>标准工期</p>
+                <div class="box gsysBox">
+                    <div class="left box">
+                        <div class="leftData" style="width:160px">
+
+                        </div>
+                        <div class="middleData" style="width:200px">
+                            <div class="chart" id="JDGL07" style="height:100%"></div>
+                        </div>
+                        <div class="rightData" style="width:300px">
+
+                        </div>
+                    </div>
+                    <div class="middle box">
+                        <div class="leftData" style="width:160px">
+
+                        </div>
+                        <div class="middleData" style="width:200px">
+                            <div class="chart" id="JDGL08" style="height:100%"></div>
+                        </div>
+                        <div class="rightData" style="width:300px">
+
+                        </div>
+                    </div>
+                    <div class="rigth box">
+                        <div class="leftData" style="width:160px">
+
+                        </div>
+                        <div class="middleData" style="width:200px">
+                            <div class="chart" id="JDGL09" style="height:100%"></div>
+                        </div>
+                        <div class="rightData" style="width:300px">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>
+<script src="./js/progress.js"></script>
+<script src="/js/request.js"></script>
+<script src="/js/plugins/jquery.min.js"></script>
+<script type="text/javascript">
+    Progress.formatJDGLBarData2()
+    Progress.formatJDGLFloorData2()
+    Progress.formatJDGLBarData3()
+
+    var enterpriseId;
+    var houseItemId;
+    // 工程户数
+    var itemHouseNum;
+    // 工程楼层
+    var itemFloorNum = [];
+    // 多少栋楼
+    var HouseNum;
+    // 楼层名字
+    var houseName = [];
+    // 楼栋id
+    var HouseId = []
+    $(function () {
+        //查询项目名称信息  四海云创 四海时代
+        global.ajax.searchArea("OCT01", 1, function (res) {
+            // console.log(res.data.items, '项目名称');
+            var nameList = res.data.items;
+            var html = '';
+            //赋值给初始值
+            $('.project li span').html(nameList[0].typeValueEx);
+            $('.project li span').attr('valueEx', nameList[0].valueEx);
+            $('.project li span').attr('enterpriseId', nameList[0].enterpriseId);
+            nameList.forEach(function (item, i) {
+                
+                if (item.enterpriseId == 'OCT010100100004' || item.enterpriseId == 'OCT010100100005') {
+                    html += '<li enterpriseId="' + item.enterpriseId + '">' + item.typeValueEx + '</li>'
+                }
+
+            })
+            $('.project ul').html(html);
+            enterpriseId = $('.project li span').attr('enterpriseId');
+            // console.log(enterpriseId, '初始项目ID')
+            // 初始化楼栋
+            searchHouseInfo();
+            // 初始化工序
+            // renderItemInfo()
+
+            // 工程下拉框选择
+            $('.project ul').on('click', 'li', function () {
+                $('.project').find('span').text($(this).text());
+                $('.project').find('ul').hide();
+                enterpriseId = $(this).attr('enterpriseid');
+                // console.log('工程下拉框选择', enterpriseId);
+                // console.log(HouseNum, 'HouseNum')
+                // 清楚数据 再获取
+                for (var i = 0; i < HouseNum; i++) {
+                    $('.navBox' + i).html('')
+                    $('.rightData' + i).empty()
+                    $('.middleData' + i).html('')
+
+                }
+                searchHouseInfo();
+            })
+
+
+        })
+        //  查询楼栋信息
+        function searchHouseInfo() {
+            // 查询楼层信息
+            global.ajax.searchArea(enterpriseId, 4, function (res) {
+
+                // 查询户数信息
+                global.ajax.searchArea(enterpriseId, 16, function (house) {
+
+                    // 清除楼名,楼栋id
+                    houseName.length = 0
+                    HouseId.length = 0
+                    var houseNum = res.data.items;
+                    var houseList = house.data.items;
+                    // console.log(houseNum, '查询楼栋信息')
+                    HouseNum = houseNum.length
+                    var html = '';
+                    // 没去重之前的户数
+                    var Arr = [];
+                    // 数组去重的户数
+                    // 算出户数
+                    houseList.forEach(function (item) {
+                        if (item.typeValueEx.substring(0, 1) == '6') {
+                            Arr.push(item.typeValueEx)
+                        }
+
+                    })
+                    var hash = unique1(Arr)
+                    itemHouseNum = hash.length
+                    // 去重以后的户数
+
+                    // $('.house li span').html(houseNum[0].typeValueEx);
+                    $('.house li span').attr('valueEx', houseNum[0].valueEx);
+                    $('.house li span').attr('enterpriseId', houseNum[0].enterpriseId);
+                    houseNum.forEach(function (item, i) {
+                        houseName.push(item.typeValueEx)
+                        HouseId.push(item.enterpriseId)
+                        // html += '<li enterpriseId="' + item.enterpriseId + '" valueEx="' + item.valueEx + '">' + item.typeValueEx + '</li>';
+
+                    })
+                    // $('.house ul').html(html);
+
+                    houseItemId = $('.house li span').attr('enterpriseId');
+                    // console.log(html, '公共有多少id');
+                    // 初始化工序
+                    renderItemInfo()
+                    // 查询楼层信息
+                    searchFloor();
+
+
+
+                })
+
+
+            })
+        }
+
+        // 查询楼层信息
+        function searchFloor() {
+            global.ajax.searchArea(houseItemId, 8, function (res) {
+                // 算出楼层
+                itemFloorNum.length = 0
+                res.data.items.forEach(function (item) {
+                    itemFloorNum.push(item.typeValueEx)
+                })
+                itemFloorNum = itemFloorNum.sort(sortNumber)
+                for (var i = 0; i < HouseNum; i++) {
+                    $('.rightData' + i).append('<div class="chart" id="' + ('JDGL0' + i) + '" style="height:520px"></div>')
+                    $('.middleData' + i).append('<div class="chart" id="' + ('JDGL' + i) + '" style="height:100%"></div>')
+                    Progress.formatJDGLFloorData1(res, 'JDGL0' + i)
+                    Progress.formatJDGLBarData1(res, 'JDGL' + i)
+
+                }
+
+            })
+        }
+        // 查询工序
+
+        function renderItemInfo() {
+            if (!enterpriseId) return;
+            console.log(HouseId, 'HouseIdHouseIdHouseIdHouseId')
+            global.ajax.itemName(enterpriseId, 16384, function (res) {
+                var arr = res.data.items;
+                var html = '';
+                var enterpriseId;
+                var valueEx;
+                var gxysNameId;
+                var gxysItemId;
+                //console.log(arr, '111');
+                var dataList = test(arr);
+                // console.log(dataList, '工序验收', HouseNum);
+
+
+
+                var a = callback(dataList, 'parent-item');
+                for (var i = 0; i < HouseNum; i++) {
+                    $('.navBox' + i).html(' <span>主体结构</span>' + a)
+
+                }
+
+                // $('.left .navBox0').html(html1);
+                // $('.center .navBox1').html(html1);
+                // $('.right .navBox2').html(html1);
+                $('.parent-item>li').on('click', function (e) {
+                    stopproPagation(e);
+                    if ($(this).find('img').attr('src') == './img/up.png') {
+                        $(this).find('img').attr('src', './img/down.png')
+                    } else {
+                        $(this).find('img').attr('src', './img/up.png')
+                    }
+                    $(this).parents().siblings().find('li>img').attr('src', './img/up.png')
+                    $('.project').find('img').attr('src', './../quality/img/icon_select01.png')
+                    $('.house').find('img').attr('src', './../quality/img/icon_select01.png')
+                    $('.parent-item>.child-item').slideToggle();
+                    $(this).nextAll().find('.child-item').hide();
+                    $(this).parents().siblings().find('.child-item').hide();
+                })
+                $('.parent-item>.child-item>li').on("click", function (e) {
+                    stopproPagation(e)
+                    //console.log('111', $(this).find('img').attr('src'));
+                    if ($(this).find('img').attr('src') == './img/up.png') {
+                        $(this).find('img').attr('src', './img/down.png')
+                    } else {
+                        $(this).find('img').attr('src', './img/up.png')
+                    }
+                    $(this).nextAll().slideToggle();
+
+                })
+                for (var i = 0; i < HouseNum; i++) {
+                    $('.navBox' + i).find('.parent-item>.child-item .typeName').each(function () {
+                        $(this).click(function () {
+                            // $('.gxysInfoItem').html($(this).html());
+                            var itemEnterpriseId = $(this).attr('enterpriseId');
+                            // var Id=HouseId[(i-0)]
+                            var type = $(this).parent().parent().parent().parent().attr('type')
+                            var floolId = $(this).parent().parent().parent().parent().attr('floolId')
+                            var barId = $(this).parent().parent().parent().parent().attr('barId')
+
+                            var Id = HouseId[type]
+                            console.log(itemEnterpriseId, '工序下拉选择框', barId);
+                            $(this).parent().parent().parent().parent().find('.child-item').hide()
+                            $(this).parent().parent().parent().find('li>img').attr('src', './img/up.png')
+                            $(this).parent().parent().parent().parent().find('li>img').attr('src', './img/up.png')
+
+                            // 调用渲染结果
+                            checkResult(Id, itemEnterpriseId, floolId, barId)
+
+                        })
+                    })
+
+                }
+
+                // 工序下拉选择框
+                // $('.parent-item>.child-item .typeName').each(function () {
+                //     $(this).click(function () {
+                //         // $('.gxysInfoItem').html($(this).html());
+                //         var itemEnterpriseId = $(this).attr('enterpriseId');
+                //         console.log(itemEnterpriseId, '工序下拉选择框');
+                //         $(this).parent().parent().parent().parent().find('.child-item').hide()
+                //         $(this).parent().parent().parent().find('li>img').attr('src', './img/up.png')
+                //         $(this).parent().parent().parent().parent().find('li>img').attr('src', './img/up.png')
+
+                //         global.ajax.progressManger(chooseH, itemEnterpriseId, 16384, function (res) {
+                //             console.log(res, '楼栋信息', $('.house li span').attr('enterpriseId'))
+                //             houseItemId = $('.house li span').attr('enterpriseId');
+                //             global.ajax.searchArea(houseItemId, 8, function (res) {
+
+                //             })
+
+
+                //         })
+                //     })
+                // })
+
+
+
+
+
+
+                // //页面第一次渲染   
+                // gxysNameId = $('.firstName').attr('enterpriseId')
+                // gxysItemId = $('.gxysInfoItem').attr('enterpriseId')
+                // //查询质量管理-工序验收
+                // console.log(gxysNameId, gxysItemId, "第一次渲染")
+                // global.ajax.itemCheck('OCT01', gxysNameId, gxysItemId, function (res) {
+                //     //console.log(res,'获取质量管理-工序验收')
+                //     rendJLTJYS(res)
+                // })
+                // global.page.chooseSelect('.bottom',function(_this){
+                //     houseEnterpriseId=_this.attr('enterpriseId');
+                //     $('.infoItem').attr('enterpriseId',houseEnterpriseId);
+                //     itemEnterpriseId=$('.firstName').attr('enterpriseId')
+                //     console.log(houseEnterpriseId,itemEnterpriseId)
+
+
+                // })
+            })
+        }
+
+
+        // 楼栋选择
+        $('.house ul').on('click', 'li', function () {
+            $('.house').find('span').text($(this).text());
+            $('.house').find('ul').hide();
+            houseItemId = $(this).attr('enterpriseid');
+            console.log('楼栋下拉框选择', houseItemId);
+            // global.ajax.progressManger(houseItemId, 1, function (res) {
+            //         console.log(res, '楼栋信息')
+            // })
+            // searchFloor()
+
+        })
+
+
+
+
+        // 下拉框
+        $('.project').find('span').click(function (e) {
+            e.stopPropagation(e);
+            $('.project').find('ul').slideToggle();
+            $('.house').find('ul').hide()
+
+        })
+        $('.project').find('img').click(function (e) {
+            e.stopPropagation(e);
+            $('.project').find('ul').slideToggle();
+            $('.house').find('ul').hide()
+        })
+        $('.house').find('span').click(function (e) {
+            e.stopPropagation(e);
+            $('.house').find('ul').slideToggle();
+            $('.project').find('ul').hide();
+        })
+        $('.house').find('img').click(function (e) {
+            e.stopPropagation(e);
+            $('.house').find('ul').slideToggle();
+            $('.project').find('ul').hide();
+        })
+
+        // 查询验收结果渲染
+        function checkResult(Id, itemEnterpriseId, floolId, barId) {
+            global.ajax.progressManger(Id, itemEnterpriseId, 16384, function (res) {
+
+                Progress.formatJDGLFloorData1(res, floolId)
+                Progress.formatJDGLBarData1(res, barId)
+
+
+            })
+        }
+
+        document.onclick = function (e) {
+            e.stopPropagation(e);
+            $('.project').find('ul').hide();
+            $('.house').find('ul').hide();
+        }
+        // 阻止事件冒泡
+        function stopproPagation(e) {
+            window.event ? window.event.cancelBubble = true : e.stopPropagation();
+        }
+
+        // 数组去重
+        function unique1(Arr) {
+            var hash = []
+            for (var i = 0; i < Arr.length; i++) {
+                if (hash.indexOf(Arr[i]) == -1) {
+                    hash.push(Arr[i]);
+                }
+            }
+            return hash;
+
+        }
+        // 排序
+        function sortNumber(a, b) {
+            return parseFloat(a) - parseFloat(b)
+        }
+
+        // 处理后台数据      
+        function test(arr) {
+            var tops = new Array();
+            var els = new Array();
+            for (var a in arr) {
+                var obj = arr[a];
+                (!obj['valueEx']) && tops.push(obj['enterpriseId']);
+                if (!els[obj['enterpriseId']]) {
+                    els[obj['enterpriseId']] = {};
+                    els[obj['enterpriseId']]["childs"] = new Array();
+                }
+                els[obj['enterpriseId']]["obj"] = obj;
+                if (!els[obj['valueEx']]) {
+                    els[obj['valueEx']] = {};
+                    els[obj['valueEx']]["childs"] = new Array();
+                }
+                els[obj['valueEx']]["childs"].push(els[obj['enterpriseId']]);
+
+            }
+
+            var ret = new Array();
+            for (var a in tops) {
+                ret.push(els[tops[a]]);
+            }
+
+            return ret;
+        }
+
+        // 递归渲染数据
+        function callback(dataList, className) {
+            var html1 = ''
+            var upPic = './img/up.png'
+            dataList.forEach(function (item, i) {
+                if (i < 3) {
+                    // var pitTure = item.childs && item.childs.length > 0 ? upPic : ''
+                    // var pic = item.childs && item.childs.length > 0 ? '<img src="' + pitTure + '">' : ''
+                    html1 += '<ul class="' + className + '"><li><img src="' + upPic + '"><span class="typeName" enterpriseId="' + item.obj.enterpriseId + '">' + item.obj.typeValueEx + '</span></li>'
+                    // if (item.childs && item.childs.length >0) {
+                    //     callback(item.childs, 'child-item')
+                    // }
+                    item.childs.forEach(function (items) {
+                        html1 += '<ul class="child-item"><li><span class="typeName" enterpriseId="' + items.obj.enterpriseId + '">' + items.obj.typeValueEx + '</span></li></ul>'
+                    })
+                    html1 += '</ul>'
+                }
+            })
+            return html1
+
+
+        }
+    })
+</script>

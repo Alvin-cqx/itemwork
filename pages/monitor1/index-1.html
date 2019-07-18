@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="pragma" content="no-cache">
+    <title>视频监控</title>
+    <script src="/js/plugins/jquery.min.js"></script>
+    <link rel="stylesheet" href="../../css/common.css">
+    <style>
+        .page {
+            position: absolute;
+            top: 0px;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .content {
+            height: 98%;
+            min-height: 750px;
+        }
+
+        .content>.box {
+            height: 100%;
+            min-height: 750px
+        }
+
+        .content>.box>div {
+            background: rgba(5, 12, 39, 0.3);
+            box-shadow: 0px 1px 13px 0px rgba(70, 90, 201, 0.48);
+            border: 1px solid rgba(85, 143, 255, 0.2);
+        }
+
+        .screen-wrap {
+            position: absolute;
+            top: -30px;
+            right: 44px;
+            display: flex;
+            justify-content: center
+        }
+
+        .screen-wrap li {
+            padding-right: 20px;
+            cursor: pointer;
+        }
+
+        .content .menu-wrap {
+            width: 260px;
+            padding-bottom: 30px;
+            /* margin-right: 20px */
+        }
+
+        .content .menu-wrap>p {
+            margin: 30px 0 10px 30px;
+            font-size: 16px
+        }
+
+        .content .menu-wrap>p img {
+            vertical-align: middle;
+            width: 24px
+        }
+
+        .content .menu-wrap>#movieLsit>.item>p {
+            padding: 10px 0;
+            padding-left: 50px;
+            cursor: pointer;
+        }
+
+        .content .menu-wrap>div>p img {
+
+            vertical-align: middle;
+            margin-right: 4px
+        }
+
+        .content .menu-wrap li {
+            color: #9193BF;
+            cursor: pointer;
+            border-left: 3px solid #162579
+        }
+
+        .content .menu-wrap li span {
+            display: inline-block;
+            padding: 14px 0 14px 70px;
+        }
+
+        .li_active {
+            background: #0D1B6F;
+            color: #38E9EC !important;
+            border-left: 3px solid #38E9EC !important
+        }
+
+        .vedio-wrap {
+            width: calc(100% - 300px);
+        }
+
+        .vedio-wrap .box {
+            justify-content: flex-start;
+            flex-flow: row wrap;
+            height: 100%
+        }
+
+        .video-list {
+            width: calc(100% - 210px);
+            padding: 10px 0 10px 10px;
+        }
+
+        .video-control {
+            width: 200px;
+            position: relative;
+            /* background: #03042c */
+        }
+
+        .video-control img {
+            cursor: pointer;
+            padding: 2px;
+        }
+
+        .control-c {
+            position: absolute;
+            top: 250px;
+            right: 20px;
+            left: 20px;
+        }
+
+        .control-c .box {
+            margin-bottom: 18px
+        }
+
+        .control-c .box>div {
+            flex: 1
+        }
+
+        .control-c .text-right {
+            text-align: right
+        }
+
+        .control-c .text-center {
+            text-align: center
+        }
+
+        .control-d {
+            position: absolute;
+            top: 40px;
+            right: 10px;
+            left: 10px;
+            background: #121465;
+            height: 180px;
+            border-radius: 100%;
+            z-index: 2
+        }
+
+        .control-d>div {
+            height: 100%;
+            width: 100%;
+            position: relative
+        }
+
+        .contrl_back {
+            position: absolute;
+            top: 42px;
+            left: 42px;
+            right: 42px;
+            bottom: 42px;
+            opacity: 0.2;
+            z-index: 1
+        }
+
+        .contrl_back img {
+            width: 100%;
+        }
+
+        .control-d .up {
+            position: absolute;
+            top: 10px;
+            left: 80px;
+            z-index: 4
+        }
+
+        .control-d .down {
+            position: absolute;
+            bottom: 10px;
+            left: 80px;
+            z-index: 4
+        }
+
+        .control-d .left {
+            position: absolute;
+            top: 81px;
+            left: 10px;
+            z-index: 4
+        }
+
+        .control-d .right {
+            position: absolute;
+            top: 81px;
+            ;
+            right: 10px;
+            z-index: 4
+        }
+
+        .control-p {
+            position: absolute;
+            top: 420px;
+            right: 10px;
+            left: 10px;
+            z-index: 2
+        }
+
+        .control-p .box>div {
+            flex: 1
+        }
+
+        .control-p .box>div li {
+            text-align: center;
+            width: 80%;
+            margin-left: 10%;
+            cursor: pointer;
+            padding: 8px 0;
+            background: rgba(18, 20, 101, 0.4);
+            margin-bottom: 20px;
+        }
+
+        .control-p .box>div li:active {
+            background: rgba(18, 20, 101, 0.8);
+        }
+
+        .control-p .box p {
+            color: #A8A8E2
+        }
+
+        .stream-type li {
+            font-size: 12px;
+            color: #A8A8E2
+        }
+
+        .control_active {
+            color: #00FFF9
+        }
+
+        .content .menu-wrap .itemWord {
+            margin: 9px 0 9px 6px;
+        }
+
+        .content .menu-wrap .itemWord img {
+
+            vertical-align: middle;
+            margin-right: 4px
+        }
+
+        .content .menu-wrap li {
+            color: #9193BF;
+            cursor: pointer;
+            border-left: 3px solid #162579
+        }
+
+        .content .menu-wrap li span {
+            display: inline-block;
+            padding: 14px 0 14px 70px;
+        }
+
+        .itemWord {
+            position: relative;
+        }
+
+        .itemWord ul {
+            position: absolute;
+            left: 26px;
+            top: 26px;
+            background-color: #1E2F89;
+            width: 154px;
+            /* border-radius: 10%; */
+        }
+
+        .itemWord ul li {
+            height: 40px;
+            line-height: 40px;
+            padding: 0 18px;
+        }
+
+        .itemWord ul li:hover {
+            color: #00FFF9;
+        }
+
+        .itemName {
+            margin-right: 10px;
+            color: #9193BF;
+        }
+
+        .item {
+            color: #9193BF;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="content">
+            <div class="box">
+                <div class="menu-wrap">
+                    <div class="itemWord">
+                        <img src="/images/icon_video.png" alt="">
+                        <a href="javascript:void(0)" class="chooseItem"><span class="itemName">四海时代</span><img
+                                src="../reportForm/img/icon_select01.png" alt=""></a>
+                        <ul style="display:none;">
+                            <!-- <li>四海时代</li>
+                            <li>四海云创</li> -->
+                        </ul>
+                    </div>
+                    <div id="movieLsit">
+
+                    </div>
+                    <!-- <div class="item">
+                        <p class="firstTitle">
+                            <img src="/images/icon_down01.png" alt="">
+                            <span>一级（9）</span>
+                        </p>
+                        <div class="firstLevel">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <p class="secondTitle">
+                            <img src="/images/icon_down01.png" alt="">
+                            <span>二级（9）</span>
+                        </p>
+                        <div class="secondLevel">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <p class="thirdTitle">
+                            <img src="/images/icon_down01.png" alt="">
+                            <span>三级（9）</span>
+                        </p>
+                        <div class="thirdLevel">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <p class="fouthTitle">
+                            <img src="/images/icon_down01.png" alt="">
+                            <span>四级（9）</span>
+                        </p>
+                        <div class="fouthLevel">
+                        </div>
+                    </div> -->
+                    <!-- <div class="item">
+                        <p>
+                            <img src="/images/icon_down01.png" alt="">
+                            <span>一级（9）</span>
+                        </p>
+                        <div>
+                            <li class="li_active"><span class="">塔吊（1）</span></li>
+                            <li><span>电梯（0）</span></li>
+                            <li><span>基坑（1）</span></li>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <p>
+                            <img src="/images/icon_down01.png" alt="">
+                            <span>二级（9）</span>
+                        </p>
+                        <div>
+                            <li><span>出入口（2）</span></li>
+                            <li><span>堆场（0）</span></li>
+                            <li><span>门禁（1）</span></li>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <p>
+                            <img src="/images/icon_down01.png" alt="">
+                            <span>三级（9）</span>
+                        </p>
+                        <div>
+                            <li><span>车辆（2）</span></li>
+                            <li><span>办公（1）</span></li>
+                            <li><span>电梯（0）</span></li>
+                            <li><span>基坑（1）</span></li>
+                            <li><span>办公（2）</span></li>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="vedio-wrap">
+                    <div class="box">
+                        <div class="video-list">
+                            <object id="DPSDK_OCX" classid="CLSID:D3E383B6-765D-448D-9476-DFD8B499926D"
+                                style="width: 100%; height: 100%" codebase="DpsdkOcx.cab#version=1.0.0.0"></object>
+                        </div>
+                        <div class="video-control">
+                            <div class="control-c">
+                                <div class="box">
+                                    <div><img onclick="PtzFocusDown(4)" src="./img/FocusDown_d.png" alt=""></div>
+                                    <div class="text-center"><span>变焦</span></div>
+
+                                    <div class="text-right"><img src="./img/FocusUp_d.png" onclick="PtzFocusDown(1)"
+                                            alt=""></div>
+                                </div>
+                                <div class="box">
+                                    <div><img src="./img/scaleMinus_d.png" onclick="PtzFocusDown(3)" alt=""></div>
+                                    <div class="text-center"><span>变倍</span></div>
+
+                                    <div class="text-right"><img src="./img/scaleAdd_d.png" onclick="PtzFocusDown(0)"
+                                            alt=""></div>
+                                </div>
+                                <div class="box">
+                                    <div><img src="./img/ApertureDown_d.png" onclick="PtzFocusDown(5)" alt=""></div>
+
+                                    <div class="text-center"><span>光圈</span></div>
+                                    <div class="text-right"><img src="./img/ApertureUp_d.png" onclick="PtzFocusDown(2)"
+                                            alt=""></div>
+                                </div>
+                            </div>
+
+                            <div class="control-d">
+                                <div>
+                                    <div class="contrl_back">
+                                        <img src="./img/control_back.png" alt="">
+                                    </div>
+                                    <img src="./img/up_disabled.png" onMouseDown="PtzDirection(1)"
+                                        onMouseUp="PtzDirectionStop()" class="up" alt="">
+                                    <img src="./img/down_disabled.png" onMouseDown="PtzDirection(2)"
+                                        onMouseUp="PtzDirectionStop(1)" class="down" alt="">
+                                    <img src="./img/left_disabled.png" onMouseDown="PtzDirection(3)"
+                                        onMouseUp="PtzDirectionStop(1)" class="left" alt="">
+                                    <img src="./img/right_disabled.png" onMouseDown="PtzDirection(4)"
+                                        onMouseUp="PtzDirectionStop(1)" class="right" alt="">
+                                </div>
+
+                            </div>
+                            <div class="control-p">
+                                <div class="box">
+                                    <div>
+                                        <li id="videoPlay">
+                                            <img src="/images/icon_splj.png" alt="">
+                                            <p>播放</p>
+                                        </li>
+                                    </div>
+                                    <div>
+                                        <li id="videoStop">
+                                            <img src="/images/icon_pause.png" alt="">
+                                            <p>停止</p>
+                                        </li>
+                                    </div>
+                                </div>
+                                <div class="box">
+                                    <div>
+                                        <li id="catchPic">
+                                            <img src="/images/icon_jt.png" alt="">
+                                            <p>抓图</p>
+                                        </li>
+                                    </div>
+                                    <div>
+                                        <li id="record">
+                                            <img state=false src="/images/icon_lx.png" alt="">
+                                            <p>录像</p>
+                                        </li>
+                                    </div>
+                                </div>
+                                <div style="text-align:center;margin:20px 0;color:#9193BF">
+                                    <p>码流</p>
+                                </div>
+                                <div class="box stream-type">
+                                    <div class="item">
+                                        <li type="1">
+                                            <span class="control_active">主码流</span>
+                                        </li>
+                                    </div>
+                                    <div class="item">
+                                        <li type="2">
+                                            <span>辅码流</span>
+                                        </li>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>
+<script src="/js/request.js"></script>
+<!-- <script src="/js/plugins/jquery.min.js"></script> -->
+<script src="/js/ocx.js"></script>
+<script type="text/javascript">
+    var HTML = '';
+    var dh = document.getElementById('DPSDK_OCX')
+    var ocx = new Video(dh)
+    console.log(ocx,'ocx')
+    // var CUR_VIDICON_LIST = ['1000037$1$0$10', '1000037$1$0$2', '1000037$1$0$3', '1000037$1$0$4',
+    //     '1000037$1$0$1', '1000037$1$0$5', '1000037$1$0$6', '1000037$1$0$7', '1000037$1$0$8'
+    // ]
+   
+    // setTimeout(function () {
+
+    //     ocx.Liveinit()
+    //     console.log(CUR_VIDICON_LIST)
+    // }, 300)
+    // 控制方向
+    function PtzDirection(type) {
+        ocx.ButtonPtzDirection(type)
+    }
+    function PtzDirectionStop() {
+        ocx.ButtonPtzDirection_onclickStop(1)
+    }
+    // 变焦
+    function PtzFocusDown(type) {
+        ocx.ButtonPtzCameraOperation_onclick(type)
+    }
+
+
+    $(function () {
+        try {
+            var movieList = global.unit.getCookie('admin_rules')
+            // 转换cookie格式
+            var change = decodeURIComponent(movieList)
+            var movieId = JSON.parse(change);
+            var QX = movieId[47];
+            } catch (e) {
+
+            }
+            if (!QX) {
+            alert("你无权限进行操作!");
+           
+        }
+       
+        console.log(movieId, '摄像头权限', QX)
+
+
+
+        // 查询项目下的所有工程
+        global.ajax.getEngineeringList(function (res) {
+
+            //console.log(res, '查询项目下的所有工程')
+            var workId;
+            for (var i = 0; i < res.data.engineeringList.length; i++) {
+                $('.chooseItem .itemName').text(res.data.engineeringList[0].engineeringName);
+                $('.itemWord ul ').append('<li engineeringId="' + res.data.engineeringList[i].engineeringId + '">' + res.data.engineeringList[i].engineeringName + '</li>')
+
+            }
+            workId = res.data.engineeringList[0].engineeringId;
+            // console.log(workId, '查询工程ID')
+            groupMove()
+            //获取工程视频分组
+            function groupMove() {
+                global.ajax.getGroupList(function (res) {
+                    var channel;
+                    var listArr = [];
+                    var HTML = '';
+                    var groupList = res.data.groupList;
+                    channel = res.data.groupList[0].cameraGroupId;
+
+                    dataDeal(groupList)
+                    function dataDeal(groupList) {
+                        groupList.forEach(function (el, index) {
+                            for (var i = 0; i < listArr.length; i++) {
+                                // 对比相同的字段key，相同放入对应的数组
+                                if (listArr[i].groupType == el.groupType) {
+                                    listArr[i].totalCount += el.cameraCount
+                                    listArr[i].listInfo.push({
+                                        cameraCount: el.cameraCount,
+                                        cameraGroupId: el.cameraGroupId,
+                                        groupName: el.groupName
+                                    });
+                                    return;
+                                }
+                            }
+                            // 第一次对比没有参照，放入参照
+                            listArr.push({
+                                groupType: el.groupType,
+                                totalCount: el.cameraCount,
+                                listInfo: [{
+                                    cameraCount: el.cameraCount,
+                                    cameraGroupId: el.cameraGroupId,
+                                    groupName: el.groupName
+                                }]
+                            });
+                        });
+                        return listArr;
+
+                    }
+                    console.log(listArr, '获取工程视频分组');
+                    listArr.forEach(function (item, i) {
+                        HTML += '<div class="item"><p><img src="/images/icon_down01.png" alt=""><span>' + ((i + 1) + '级') + "(" + item.totalCount + ")" + '</span></p><div class="title">';
+                        item.listInfo.forEach(function (items, index) {
+                            HTML += ('<li class="liActive" channel="' + items.cameraGroupId + '"><span>' + items.groupName + "(" + items.cameraCount + ")" + '</span></li>');
+                        })
+                        HTML += '</div></div>'
+                    })
+                    $('#movieLsit').html(HTML);
+                    $(".liActive").eq(0).addClass("li_active");
+                    $('.menu-wrap .item').find('p').each(function () {
+                        $(this).click(function () {
+                            if ($(this).find('img').attr('src') == '/images/icon_up01.png') {
+                                $(this).find('img').attr('src', '/images/icon_down01.png')
+                            } else {
+                                $(this).find('img').attr('src', '/images/icon_up01.png')
+                            }
+                            $(this).next('div').slideToggle()
+                        })
+                    })
+                    console.log(channel, '通道id')
+
+
+                    // 获取视频监控通道
+                    global.ajax.getGroupMovie(function (res) {
+                        // console.log(res, '获取视频监控通道')
+                        var CUR_VIDICON_LIST = [];
+                        res.data.cameraList.forEach(function (item) {
+                            CUR_VIDICON_LIST.push(item.channel)
+                        })
+                        ocx.setList(CUR_VIDICON_LIST)
+                        setTimeout(function () {
+
+                            ocx.Liveinit()
+                            // ocx.play()
+                            // console.log(ocx,CUR_VIDICON_LIST)
+                        }, 300)
+                    }, workId, channel)
+
+                    $('.menu-wrap').find('li').each(function () {
+                        $(this).click(function () {
+                            $(this).parents('.item').siblings().find('li').removeClass('li_active');
+                            $(this).addClass('li_active').siblings().removeClass('li_active');
+                            //  接受通道路径 
+                            var channel = $(this).attr('channel')
+                            // console.log(channel)
+                            // 获取视频监控通道
+                            global.ajax.getGroupMovie(function (res) {
+                                // console.log(res, '获取视频监控通道1')
+                                var CUR_VIDICON_LIST = [];
+                                res.data.cameraList.forEach(function (item) {
+                                    CUR_VIDICON_LIST.push(item.channel);
+                                  
+                                })
+                                ocx.setList(CUR_VIDICON_LIST)
+                               
+
+                                setTimeout(function () {
+                                   
+                                    ocx.livePlay()
+                                    // ocx.play()
+                                    // console.log('视频通道',ocx,CUR_VIDICON_LIST)
+                                }, 300)
+                            }, workId, channel)
+
+                        })
+                    })
+
+
+                }, workId)
+            }
+ 
+
+            // 点击获取阶段分类
+            $('.itemWord ul li').each(function () {
+                $(this).on("click", function () {
+                    $(this).addClass('li_active').siblings().removeClass('li_active')
+                    $('.chooseItem .itemName').html($(this).text())
+                    $('.itemWord').find('ul').hide()
+                    workId = $(this).attr('engineeringid');
+                    // 查询视频分组
+                    groupMove()
+                })
+            })
+        })
+        //录像
+        $("#record").on("click", function () {
+            var videoImg = $("#record img")
+            if (videoImg.attr('src') == '/images/icon_lx.png') {
+                videoImg.attr("src", "/images/icon_lx_active.png");
+                $("#record p").css("color", "#FFF");
+                if(!QX){
+                  alert("您暂无权限")
+                  return;
+                }
+                ocx.ButtonStartRealRecordByWndNo_onclick()
+            } else {
+                videoImg.attr("src", "/images/icon_lx.png");
+                $("#record p").css("color", " #A8ABE2");
+                if(!QX){
+                     alert("您暂无权限")
+                     return;
+                }
+                ocx.ButtonStopRealRecordByWndNo_onclick()
+            }
+        })
+        // 播放
+        $("#videoPlay").on("click", function () {
+            // if(!QX){
+            //     alert("您暂无权限")
+            //     return;
+            // }
+            ocx.play()
+        })
+        // 停止
+        $("#videoStop").on("click", function () {
+            // if(!QX){
+            //     alert("您暂无权限")
+            //     return;
+            // }
+            ocx.stop()
+        })
+
+        //抓图
+        $("#catchPic").on("click", function () {
+            if(!QX){
+                alert("您暂无权限")
+                return;
+            }
+            ocx.DPSDK_CapturePictureByWndNo()
+        })
+
+    })
+
+    $('.stream-type').find('li').each(function () {
+
+        $(this).on("click", function () {
+            $(this).find('span').addClass('control_active').parents('.item').siblings().find('span').removeClass(
+                'control_active')
+            ocx.changeStreamType($(this).attr('type'))
+        })
+    })
+
+    // 选择类型
+    $('.chooseItem').on("click", function () {
+        $('.itemWord').find('ul').show()
+    })
+    $('.chooseItem').on("mouseover", function () {
+        $('.itemWord').find('ul').hide()
+    })
+
+</script>

@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="pragma" content="no-cache">
+    <title>视频监控</title>
+    <script src="/js/plugins/jquery.min.js"></script>
+    <link rel="stylesheet" href="../../css/common.css">
+    <style>
+        .page {
+            position: absolute;
+            top: 0px;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .content {
+            height: 98%;
+            min-height: 750px;
+        }
+
+        .content>.box {
+            height: 100%;
+            min-height: 750px
+        }
+
+        .content>.box>div {
+            background: rgba(5, 12, 39, 0.3);
+            box-shadow: 0px 1px 13px 0px rgba(70, 90, 201, 0.48);
+            border: 1px solid rgba(85, 143, 255, 0.2);
+        }
+
+        .screen-wrap {
+            position: absolute;
+            top: -30px;
+            right: 44px;
+            display: flex;
+            justify-content: center
+        }
+
+        .screen-wrap li {
+            padding-right: 20px;
+            cursor: pointer;
+        }
+
+        .content .menu-wrap {
+            width: 260px;
+            padding-bottom: 30px;
+            /* margin-right: 20px */
+        }
+
+        .content .menu-wrap>p {
+            margin: 30px 0 10px 30px;
+            font-size: 16px
+        }
+
+        .content .menu-wrap>p img {
+            vertical-align: middle;
+            width: 24px
+        }
+
+        .content .menu-wrap>#movieLsit>.item>p {
+            padding: 10px 0;
+            padding-left: 50px;
+            cursor: pointer;
+        }
+
+        .content .menu-wrap>div>p img {
+
+            vertical-align: middle;
+            margin-right: 4px
+        }
+
+        .content .menu-wrap li {
+            color: #9193BF;
+            cursor: pointer;
+            border-left: 3px solid #162579
+        }
+
+        .content .menu-wrap li span {
+            display: inline-block;
+            padding: 14px 0 14px 70px;
+            font-size: 15px
+        }
+
+        .li_active {
+            background: rgb(12, 27, 109);
+            color: #38E9EC !important;
+            border-left: 3px solid #38E9EC !important
+        }
+
+        .vedio-wrap {
+            width: calc(100% - 300px);
+        }
+
+        .vedio-wrap .box {
+            justify-content: flex-start;
+            flex-flow: row wrap;
+            height: 100%
+        }
+
+        .video-list {
+            width: calc(100% - 220px);
+            padding: 10px;
+        }
+
+        .video-control {
+            width: 200px;
+            position: relative;
+            background: rgba(3, 4, 44, 0.1);
+            box-shadow: 0px -2px 13px 0px rgba(70, 90, 201, 0.48)
+        }
+
+        .video-control img {
+            cursor: pointer;
+            padding: 1px;
+        }
+
+        .control-c {
+            position: absolute;
+            top: 250px;
+            right: 20px;
+            left: 20px;
+        }
+
+        .control-c img {
+            width: 22px;
+            padding: 5px 5px 4px 5px;
+            background: rgba(18, 20, 101, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 2px
+        }
+
+        .control-c img:hover {
+            box-shadow: 0px 1px 13px 0px rgba(70, 90, 201, 0.48)
+        }
+
+        .control-c img:active {
+            background: rgb(44, 46, 156);
+        }
+
+        .control-c .box {
+            margin-bottom: 18px
+        }
+
+        .control-c .box>div {
+            flex: 1
+        }
+
+        .control-c .text-right {
+            text-align: right
+        }
+
+        .control-c .text-center {
+            text-align: center
+        }
+
+        .control-d {
+            position: absolute;
+            top: 40px;
+            right: 10px;
+            left: 10px;
+            background: #121465;
+            height: 180px;
+            border-radius: 100%;
+            z-index: 2
+        }
+
+        .control-d img {
+            padding: 2px
+        }
+
+        .control-d img:hover {
+            box-shadow: 0px 1px 13px 0px rgba(70, 90, 201, 0.48)
+        }
+
+        .control-d img:active {
+            background: rgb(44, 46, 156);
+        }
+
+        .control-d>div {
+            height: 100%;
+            width: 100%;
+            position: relative
+        }
+
+        .contrl_back {
+            position: absolute;
+            top: 42px;
+            left: 42px;
+            right: 42px;
+            bottom: 42px;
+            opacity: 0.2;
+            z-index: 1
+        }
+
+        .contrl_back img {
+            width: 100%;
+
+        }
+
+        .control-d .up {
+            position: absolute;
+            top: 10px;
+            left: 80px;
+            z-index: 4
+        }
+
+        .control-d .down {
+            position: absolute;
+            bottom: 10px;
+            left: 80px;
+            z-index: 4
+        }
+
+        .control-d .left {
+            position: absolute;
+            top: 81px;
+            left: 10px;
+            z-index: 4
+        }
+
+        .control-d .right {
+            position: absolute;
+            top: 81px;
+            ;
+            right: 10px;
+            z-index: 4
+        }
+
+        .control-p {
+            position: absolute;
+            top: 420px;
+            right: 10px;
+            left: 10px;
+            z-index: 2
+        }
+
+        .control-p .box>div {
+            flex: 1
+        }
+
+        .control-p .box>div li {
+            text-align: center;
+            width: 80%;
+            margin-left: 10%;
+            cursor: pointer;
+            padding: 8px 0;
+            background: rgba(18, 20, 101, 0.5);
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 4px
+        }
+
+        .control-p .box>div li:hover {
+            box-shadow: 0px 1px 13px 0px rgba(70, 90, 201, 0.48)
+        }
+
+        .control-p .box>div li:hover p {
+            color: #FFFFFF
+        }
+
+        .control-p .box>div li:active {
+            background: rgb(44, 46, 156);
+        }
+
+        .control-p .box p {
+            color: #A8A8E2
+        }
+
+        .stream-type li {
+            font-size: 12px;
+            color: #A8A8E2
+        }
+
+        .control_active span {
+            color: #00FFF9
+        }
+
+        .content .menu-wrap .itemWord img {
+
+            vertical-align: middle;
+            margin-right: 4px
+        }
+
+        .content .menu-wrap li {
+            color: #9193BF;
+            cursor: pointer;
+            border-left: 3px solid #162579
+        }
+
+        .content .menu-wrap li span {
+            display: inline-block;
+            padding: 14px 0 14px 70px;
+        }
+
+        .itemWord {
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 1px 2px rgba(255, 255, 255, 0.1)
+        }
+
+        .itemWord:hover ul {
+            display: block;
+            box-shadow: 0px 1px 13px 0px rgba(0, 0, 0, 0.28)
+        }
+
+        .chooseItem {
+            display: inline-block;
+            margin-left: 10px;
+            padding: 12px;
+            color: #FFFFFF;
+            font-size: 16px
+        }
+
+        .itemWord ul {
+            position: absolute;
+            left: 0;
+            top: 45px;
+            background-color: #1E2F89;
+            width: 100%;
+            display: none
+        }
+
+        .itemWord ul li {
+            height: 40px;
+            line-height: 40px;
+            padding: 0 18px;
+            font-size: 15px;
+            color: #EFEFEF;
+        }
+
+        .itemWord ul li:hover {
+            color: #00FFF9;
+        }
+
+
+        .item {
+            color: #9193BF;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="content">
+            <div class="box">
+                <div class="menu-wrap">
+                    <div class="itemWord" id="itemWord">
+                        <a class="chooseItem">四海时代</a>
+                        <img src="../reportForm/img/icon_select01.png" alt="">
+                        <ul id="engineeringList"></ul>
+                    </div>
+                    <div id="movieLsit"></div>
+                </div>
+                <div class="vedio-wrap">
+                    <div class="box">
+                        <div class="video-list">
+                            <object id="DPSDK_OCX" classid="CLSID:D3E383B6-765D-448D-9476-DFD8B499926D"
+                                style="width: 100%; height: 100%" codebase="http://localhost:8084/JS/DpsdkOcx.CAB#version=1.0.0.0"></object>
+                        </div>
+                        <div class="video-control">
+                            <div class="control-c">
+                                <div class="box">
+                                    <div><img onclick="PtzFocusDown(4)" src="./img/FocusDown_d.png" alt=""></div>
+                                    <div class="text-center"><span style="line-height:33px">变焦</span></div>
+
+                                    <div class="text-right"><img src="./img/FocusUp_d.png" onclick="PtzFocusDown(1)"
+                                            alt=""></div>
+                                </div>
+                                <div class="box">
+                                    <div><img src="./img/scaleMinus_d.png" onclick="PtzFocusDown(3)" alt=""></div>
+                                    <div class="text-center"><span style="line-height:33px">变倍</span></div>
+
+                                    <div class="text-right"><img src="./img/scaleAdd_d.png" onclick="PtzFocusDown(0)"
+                                            alt=""></div>
+                                </div>
+                                <div class="box">
+                                    <div><img src="./img/ApertureDown_d.png" onclick="PtzFocusDown(5)" alt=""></div>
+
+                                    <div class="text-center"><span style="line-height:33px">光圈</span></div>
+                                    <div class="text-right"><img src="./img/ApertureUp_d.png" onclick="PtzFocusDown(2)"
+                                            alt=""></div>
+                                </div>
+                            </div>
+
+                            <div class="control-d">
+                                <div>
+                                    <div class="contrl_back">
+                                        <img src="./img/control_back.png" alt="">
+                                    </div>
+                                    <img src="./img/up_disabled.png" onMouseDown="ButtonPtzDirection(1)"
+                                        onMouseUp="PtzDirectionStop()" class="up" alt="">
+                                    <img src="./img/down_disabled.png" onMouseDown="ButtonPtzDirection(2)"
+                                        onMouseUp="PtzDirectionStop(1)" class="down" alt="">
+                                    <img src="./img/left_disabled.png" onMouseDown="ButtonPtzDirection(3)"
+                                        onMouseUp="PtzDirectionStop(1)" class="left" alt="">
+                                    <img src="./img/right_disabled.png" onMouseDown="ButtonPtzDirection(4)"
+                                        onMouseUp="PtzDirectionStop(1)" class="right" alt="">
+                                </div>
+
+                            </div>
+                            <div class="control-p">
+                                <div class="box">
+                                    <div>
+                                        <li onclick="play()">
+                                            <img src="/images/icon_splj.png" alt="">
+                                            <p>播放</p>
+                                        </li>
+                                    </div>
+                                    <div>
+                                        <li onclick="stopPlay()">
+                                            <img src="/images/icon_pause.png" alt="">
+                                            <p>停止</p>
+                                        </li>
+                                    </div>
+                                </div>
+                                <div class="box">
+                                    <div>
+                                        <li onclick="CapturePicture()">
+                                            <img src="/images/icon_jt.png" alt="">
+                                            <p>抓图</p>
+                                        </li>
+                                    </div>
+                                    <div>
+                                        <li id="record">
+                                            <img state=false src="/images/icon_lx.png" alt="">
+                                            <p>录像</p>
+                                        </li>
+                                    </div>
+                                </div>
+                                <div style="text-align:center;margin:20px 0;color:#FFFFFF">
+                                    <p>码流</p>
+                                </div>
+                                <div class="box stream-type" id="streamType">
+                                    <div class="item">
+                                        <li type="1">
+                                            <span>主码流</span>
+                                        </li>
+                                    </div>
+                                    <div class="item">
+                                        <li class="control_active" type="2">
+                                            <span>辅码流</span>
+                                        </li>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>
+
+<script src="/js/request.js"></script>
+
+<script type="text/javascript">
+    var DHConfig = {
+        szIp: '116.7.231.115', //ip
+        nPort: '9000', //端口号
+        szUsername: 'admin', //账号
+        szPassword: 'admin123'
+    }
+    //视频配置
+    var videoConfig = {
+        nMediaType: '1', // 1:视频  2：音频  3：视频+音频
+        nTransType: '1', // 0：UDP  1：TCP
+        bIVS: 1,
+        nStep: 3, //步长
+        //云控制
+        nDirect: -1,
+        nOper: -1,
+        nStreamType: '2', //码流 1：主码流  2：辅码流
+        // 语音对讲
+        nSampleType: '8000', //采样频率
+        nBitType: '16', //采样位数
+        nAudioType: '2', //音频格式
+        nDevType: '1' //对讲类型
+    }
+    var gWndId;
+    var CUR_VIDICON_LIST = []
+    var DPSDK_OCX = document.getElementById('DPSDK_OCX')
+
+
+    //工程列表
+    global.ajax.getEngineeringList(function (res) {
+        var engineeringList = res.data.engineeringList
+        var list = ''
+        var engineeringName
+        var engineeringId;
+        engineeringList.forEach(function (item, i) {
+            if (i == 0) {
+                engineeringName = item.engineeringName
+                $('.chooseItem').text(engineeringName);
+                engineeringId = item.engineeringId
+
+            }
+            list += '<li engineeringId="' + item.engineeringId + '">' + item.engineeringName + '</li>'
+        })
+        $('#engineeringList').html(list)
+        $('#engineeringList').find('li').each(function () {
+            $(this).on('click', function () {
+                $('.chooseItem').text($(this).text());
+                getGroupList($(this).attr('engineeringId'))
+            })
+        })
+        getGroupList(engineeringId)
+    })
+
+
+    //分组
+    function getGroupList(engineeringId) {
+
+        global.ajax.getGroupList(engineeringId, function (res) {
+            var groupList = res.data.groupList;
+            var totalNum = 0;
+            var list = ''
+            groupList.forEach(function (item) {
+                totalNum += item.cameraCount
+            })
+            list += '<li class="li_active"><span> 全部(' + totalNum + ')</span></li>'
+            groupList.forEach(function (item, i) {
+                list +=
+                    '<li groupId="' + item.cameraGroupId + '"><span>' + item.groupName + "(" + item
+                    .cameraCount + ")" + '</span></li>'
+            })
+            $('#movieLsit').html(list);
+
+            $('#movieLsit').find('li').each(function () {
+                $(this).on('click', function () {
+                    $(this).addClass('li_active').siblings().removeClass('li_active')
+                    getMovieList(engineeringId, $(this).attr('groupId'))
+                })
+            })
+            try {
+                DPSDK_login()
+            } catch (error) {
+                console.log('请在ie上运行')
+            }
+            getMovieList(engineeringId)
+        })
+    }
+
+
+
+    //视频列表
+    function getMovieList(engineeringId, cameraGroupId) {
+        var recordFlag = false
+        global.ajax.getMovieList(engineeringId, cameraGroupId, function (res) {
+            CUR_VIDICON_LIST = res.data.cameraList.map(function (item) {
+                return item.channel
+            })
+            try {
+                DPSDK_LivePlay(CUR_VIDICON_LIST)
+            } catch (error) {
+                //console.log('请在ie上运行')
+            }
+            //录像
+            $('#record').on('click', function () {
+                recordFlag = !recordFlag
+                var _that = $(this)
+                if (recordFlag) {
+                    ButtonStartRealRecordByWndNo_onclick(function () {
+                        _that.css('background', 'rgb(44, 46, 156)')
+                    })
+                } else {
+                    ButtonStopRealRecordByWndNo_onclick()
+                    _that.css('background', 'rgba(18, 20, 101, 0.5)')
+                }
+
+            })
+            //码流
+            $('#streamType').find('li').each(function () {
+                $(this).on('click', function () {
+                    $(this).addClass('control_active').parent().siblings().find('li')
+                        .removeClass('control_active')
+                    videoConfig.nStreamType = $(this).attr('type')
+                    ButtonStopRealRecordByWndNo_onclick()
+                    DPSDK_LivePlay()
+                })
+            })
+        })
+    }
+
+
+
+    function DPSDK_login() {
+        if (!IsIe()) return
+        if (DPSDK_OCX.DPSDK_Login(DHConfig.szIp, DHConfig.nPort, DHConfig.szUsername, DHConfig.szPassword) == '0') {
+            //DPSDK_OCX.DPSDK_LoadDGroupInfo()
+            console.log('DH login success')
+        }
+        
+    }
+
+    function DPSDK_LivePlay() {
+        gWndId = DPSDK_OCX.DPSDK_CreateSmartWnd(0, 0, 100, 100);
+        DPSDK_OCX.DPSDK_SetWndCount(gWndId, cameraWindowCount(CUR_VIDICON_LIST))
+        DPSDK_OCX.DPSDK_SetSelWnd(gWndId, 0);
+        //DPSDK_OCX.DPSDK_LoadDGroupInfo()
+        var ind = 0;
+        var PlayInterval = window.setInterval(function () {
+            if (ind < CUR_VIDICON_LIST.length) {
+                var cameraId = CUR_VIDICON_LIST[ind]
+                DPSDK_OCX.DPSDK_SetSelWnd(gWndId, ind);
+                var nWndNo = DPSDK_OCX.DPSDK_GetSelWnd(gWndId)
+                DPSDK_OCX.DPSDK_AsyncStartRealplayByWndNo(gWndId, nWndNo, cameraId, videoConfig.nStreamType,
+                    videoConfig.nMediaType, videoConfig.nTransType)
+            } else {
+                window.clearInterval(PlayInterval);
+                PlayInterval = null;
+            }
+            ind++;
+        }, 100)
+    }
+
+
+
+
+    function IsIe() {
+        var state = false
+        try {
+            var obj = new ActiveXObject("DPSDK_OCX.DPSDK_OCXCtrl.1");
+            state = true
+        } catch (e) {
+            if (window.confirm('大华控件未安装或浏览器不支持，请先安装控件，用IE打开！\n现在是否下载安装？')) {
+                window.open('http://' + window.location.host + '/dh.exe');
+            }
+        }
+        return state
+    }
+
+
+    function cameraWindowCount(arr) {
+        var l = arr.length;
+
+        if (l > 1 && l <= 4) {
+            return 4
+        } else if (l > 4 && l <= 9) {
+            return 9
+        } else if (l > 9 && l <= 16) {
+            return 16
+        } else {
+            return l
+        }
+    }
+
+
+    // 停止播放功能
+    function stopPlay() {
+        var nWndNo = DPSDK_OCX.DPSDK_GetSelWnd(gWndId);
+        var result = DPSDK_OCX.DPSDK_StopRealplayByWndNo(gWndId, nWndNo)
+        if (result != '0') {
+            alert('停止播放异常！')
+        }
+    }
+
+    // 开始播放
+    function play() {
+        var nWndNo = DPSDK_OCX.DPSDK_GetSelWnd(gWndId);
+        var cameraId = CUR_VIDICON_LIST[nWndNo]
+        var nResult = DPSDK_OCX.DPSDK_StartRealplayByWndNo(gWndId, nWndNo, cameraId, videoConfig.nStreamType,
+            videoConfig.nMediaType, videoConfig.nTransType)
+
+        if (nResult != '0') {
+            alert('开始播放异常！')
+        }
+    }
+    // 抓图
+    function CapturePicture() {
+
+        var nWndNo = DPSDK_OCX.DPSDK_GetSelWnd(gWndId);
+        var path = "C:\\dhphoto\\" + new Date().getTime() + ".jpg";
+        var nResult = DPSDK_OCX.DPSDK_CapturePictureByWndNo(gWndId, nWndNo, path);
+        if (nResult == 0) {
+            alert('图片抓取成功:' + path)
+        } else {
+            alert('图片抓取失败')
+        }
+    }
+
+    // 开启录像
+    
+    function ButtonStartRealRecordByWndNo_onclick(cb) {
+        var path = "C:\\dhvideo\\" + new Date().getTime() + ".avi";
+        var nWndNo = DPSDK_OCX.DPSDK_GetSelWnd(gWndId);
+        var nResult = DPSDK_OCX.DPSDK_StartRealRecordByWndNo(gWndId, nWndNo, path);
+        if (nResult == 0) {
+           alert('开始录像,视频地址:'+path)
+            cb && cb()
+        } else {
+            alert('录像开启失败')
+        }
+    }
+    // 关闭录像
+    function ButtonStopRealRecordByWndNo_onclick() {
+        var nWndNo = DPSDK_OCX.DPSDK_GetSelWnd(gWndId);
+        var nResult = DPSDK_OCX.DPSDK_StopRealRecordByWndNo(gWndId, nWndNo);
+        if (nResult == 0) {
+            
+        } else {
+            alert('录像关闭失败')
+        }
+    }
+    //控制方向
+    function ButtonPtzDirection(nDirects) {
+        var nWndNo = DPSDK_OCX.DPSDK_GetSelWnd(gWndId); //获取窗口句柄
+        var szCameraId = CUR_VIDICON_LIST[nWndNo];
+        videoConfig.nDirect = nDirects;
+        var result = DPSDK_OCX.DPSDK_PtzDirection(szCameraId, videoConfig.nDirect, videoConfig.nStep, 0);
+        if (result != 0) {
+            alert('方向控制sucess')
+        }
+    }
+    // 停止控制方向
+    function PtzDirectionStop(bStop) {
+        var nWndNo = DPSDK_OCX.DPSDK_GetSelWnd(gWndId); //获取窗口句柄
+        var szCameraId = CUR_VIDICON_LIST[nWndNo];
+        var result = DPSDK_OCX.DPSDK_PtzDirection(szCameraId, videoConfig.nDirect, videoConfig.nStep, bStop);
+        if (result != 0) {
+            alert('方向控制fail')
+        }
+
+    }
+
+    //镜头控制  变焦 变倍
+
+    function PtzFocusDown(nOper) {
+        var nWndNo = DPSDK_OCX.DPSDK_GetSelWnd(gWndId); //获取窗口句柄
+        var szCameraId = CUR_VIDICON_LIST[nWndNo];
+        videoConfig.nOper = nOper;
+        var result = DPSDK_OCX.DPSDK_PtzCameraOperation(szCameraId, videoConfig.nOper, videoConfig.nStep, 0);
+        ButtonPtzCameraOperation_onclickStop();
+        if (result == 0) {
+            alert('镜头控制sucess')
+        } else {
+            alert('镜头控制fail')
+        }
+        ButtonPtzCameraOperation_onclickStop();
+
+    }
+    //停止镜头控制
+    function ButtonPtzCameraOperation_onclickStop() {
+        var nWndNo = DPSDK_OCX.DPSDK_GetSelWnd(gWndId); //获取窗口句柄
+        var szCameraId = CUR_VIDICON_LIST[nWndNo];
+        DPSDK_OCX.DPSDK_PtzCameraOperation(szCameraId, videoConfig.nOper, videoConfig.nStep, 1);
+
+    }
+</script>

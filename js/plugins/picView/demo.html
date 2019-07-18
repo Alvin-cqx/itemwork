@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <button type="button" onclick="method1('tableExcel')">导出Excel方法一</button>
+        <button type="button" onclick="method2('tableExcel')">导出Excel方法二</button>
+        <button type="button" onclick="getXlsFromTbl('tableExcel','myDiv')">导出Excel方法三</button>
+        <button type="button" onclick="method4('tableExcel')">导出Excel方法四</button>
+        <button type="button" onclick="method5('tableExcel')">导出Excel方法五</button>
+    </div>
+    <div id="myDiv">
+        <table id="tableExcel" width="100%" border="1" cellspacing="0" cellpadding="0">
+            <tr>
+                <td colspan="5" align="center">html 表格导出道Excel</td>
+            </tr>
+            <tr>
+                <td>列标题1</td>
+                <td>列标题2</td>
+                <td>类标题3</td>
+                <td>列标题4</td>
+                <td>列标题5</td>
+            </tr>
+            <tr>
+                <td>aaa</td>
+                <td>bbb</td>
+                <td>ccc</td>
+                <td>ddd</td>
+                <td>eee</td>
+            </tr>
+            <tr>
+                <td>AAA</td>
+                <td>BBB</td>
+                <td>CCC</td>
+                <td>DDD</td>
+                <td>EEE</td>
+            </tr>
+            <tr>
+                <td>FFF</td>
+                <td>GGG</td>
+                <td>HHH</td>
+                <td>III</td>
+                <td>JJJ</td>
+            </tr>
+        </table>
+    </div>
+
+
+</body>
+
+<script>
+    var xmlHttp;
+
+    //判断浏览器是否支持ActiveX控件
+
+    if (window.ActiveXObject) {
+
+        //支持-通过ActiveXObject的一个新实例来创建XMLHttpRequest对象
+
+        xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+    }
+
+    //不支持
+
+    else if (window.XMLHttpRequest) {
+
+        xmlHttp = new XMLHttpRequest()
+
+    }
+  
+
+    function method2(tableid) {
+
+        var curTbl = document.getElementById(tableid);
+        var oXL = new ActiveXObject("Excel.Application");
+        var oWB = oXL.Workbooks.Add();
+        var oSheet = oWB.ActiveSheet;
+        var Lenr = curTbl.rows.length;
+        for (i = 0; i < Lenr; i++) {
+            var Lenc = curTbl.rows(i).cells.length;
+            for (j = 0; j < Lenc; j++) {
+                oSheet.Cells(i + 1, j + 1).value = curTbl.rows(i).cells(j).innerText;
+
+            }
+
+        }
+        oXL.Visible = true;
+
+    }
+  
+ 
+
+
+
+</script>
+
+</html>

@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="pragma" content="no-cache">
+    <title>工程档案</title>
+    <script src="/js/plugins/jquery.min.js"></script>
+    <link rel="stylesheet" href="../../css/common.css">
+    <style>
+        .page {
+            position: absolute;
+            top: 0px;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .page>.box {
+            height: 99%;
+        }
+
+        .page>.box>div {
+            background: rgba(5, 12, 39, 0.3);
+            box-shadow: 0px 1px 13px 0px rgba(70, 90, 201, 0.48);
+            border: 1px solid rgba(85, 143, 255, 0.2);
+
+        }
+
+        .page .wrap_menu {
+            width: 260px;
+            margin-right: 10px;
+        }
+
+        .page .wrap_list {
+            width: calc(100% - 290px);
+            padding: 30px;
+        }
+
+        .wrap_menu .menu {
+            margin-top: 20px;
+            height: 90%;
+            overflow: scroll;
+
+        }
+
+        .wrap_menu .menu p {
+            padding: 10px 0 10px 50px;
+            cursor: pointer;
+            margin: 8px 0;
+            position: relative;
+        }
+
+        .wrap_menu .menu p img {
+            vertical-align: middle;
+            margin-right: 4px
+        }
+
+        .wrap_menu .menu li {
+            color: #9193BF;
+            cursor: pointer;
+            border-left: 3px solid rgba(3, 10, 37)
+        }
+
+        .wrap_menu .menu li span {
+            display: inline-block;
+            padding: 18px 0;
+            margin: 2px 0
+        }
+
+        .menu_active {
+            background: #0D1B6F;
+            border-left: 3px solid #38E9EC !important;
+            color: #38E9EC !important
+        }
+
+        .wrap_menu .menu li span {
+            margin-left: 70px
+        }
+
+
+
+        .wrap_list .box>li {
+            flex: 0.2;
+            color: #9193BF
+        }
+
+        .wrap_list .box>div {
+            /* flex: 0.7; */
+            color: #9193BF
+        }
+
+        .wrap_list button {
+            border: none;
+            padding: 5px 16px;
+            color: #FFFFFF;
+            background: #162579;
+            background-image: linear-gradient(-90deg, #16D0FF 7%, rgba(0, 255, 248, 0.14) 97%);
+            border-radius: 23px;
+            outline: none
+        }
+
+        .wrap_list input,
+        .chooseAll {
+            border: 1px solid #A8ABE2;
+            /* border-radius: 23px; */
+            background-color: #1f2b57;
+            outline: none;
+            color: #A8ABE2;
+            padding: 5px 10px 5px 14px;
+            margin-right: 10px;
+            line-height: 18px;
+        }
+
+        .wrap_list .icon-search {
+            position: absolute;
+            right: 20px;
+            top: 3px;
+            height: 18px;
+            width: 18px
+        }
+
+        .wrap_list .list {
+            margin-top: 40px;
+            text-align: center
+        }
+
+        .wrap_list .menu_panel .left {
+            padding-left: 30px
+        }
+
+        .wrap_list .menu_panel .right {
+            text-align: right;
+        }
+
+        .wrap_list .list-header span {
+            /* border-bottom: 1px dashed #9193BF;
+            margin-bottom: 16px */
+            color: #fff;
+        }
+
+        .wrap_list li {
+            padding: 10px 0;
+            border-right: 1px solid #535c9c;
+        }
+
+        .list .box li:first-child {
+            text-align: left;
+            padding-left: 30px
+        }
+
+        .wrap_list .box li:last-child span {
+            cursor: pointer;
+        }
+
+        .gcda_modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center
+        }
+
+        .gcda_modal .dialog {
+            height: 22%;
+            width: 30%;
+            background: #162579;
+            position: relative;
+        }
+
+        .gcda_modal_content {
+            padding: 60px 30px 0 30px
+        }
+
+        .gcda_modal_content p {
+            color: #A8ABE2;
+            margin-bottom: 14px
+        }
+
+        .gcda_modal_content input {
+            width: 90%;
+            border: 1px solid #9193BF;
+            background: #162579;
+            padding: 8px 10px;
+            color: #FFFFFF;
+            outline: none;
+            border-radius: 30px;
+        }
+
+        .gcda_modal_content .btn-wrap {
+            margin-top: 40px;
+            text-align: right;
+            margin-right: 6%;
+        }
+
+        .gcda_modal_content .btn-wrap button {
+            border: 1px solid #9193BF;
+            border-radius: 23px;
+            background: #162579;
+            color: #FFFFFF;
+            padding: 6px 30px;
+            outline: none;
+            cursor: pointer;
+            margin-left: 10px
+        }
+
+        .gcda_modal_content .btn-wrap button:last-child {
+            padding: 7px 30px;
+            border: none;
+            background-image: linear-gradient(-90deg, #16D0FF 7%, rgba(0, 255, 248, 0.14) 97%);
+        }
+
+        .gfg,
+        .look,
+        .look1,
+        .lookIMG {
+            color: #9193BF
+        }
+
+        .look,
+        .look1,
+        .lookIMG {
+            margin-left: 10px;
+        }
+
+        /* 下拉框 */
+        .chooseAll {
+            margin-left: 10px;
+            width: 150px;
+            margin-right: 48px;
+            position: relative;
+
+        }
+
+        .chooseAll span a {
+            color: #A8ABE2;
+
+        }
+
+
+
+        .chooseAll ul {
+            position: absolute;
+            top: 31px;
+            left: 1px;
+            z-index: 1;
+            padding-left: 18px;
+            background-color: #1f2b57;
+            display: none;
+            border-radius: 10px;
+        }
+
+        .chooseAll ul li {
+            float: left;
+            width: 100%;
+            height: 38px;
+            line-height: 38px;
+
+        }
+
+        .chooseAll ul li a {
+            display: block;
+            width: 100%;
+            color: #A8ABE2;
+
+        }
+
+        .chooseAll ul li a:hover {
+            color: #00FFF9;
+        }
+
+        .alpoiu img {
+            float: left;
+            margin-top: 8px
+        }
+
+        .allChoose {
+            /* float: left; */
+            line-height: 16px;
+            /* padding-left: 10px;
+            margin-left: 6px; */
+            color: #A8ABE2;
+            width: 78%;
+            display: inline-block;
+            /* margin-right: 30px; */
+            cursor: pointer;
+        }
+
+        .qdgc {
+            margin-left: 20px;
+        }
+
+        .qdgc span {
+            display: inline-block;
+            width: 58px;
+            background-color: #1f2b57;
+            text-align: center;
+            border: 1px solid #A8ABE2;
+            border-radius: 23px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .fileName {
+            margin-left: 50px;
+        }
+
+        .menu_panel .left {
+            display: flex;
+            flex: 1;
+        }
+
+        .menu_panel .left>div {
+            display: flex;
+            /* flex:1; */
+            line-height: 30px;
+        }
+
+        .chooseAll img {
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+
+        /* 表格样式 */
+        #sjjz>.box li {
+            width: 15.666% !important;
+        }
+
+        .upPic {
+            cursor: pointer;
+        }
+
+        #sjjz .box {
+            border: 1px solid #535c9c;
+            border-bottom: none;
+        }
+
+        #sjjz .box:last-child {
+            border-bottom: 1px solid #535c9c;
+        }
+
+        #sjjz .box li {
+            border-right: 1px solid #535c9c;
+        }
+
+        #sjjz .box li:last-child {
+            border: none;
+        }
+
+        #sjjz .box li:nth-child(2) {
+            /* 超出隐藏 */
+            overflow: hidden;
+            /* 文本超出显示... */
+            text-overflow: ellipsis;
+            /* 定义子元素的排列方向 垂直方向 */
+            -webkit-box-orient: vertical;
+            /* 垂直方向 定义子元素排列的函数 */
+            -webkit-line-clamp: 2;
+        }
+
+        #sjjz .box:nth-child(1) {
+            border-top: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="box">
+            <div class="wrap_menu">
+                <div class="menu">
+
+                </div>
+            </div>
+            <div class="wrap_list">
+                <div class="box menu_panel">
+                    <!-- <div class="left" style="position: relative;">
+                        <div>
+                            <span>工程选择</span>
+                            <div class="chooseAll" style="display:inline-block;">
+                                <span class="alpoiu"><a href="javascript:void(0)" class="allChoose">请选择</a><img
+                                        src="./img/icon_select01.png" alt=""></span>
+                                <ul class="asfasdr">
+
+                                    <li><a id="2" href="javascript:void(0)">代建单位</a></li>
+                                <li><a id="3" href="javascript:void(0)">建设单位</a></li>
+                                <li><a id="4" href="javascript:void(0)">监理单位</a></li>
+                                <li><a id="5" href="javascript:void(0)">专业分包单位</a></li>
+                                <li><a id="6" href="javascript:void(0)">劳务分包单位</a></li>
+                                <li><a id="7" href="javascript:void(0)">施工单位</a></li>
+                                <li><a id="8" href="javascript:void(0)">设计单位</a></li>
+                                <li><a id="9" href="javascript:void(0)">其他</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div>
+                            <span>文件名称：</span>
+                            <div style="">
+                                <input type="search" class="inpclas">
+                                <img class="icon-search" src="/images/icon_search.png" alt="">
+                            </div>
+                        </div>
+                        <div>
+                            <div style="" class="qdgc">
+                                <a href="javascript:void(0)">查询</a>
+                            </div>
+                        </div>
+
+                    </div> -->
+                    <div class="left">
+                        <div>
+                            <span>工程选择</span>
+                            <div class="chooseAll">
+                                <span class="allChoose"></span><img src="./img/icon_select01.png" alt="" class="upPic">
+                                <ul class="asfasdr">
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div>
+                            <span>文件名称：</span>
+                            <div>
+                                <input type="search" class="inpclas">
+                            </div>
+                        </div>
+                        <div class="qdgc">
+                            <span>查询</span>
+                        </div>
+                    </div>
+                    <!-- <div class="right">
+                        <button>
+                            <span>导出</span>
+                            <img src="/images/icon_down02.png" alt="">
+                        </button>
+                    </div> -->
+                </div>
+                <div class="list">
+                    <div class="box list-header">
+
+                    </div>
+                    <div id="sjjz">
+                        <!-- <div class="box">
+                            <li><span>1</span></li>
+                            <li><span>test01</span></li>
+                            <li><span>miracle</span></li>
+                            <li><span>24MB</span></li>
+                            <li><span>2018.06.06</span></li>
+                            <li><span>下载</span></li>
+                        </div> -->
+                        <!-- <div class="box">
+                            <li><span>2</span></li>
+                            <li><span>test02</span></li>
+                            <li><span>miracle2</span></li>
+                            <li><span>22MB</span></li>
+                            <li><span>2018.08.06</span></li>
+                            <li><span>下载</span></li>
+                        </div>
+                        <div class="box">
+                            <li><span>3</span></li>
+                            <li><span>test03</span></li>
+                            <li><span>miracle3</span></li>
+                            <li><span>22MB</span></li>
+                            <li><span>2018.08.06</span></li>
+                            <li><span>下载</span></li>
+                        </div>
+                        <div class="box">
+                            <li><span>4</span></li>
+                            <li><span>test04</span></li>
+                            <li><span>miracle4</span></li>
+                            <li><span>22MB</span></li>
+                            <li><span>2018.08.06</span></li>
+                            <li><span>下载</span></li>
+                        </div>
+                        <div class="box">
+                            <li><span>5</span></li>
+                            <li><span>test05</span></li>
+                            <li><span>miracle5</span></li>
+                            <li><span>22MB</span></li>
+                            <li><span>2018.08.06</span></li>
+                            <li><span>下载</span></li>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="gcda_modal">
+        <div class="dialog">
+            <div class="wrap-title">
+                <span>新建档案包</span>
+                <img src="../../images/pic_title.png" alt="">
+            </div>
+            <div class="gcda_modal_content">
+                <p>档案包名称</p>
+                <input type="text" name="" id="">
+                <div class="btn-wrap">
+                    <button onclick="gcda_modal_close()">关闭</button>
+                    <button onclick="gcda_modal_close()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="../../js/ocx.js"></script>
+<script src="../../js/request.js"></script>
+<script type="text/javascript">
+    $(".item ul").css("display", "none")
+    // 项目列表的id
+    var itemListId;
+    var gcdan;
+    // statistical()
+
+    // function statistical() {
+    //     $.ajax({
+    //         type: "GET",
+    //         url: "/recFolder/getRecFolderList.do",
+    //         dataType: 'json',
+    //         success: function (result) {
+
+    //             console.log(result);
+
+    //         }
+    //     });
+
+    // }
+
+    global.ajax.huoq(function (res) {
+        console.log(res.data.engineeringList);
+        var idmon;
+        console.log($(".asfasdr"));
+        res.data.engineeringList.forEach(function (currentValue, index) {
+            //currentValue.folderName
+            // console.log(currentValue);
+
+            $(".asfasdr").append(' <li><a id="' + currentValue.engineeringId +
+                '" href="javascript:void(0)">' + currentValue.engineeringName + '</a></li>')
+
+
+            if (index == 0) {
+                console.log(currentValue.engineeringId);
+                // 存个cookie
+                // global.unit.setCookie('engineeringId',currentValue.engineeringId)
+                $('.chooseAll .allChoose').text(currentValue.engineeringName);
+                $('.chooseAll .allChoose').attr("id", currentValue.engineeringId);
+                idmon = $('.chooseAll .allChoose').attr("id");
+
+                checkEngineer(currentValue.engineeringId)
+
+            }
+        })
+
+
+
+
+
+        $('.chooseAll').find('a').each(function () { //下拉框事件
+            $(this).on("click", function () {
+                $('.chooseAll ul').css('display', 'none')
+                var name = $(this).text()
+                idmon = $(this).attr("id")
+                console.log(idmon, '工程列表ID');
+                $('.chooseAll .allChoose').text(name);
+                // 清空id 避免查询
+                gcdan = ''
+
+                checkEngineer(idmon)
+
+
+            })
+        });
+
+
+        $('.upPic').on("click", function (e) {
+            stopproPagation(e)
+            $('.chooseAll').find('ul').show()
+
+
+        })
+
+
+        // 选择类型
+        $('.allChoose').on("click", function (e) {
+            stopproPagation(e)
+            $('.chooseAll').find('ul').show()
+
+
+        })
+        $('.allChoose').on("mouseover", function () {
+            $('.chooseAll').find('ul').hide()
+        })
+
+
+        $(".qdgc").click(function () { //确定事件
+            var value = $(".inpclas").val().trim()
+            if (value === '') {
+                global.ajax.dsgetgfd(function (res) {
+                    // 查看详情
+                    checkListDetail(res)
+                }, gcdan)
+
+            } else {
+                global.ajax.chaxwj(function (res) {
+                    // 查看详情
+                    checkListDetail(res)
+                }, itemListId, value);
+            }
+
+
+        })
+
+
+
+
+    })
+
+
+    // 默认查询第一个
+    function checkEngineer(engineeringId) {
+        global.ajax.dsgsrgt(function (res) {
+            // console.log(res);
+            if (res.data.fatherList.length == 0) {
+                $('.list-header').empty()
+                $("#sjjz").empty()
+            }
+            $(".menu").empty()
+            for (var po = 0; po <= res.data.fatherList.length - 1; po++) {
+                $(".menu").append('<div class="item"><p><img src="/images/icon_down01.png" alt=""><span>' + res.data.fatherList[po].folderName + '</span></p><ul  id=' + res.data.fatherList[po].recFolderId + '></ul></div>')
+                if (res.data.fatherList[po].childList != undefined) {
+
+                    for (var asf = 0; asf <= res.data.fatherList[po].childList.length - 1; asf++) {
+                        // console.log(res.data.fatherList[po].childList);
+
+                        $('#' + res.data.fatherList[po].recFolderId + '').append('<li id=' + res.data.fatherList[po].childList[asf].recFolderId + '><span>' + res.data.fatherList[po].childList[asf].folderName + '</span></li>')
+
+                    }
+
+                }
+            }
+            $(".item ul").css("display", "none")
+            $('.menu').find('p').each(function () { //点击切换功能
+                $(this).click(function () {
+                    if ($(this).find('img').attr('src') == '/images/icon_up01.png') {
+                        $(this).find('img').attr('src', '/images/icon_down01.png')
+                    } else {
+                        $(this).find('img').attr('src', '/images/icon_up01.png')
+                    }
+                    $(this).next().slideToggle()
+                })
+                $(this).on('contextmenu', function (e) {
+                    e.preventDefault();
+                    //console.log('右键')
+                })
+            })
+            // $('.menu').find('li').each(function () {
+            //     $(this).click(function () {
+            //         $(this).addClass('menu_active').siblings().removeClass('menu_active').parents('.item').siblings().find('li').removeClass('menu_active')
+            //     })
+            // })
+            $('.menu').on('click', 'li', function () {
+                $(this).parents('.item').siblings().find('li').removeClass('menu_active')
+                $(this).addClass('menu_active').siblings().removeClass('menu_active');
+                itemListId = $(this).parents().attr('id')
+            })
+
+            // 查询文件详情
+            $(".item li").click(function () {
+                gcdan = $(this).attr('id')
+                console.log(gcdan, '详情id');
+
+                $(".item li").css("color", "#9193BF")
+
+                checkFile(gcdan)
+            })
+
+
+
+        }, engineeringId)
+    }
+
+
+    // setTimeout(function sagda() {
+    //     $(".item li").click(function () {
+    //         var gcdan = $(this).attr('id')
+    //         $(".item li a").css("color", "#9193BF")
+    //     })
+    // }, 2000)
+
+
+
+    function add() {
+        $('.gcda_modal').css('display', 'flex')
+    }
+
+    function gcda_modal_close() {
+        $('.gcda_modal').css('display', 'none')
+    }
+
+    // 查看文件详情
+    function checkFile(gcdan) {
+        global.ajax.dsgetgfd(function (res) {
+            // 查看详情
+            checkListDetail(res)
+        }, gcdan)
+    }
+    // 查看详情
+    function checkListDetail(res) {
+        global.ajax.getImg(function (success) {
+            IMGURL = success.data.pic_server;
+            console.log('详情', res)
+            if (res.data.recFileList.length > 0) {
+                $('.list-header').html('<li style="border-left:1px solid #535c9c;border-top: 1px solid #535c9c;border-bottom:1px solid #535c9c"><span>序号</span></li><li style="border-top: 1px solid #535c9c;border-bottom:1px solid #535c9c"><span>文件名</span>'
+                    + '</li><li style="border-top: 1px solid #535c9c;border-bottom:1px solid #535c9c"><span>上传者</span></li><li style="border-top: 1px solid #535c9c;border-bottom:1px solid #535c9c"><span>大小</span></li><li style="border-top: 1px solid #535c9c;border-bottom:1px solid #535c9c"><span>上传日期</span>'
+                    + '</li><li style="border-top: 1px solid #535c9c;border-bottom:1px solid #535c9c"><span>操作</span></li>')
+            }
+            $("#sjjz").empty()
+
+            for (var gp = 0; gp <= res.data.recFileList.length - 1; gp++) {
+                var html = ''
+
+                var fileExtension = res.data.recFileList[gp].fileUrl.substring(res.data.recFileList[gp].fileUrl.lastIndexOf('.') + 1);
+                var fileName = res.data.recFileList[gp].fileName ? res.data.recFileList[gp].fileName : ''
+                var userName = res.data.recFileList[gp].userName ? res.data.recFileList[gp].userName : ''
+                var fileSize = res.data.recFileList[gp].fileSize ? res.data.recFileList[gp].fileSize : ''
+                var addTime = res.data.recFileList[gp].addTime ? res.data.recFileList[gp].addTime : ''
+
+                console.log(res.data.recFileList[gp], fileExtension);
+                html += ' <div class="box"><li><span>' + (gp + 1) + '</span></li><li><span>' + fileName + '</span></li><li><span>' + userName + '</span></li><li><span>' + fileSize + '</span></li><li><span>' + addTime + '</span></li><li><span><a crossOrigin="anonymous"  class="gfg"  href="http://116.7.231.114:9001/worksite/app/common/download.do?url=' + IMGURL + res.data.recFileList[gp].fileUrl + '">下载</a>'
+                if (fileExtension == 'pdf') {
+                    html += '<a class="look" lookUrl="' + IMGURL + res.data.recFileList[gp].fileUrl + '");>预览</a></span></li></div>'
+                } else if (fileExtension == 'docx' || fileExtension == 'doc') {
+                    // html += '<a class="look" lookUrl="'+IMGURL+ res.data.recFileList[gp].fileUrl+'");>预览</a></span></li></div>'
+                    html += '<a class="look1" href="http://view.officeapps.live.com/op/view.aspx?src=' + IMGURL + res.data.recFileList[gp].fileUrl + '" target="_blank" rel="nofollow">预览</a>'
+                } else if (fileExtension == 'jpg' || fileExtension == 'png') {
+                    html += '<a class="lookIMG" lookUrl="' + IMGURL + res.data.recFileList[gp].fileUrl + '");>预览</a></span></li></div>'
+                }
+                html += '</span></li></div>';
+                $("#sjjz").append(html)
+                // $("#sjjz").append(' <div class="box"><li><span>' + gp + '</span></li><li><span>' + res.data.recFileList[gp].fileName + '</span></li><li><span>' + res.data.recFileList[gp].userName + '</span></li><li><span>' + res.data.recFileList[gp].fileSize + '</span></li><li><span>' + res.data.recFileList[gp].addTime + '</span></li><li><span><a crossOrigin="anonymous"  class="gfg"  href="http://test.qingning123.com/worksite/app/common/download.do?url=http://qn-test.oss-cn-shenzhen.aliyuncs.com/' + res.data.recFileList[gp].fileUrl + '" >下载</a> <a class="look" lookUrl="http://qn-test.oss-cn-shenzhen.aliyuncs.com/' + res.data.recFileList[gp].fileUrl + '");>预览</a></span></li></div>')
+            }
+            // $("#sjjz").append(html)
+            $('.look').on("click", function () {
+                var url = $(this).attr("lookUrl")
+                window.open(url, "_blank");
+                if (window.ActiveXObject || "ActiveXObject" in window) {
+                    //判断是否为IE浏览器，"ActiveXObject" in window判断是否为IE11
+                    //判断是否安装了adobe Reader
+                    for (x = 2; x < 10; x++) {
+                        try {
+                            oAcro = eval("new ActiveXObject('PDF.PdfCtrl." + x + "');");
+                            if (oAcro) {
+                                flag = true;
+                            }
+                        } catch (e) {
+                            flag = false;
+                        }
+                    }
+                    try {
+                        oAcro4 = new ActiveXObject('PDF.PdfCtrl.1');
+                        if (oAcro4) {
+                            flag = true;
+                        }
+                    } catch (e) {
+                        flag = false;
+                    }
+
+                    try {
+                        oAcro7 = new ActiveXObject('AcroPDF.PDF.1');
+                        if (oAcro7) {
+                            flag = true;
+
+                        }
+                    } catch (e) {
+                        flag = false;
+                    }
+
+                    if (flag) {//支持
+                        pdfShow(purl);//调用显示的方法
+
+                    } else {//不支持
+
+                        alert("对不起,您还没有安装PDF阅读器软件呢,为了方便预览PDF文档,请选择安装！");
+                        location = "http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.3/chs/AdbeRdr930_zh_CN.exe";
+                    }
+
+                }
+
+            })
+
+            // 查看图片预览
+            $('.lookIMG').each(function () {
+                $(this).on('click', function () {
+                    window.open('./showImg.html?showUrl=' + $(this).attr('lookurl'), "_blank");
+                })
+            })
+
+        })
+    }
+
+    document.onclick = function (e) {
+        e.stopPropagation(e);
+        $('.asfasdr').hide();
+    }
+    // 阻止事件冒泡
+    function stopproPagation(e) {
+
+        window.event ? window.event.cancelBubble = true : e.stopPropagation();
+    }
+</script>

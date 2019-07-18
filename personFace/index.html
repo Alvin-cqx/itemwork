@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>人脸识别</title>
+    <!-- <link rel="stylesheet" href="./css/common.css"> -->
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <script src="./js/jquery.min.js"></script>
+    <link rel="stylesheet" href="./js/swiper/swiper.min.css">
+    <script src="./js/swiper/swiper.min.js"></script>
+</head>
+
+<body>
+    <div class="header">
+        <!-- <div class="wrap_pic">
+                            <img class="header_bg" src="/images/pic_title.png" alt="">
+                        </div> -->
+        <div class="box">
+            <div class="left">
+                <img class="logo" src="./img/icon_logo.png" alt="" />
+            </div>
+            <div class="center">
+                <div>
+                    <h2 id="fullScreen" class="Modal">智慧工地现场监管云平台</h2>
+                </div>
+            </div>
+        </div>
+        <div class="time">
+            <span id="date"></span>
+            <span id='day'>星期二</span>
+            <img style="width:24px" src="./img/icon_qing.png" />
+            <span>28℃</span>
+        </div>
+    </div>
+    <div class="page">
+        <div class="box">
+            <div style="width:15%;">
+                <div class="left" style="height:590px;">
+                    <div>
+                        <p class="totalNum allNum">35</p>
+                        <p class="nowNum">在场总人数</p>
+                    </div>
+                    <div>
+                        <p class="totalNum lwNum">29</p>
+                        <p class="nowNum">在场劳务人数</p>
+                    </div>
+                    <div>
+                        <p class="totalNum lwglNum">5</p>
+                        <p class="nowNum">在场劳务管理人数</p>
+                    </div>
+                    <div>
+                        <p class="totalNum xcglNum">1</p>
+                        <p class="nowNum">在场现场管理人数</p>
+                    </div>
+                    <div>
+                        <p class="totalNum lsNum">0</p>
+                        <p class="nowNum">在场临时人数</p>
+                    </div>
+                </div>
+            </div>
+            <div style="width:60%;">
+                <div class="center" style="height:590px;">
+                    <div class="userInformation">
+                        <div>
+                            <p class="eqTitle">设备名称1</p>
+                            <div>
+                                <div class="UserInfo">
+                                    <div class="UserIcon">
+                                        <img src="./img/userIcon.png" alt="">
+                                    </div>
+                                    <div class="UserDetail">
+                                        <p>姓名：<span>易伟</span></p>
+                                        <p>工种: <span>钢筋工</span></p>
+                                        <p>班组: <span>钢筋班组</span></p>
+                                        <p>单位名称：<span>中建三局集团有限公司</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="enterTime">进入时间：<span>2019-04-15 15：50：41</span></p>
+                        </div>
+                        <div>
+                            <p class="eqTitle">设备名称2</p>
+                            <div>
+                                <div class="UserInfo">
+                                    <div class="UserIcon">
+                                        <img src="./img/userIcon2.png" alt="">
+                                    </div>
+                                    <div class="UserDetail">
+                                        <p>姓名：<span>易伟</span></p>
+                                        <p>工种: <span>钢筋工</span></p>
+                                        <p>班组: <span>钢筋班组</span></p>
+                                        <p>单位名称：<span>中建三局集团有限公司</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="enterTime">进入时间：<span>2019-04-15 15：50：41</span></p>
+
+                        </div>
+
+                        <!-- 竖线 -->
+                        <span class="line"></span>
+                    </div>
+                    <div class="enterList">
+                        <p>实时通行记录</p>
+                        <div class="listInfo">
+                            <li><span>易伟</span><span>管理员</span><span>其他</span><span>离开</span><span>15：50：41</span></li>
+                            <li><span>易伟</span><span>管理员</span><span>其他</span><span>离开</span><span>15：50：41</span></li>
+                            <li><span>易伟</span><span>管理员</span><span>其他</span><span>离开</span><span>15：50：41</span></li>
+                            <li><span>易伟</span><span>管理员</span><span>其他</span><span>离开</span><span>15：50：41</span></li>
+                            <li><span>易伟</span><span>管理员</span><span>其他</span><span>离开</span><span>15：50：41</span></li>
+                            <li><span>易伟</span><span>管理员</span><span>其他</span><span>离开</span><span>15：50：41</span></li>
+                        </div>
+                        <!-- 无数据 -->
+                        <!-- <div class="nodata">
+                                <div>
+                                    <img src="/images/noData.png" alt="">
+                                    <p>暂无数据</p>
+                                </div>
+                            </div> -->
+                    </div>
+                </div>
+            </div>
+            <div style="width:20%;">
+                <div class="right" style="height:582px;">
+                    <p>所属单位</p>
+                    <div class="srocllTo">
+                        <div class="workContent">
+                            <p class="workType"><span class="shu"></span><span>其他</span></p>
+                            <div class="typeContent">
+                                <p>亿胜合广告有限公司</p>
+                                <p>深圳市恒鑫建筑设备租赁有限公司</p>
+                            </div>
+                            <p class="workType"><span class="shu"></span><span>劳务分包单位</span></p>
+                            <div class="typeContent">
+                                <p>建中建劳劳务有限公司</p>
+                                <p>深圳恒创劳务建筑有限公司</p>
+                                <p>武汉泓建建筑劳务有限公司</p>
+                                <p>深圳恒创劳务建筑有限公司</p>
+                            </div>
+                            <p class="workType"><span class="shu"></span><span>专业分包单位</span></p>
+                            <div class="typeContent">
+                                <p>广州宏科幕墙工程有限公司</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="bottom">
+                <p>违规操作</p>
+                <div class="swiper-container" id="picList">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="IMG"
+                                style="background: url('./img/PicThree.png') no-repeat center;background-size:100%;">
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="./img/PicT.png" alt="" style="width: 90%;">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="./img/PicThree.png" alt="" style="width: 90%;">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="./img/PicO.png" alt="" style="width: 90%;">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="./img/PicT.png" alt="" style="width: 90%;">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="./img/PicThree.png" alt="" style="width: 90%;">
+                        </div>
+                        <div class="swiper-slide"> <img src="./img/PicO.png" alt="" style="width: 90%;"></div>
+                        <div class="swiper-slide"> <img src="./img/PicT.png" alt="" style="width: 90%;"></div>
+                        <div class="swiper-slide"><img src="./img/PicThree.png" alt="" style="width: 90%;"></div>
+                        <div class="swiper-slide"> <img src="./img/PicO.png" alt="" style="width: 90%;"></div>
+                        <div class="swiper-slide"><img src="./img/PicThree.png" alt="" style="width: 90%;"></div>
+                        <div class="swiper-slide"> <img src="./img/PicO.png" alt="" style="width: 90%;"></div>
+                        <div class="swiper-slide"> <img src="./img/PicT.png" alt="" style="width: 90%;"></div>
+                        <div class="swiper-slide"><img src="./img/PicO.png" alt="" style="width: 90%;"></div>
+                        <div class="swiper-slide"><img src="./img/PicT.png" alt="" style="width: 90%;"></div>
+                        <div class="swiper-slide"><img src="./img/PicThree.png" alt="" style="width: 90%;"></div>
+                        <div class="swiper-slide"> <img src="./img/PicO.png" alt="" style="width: 90%;"></div>
+                        <div class="swiper-slide"> <img src="./img/PicT.png" alt="" style="width: 90%;"></div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <!-- <div class="nodata nodataPic">
+                        <div>
+                            <img src="/images/noData.png" alt="">
+                            <p>暂无数据</p>
+                        </div>
+                    </div> -->
+
+                </div>
+                <!-- <div class="PicList">
+                    <img src="/img/PicO.png" alt="">
+                    <img src="/img/PicT.png" alt="">
+                    <img src="/img/PicThree.png" alt="">
+                    <img src="/img/PicO.png" alt="">
+                    <img src="/img/PicT.png" alt="">
+                    <img src="/img/PicThree.png" alt="">
+                    <img src="/img/PicO.png" alt="">
+                    <img src="/img/PicT.png" alt="">
+                    <img src="/img/PicThree.png" alt="">
+                </div> -->
+                <!-- 无数据 -->
+                <!-- <div class="nodata nodataPic">
+                    <div>
+                        <img src="/images/noData.png" alt="">
+                        <p>暂无数据</p>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <!-- 点点点 -->
+        <!-- <div class="box bottom-box">
+            <li class="bottom-square"></li>
+            <li class="bottom-square"></li>
+            <li class="bottom-square"></li>
+        </div> -->
+    </div>
+</body>
+
+</html>
+<script src="./js/request.js"></script>
+<script>
+    global.unit.renderCurrentTime()
+    var imageUrl;
+    // 获取照片url
+    getImg()
+    faceDo()
+    function getImg() {
+        global.ajax.getImg(function (res) {
+            imageUrl = res.data.pic_server
+        })
+    }
+    task = setInterval(function () {
+        faceDo()
+    }, 6000)
+    var swiper = new Swiper('#picList', {
+        autoplay: {
+            delay: 20000,//1秒切换一次
+        },
+        slidesPerView: 9,
+        slidesPerGroup: 9,
+        // spaceBetween: 30,
+        // loop: true,
+        loopFillGroupWithBlank: true,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+    //两台设备的人脸通行记录（有人脸照片）
+    function faceDo() {
+
+        var engineeringId = getUrlVal('engineeringId')
+
+        global.ajax.faceDo(engineeringId, function (res) {
+            var data = res.data;
+            var html = ''
+            data = data.reverse()
+            data.forEach(function (item) {
+                var avatar = item.avatar ? item.avatar : ''
+                console.log('imageUrl', imageUrl)
+                html += '<div>' +
+                    '<p class="eqTitle">' + (item.deviceName ? item.deviceName : '') + '</p>' +
+                    '<div>' +
+                    '<div class="UserInfo">' +
+                    '<div class="UserIcon">' +
+                    '<img src="' + (imageUrl + avatar) + '" alt="">' +
+                    '</div>' +
+                    '<div class="UserDetail">' +
+                    '<p>姓名：<span>' + (item.personnelName ? item.personnelName : '') + '</span></p>'
+                if (item.managerType) {
+                    html += '<p>类型:<span>管理人员</span></p><p>职务:<span>' + item.managerType + '</span></p>'
+                } else if (item.teamName) {
+                    html += '<p>班组:<span>' + item.teamName + '</span></p><p>工种:<span>' + item.typeName + '</span></p>'
+                } else if (!item.teamName) {
+                    html += '<p>班组:<span>-</span></p>'
+                    if (item.typeName) {
+                        html += '<p>工种:<span>' + item.typeName + '</span></p>'
+                    } else if (!item.typeName) {
+                        html += '<p>工种:<span>-</span></p>'
+                    }
+                }
+
+                html += '<p>单位名称：<span>' + (item.companyName ? item.companyName : '') + '</span></p>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>'
+                if (item.inOutType == 1) {
+                    html += '<p class="enterTime">进场时间：<span>' + (item.addTime ? item.addTime : '') + '</span></p>'
+                } else if (item.inOutType == 2) {
+                    html += '<p class="enterTime">离场时间：<span>' + (item.addTime ? item.addTime : '') + '</span></p>'
+                }
+
+                html += '</div>'
+            })
+            html += '<span class="line"></span>'
+            $('.userInformation').html(html)
+
+        })
+        //在场人员类型统计
+        global.ajax.staffDo(engineeringId, function (res) {
+
+            var num = res.data
+            var total = num[1] + num[2] + num[3] + num[4]
+            console.log(num[1], 'resres')
+            $('.xcglNum').html(num[1])
+            $('.lwglNum').html(num[2])
+            $('.lwNum').html(num[3])
+            $('.lsNum').html(num[4])
+            $('.allNum').html(total)
+        })
+        //在场单位统计
+        global.ajax.companyDo(engineeringId, function (res) {
+            var data = res.data
+
+            var html = ''
+            data.forEach(function (item) {
+                html += '<p class="workType"><span class="shu"></span><span>' + item.companyTypeName + '</span></p>' +
+                    '<div class="typeContent">'
+                // console.log(item.companylist, 'item.companyList')
+                for (var i = 0; i < item.companylist.length; i++) {
+                    html += '<p>' + item.companylist[i] + '</p>'
+                }
+
+                html += '</div>';
+            })
+
+            $('.workContent').html(html)
+
+        })
+        //实时通行记录
+        global.ajax.recordDo(engineeringId, function (res) {
+            var data = res.data
+
+            var html = ''
+            data.forEach(function (item) {
+                html += '<li><span>' + item.personnelName + '</span>';
+                if (item.managerType) {
+                    html += '<span>管理人员</span><span>' + item.managerType + '</span>'
+                } else if (item.teamName) {
+                    html += '<span>' + item.teamName + '</span><span>' + item.typeName + '</span>'
+                } else if (!item.teamName) {
+                    html += '<span>-</span>'
+                    if (item.typeName) {
+                        html += '<span>' + item.typeName + '</span>'
+                    } else if (!item.typeName) {
+                        html += '<span>-</span>'
+                    }
+                }
+                if (item.inOutType === 1) {
+                    html += '<span>进场</span><span>' + item.addTime + '</span></li>'
+                } else if (item.inOutType === 2) {
+                    html += '<span>离场</span><span>' + item.addTime + '</span></li>'
+                }
+            })
+            $('.listInfo').html(html)
+            // console.log(html, 'htmlhtml')
+        })
+
+        //违规记录
+        global.ajax.illegalDo(engineeringId, function (res) {
+            var data = res.data
+
+            if (data.length === 0) {
+                $('#picList').html('<div class="nodata nodataPic">' +
+                    '<div>' +
+                    '<img src="./img/noData.png" alt="">' +
+                    '<p>暂无数据</p>' +
+                    '</div>' +
+                    '</div>')
+            } else {
+
+                var html = '<div class="swiper-wrapper">'
+                data.forEach(function (item) {
+                    var file_url = item.file_url ? item.file_url : ''
+                    html += '<div class="swiper-slide"> <div class="IMG" style="background: url(' + (imageUrl + file_url) + ') no-repeat center;background-size:100%;"></div></div>'
+                })
+
+
+                html += '</div><div class="swiper-pagination"></div>'
+                $('#picList').html(html)
+                var swiper = new Swiper('#picList', {
+                    autoplay: {
+                        delay: 20000,//1秒切换一次
+                    },
+                    slidesPerView: 9,
+                    slidesPerGroup: 9,
+                    // spaceBetween: 30,
+                    // loop: true,
+                    loopFillGroupWithBlank: true,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                });
+
+            }
+
+
+        })
+
+    }
+    // 获取url参数
+    function getUrlVal(name) {
+        var url = decodeURI(window.location.search)
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = url.substr(1).match(reg);
+        if (r != null) {
+            return unescape(r[2]);
+        }
+        return null;
+    }
+</script>

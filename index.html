@@ -1,0 +1,1714 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="pragma" content="no-cache">
+    <title>全国监控指挥中心</title>
+    <link rel="stylesheet" href="/css/common.css">
+    <script src="/js/plugins/jquery.min.js"></script>
+
+    <script src="/js/plugins/echarts.min.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="/css/header.css">
+    <style>
+        .page {
+            padding: 0 10px
+        }
+
+        .page .iframe {
+            margin-bottom: 10px
+        }
+
+        .page .box {
+            justify-content: space-between
+        }
+
+        .xmdd,
+        .xmjc,
+        .xcjg,
+        .gczl,
+        .gctz,
+        .gcjdtz,
+        .smzry,
+        .lwsr,
+        .xxjd {
+            background: rgba(5, 12, 39, 0.3);
+            border: 1px solid rgba(84, 135, 200, 0.5);
+            margin-top: 30px;
+            border-radius: 6px;
+            padding: 0 15px;
+            position: relative;
+        }
+
+        .wrap-title {
+            position: absolute;
+            top: -18px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 16px;
+            z-index: 99;
+
+        }
+
+        .wrap-title p {
+            display: inline-block;
+            padding: 2px;
+            border: rgba(26, 63, 131, 1) solid 1px;
+            background: rgba(5, 12, 39, 1)
+        }
+
+        .wrap-title span {
+            background: rgba(26, 63, 131, 1);
+            display: inline-block;
+            padding: 3px 16px;
+            border: 1px solid rgba(26, 63, 131, 1);
+        }
+
+        .wrap-title img {
+            display: none;
+        }
+
+        /* 工程总览 -------------------------------------------------------------*/
+        .gczl {
+            height: 210px;
+        }
+
+        .gczl .chart {
+            margin-top: 10px;
+            height: 200px;
+        }
+
+        /* 工程投资 ------------------------------------------------------------------------------*/
+        .gctz {
+            height: 220px;
+        }
+
+        .gctz_mark {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between
+        }
+
+        .gctz_mark li {
+            width: 44%;
+            text-align: center;
+            background: linear-gradient(90deg, rgba(23, 28, 87, 1), rgba(38, 42, 104, 1));
+            padding: 4px 0
+        }
+
+        .gctz_mark p {
+            color: #58F3FF;
+            font-size: 15px;
+            padding-bottom: 4px;
+        }
+
+        .gctz_mark .line {
+            margin: 0 10% 4px 10%;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(238, 235, 233, 0), rgba(238, 235, 233, 0.6), rgba(238, 235, 233, 0));
+        }
+
+        .gctz .progress_percentage {
+            margin-top: 10px;
+        }
+
+        .gctz .progress_percentage>li {
+            flex: 1;
+            font-size: 10px;
+            color: #989CBE
+        }
+
+        .gctz .progress_wrap {
+            padding-top: 10px
+        }
+
+        .gctz .progress_wrap p {
+            color: #D4D4E3
+        }
+
+        .gctz .progress_wrap .line {
+            position: absolute;
+            top: -4px;
+            left: 0;
+            bottom: -4px;
+            width: 53%;
+            border-right: 2px solid rgba(88, 243, 255, 1)
+        }
+
+        .gctz .progress_tab {
+            margin-top: 30px;
+            position: relative;
+        }
+
+        .gctz .progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 53%;
+            /* background: linear-gradient(90deg, rgba(255, 0, 184, 1) 0%, rgba(255, 0, 184, 0.3) 100%); */
+            background: rgba(104, 252, 153, 1)
+        }
+
+        .gctz .progress_number {
+            position: absolute;
+            top: -28px;
+            left: 0;
+            width: 56%;
+            text-align: right;
+            color: rgba(88, 243, 255, 1)
+        }
+
+        .gctz .progress_tab table {
+            width: 100%;
+        }
+
+        .gctz .progress_tab table td {
+            border: 1px solid rgba(84, 135, 200, 0.5);
+            height: 5px;
+        }
+
+
+        /* 项目施工地点 map -----------------------------------------*/
+        .xmdd {
+            height: 466px;
+        }
+
+
+        /* 工程检查情况 -------------------------------------------------------------------*/
+        .xmjc {
+            color: #FFFFFF;
+            height: 180px;
+        }
+
+        .xmjc .box {
+            margin-top: 30px
+        }
+
+        .xmjc .chart {
+            width: 23%;
+            text-align: center;
+            color: #A8ABE2
+        }
+
+        .xmjc .chart>div {
+            height: 96px;
+        }
+
+        .xmjc .chart_mark {
+            justify-content: center;
+            text-align: center;
+            margin-top: 10px
+        }
+
+        .xmjc .chart_mark li {
+            padding-right: 20px
+        }
+
+        .xmjc .chart_mark span::before {
+            content: '';
+            display: inline-block;
+            height: 8px;
+            width: 13px;
+            border-radius: 2px;
+            margin-right: 8px;
+        }
+
+        .xmjc .zgz::before {
+            background: #0B63F5;
+        }
+
+        .xmjc .bhg::before {
+            background: rgba(255, 255, 2, 1)
+        }
+
+        .xmjc .hg::before {
+            background: rgba(1, 204, 0, 1);
+        }
+
+        /* 设备告警情况统计 ------------------------------------------------------------------*/
+        .xcjg {
+            height: 235px;
+        }
+
+        .xcjg .chart {
+            height: 80%;
+            width: 100%
+        }
+
+        .xcjg .chart_mark {
+            padding: 30px 0 0 2%
+        }
+
+        .xcjg .chart_mark span {
+            margin-left: 10px
+        }
+
+        .xcjg .chart_mark span::before {
+            content: '';
+            display: inline-block;
+            height: 8px;
+            width: 8px;
+            border-radius: 100%;
+            background: #434380;
+            margin-right: 8px;
+        }
+
+        .xcjg .chart_mark .td::before {
+            background: #FFC900
+        }
+
+        .xcjg .chart_mark .mj::before {
+            background: #00FFFF
+        }
+
+        .xcjg .chart_mark .aqmsb::before {
+            background: rgba(35, 121, 255, 0.9)
+        }
+
+        /* 项目进度投资 ----------------------------------------------------------------------------*/
+        .gcjdtz {
+            height: 450px;
+        }
+
+        .gcjdtz .chart {
+            width: 100%;
+            height: 220px
+        }
+
+
+        /*  工程形象进度排行------------------------------------------------------------------------------*/
+        .xxjd {
+            height: 220px;
+        }
+
+        .xxjd .chart {
+            height: 100%;
+            width: 100%
+        }
+
+
+        /* 实名制人员统计 ---------------------------------------------------------------------*/
+        .smzry {
+            height: 215px;
+        }
+
+        .smzry .box {
+            justify-content: space-between;
+            flex-wrap: wrap;
+            text-align: center;
+            margin-top: 30px
+        }
+
+        .smzry li {
+            width: 49%;
+            background: linear-gradient(90deg, rgba(23, 28, 87, 1), rgba(38, 42, 104, 1));
+            margin-top: 10px;
+            padding: 8px 0
+        }
+
+        .smzry .box p {
+            font-size: 18px;
+            font-weight: 600;
+            color: #F19B2C;
+            padding-bottom: 4px;
+
+        }
+
+        .smzry .box .line {
+            margin: 0 10% 4px 10%;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(238, 235, 233, 0), rgba(238, 235, 233, 0.6), rgba(238, 235, 233, 0));
+        }
+
+        .smzry .box span {
+            color: #FFFFFF;
+            font-size: 14px
+        }
+
+
+        /* 劳务收入情况 -------------------------------------------------*/
+        .lwsr {
+            height: 450px;
+        }
+
+        .lwsr>.box {
+            margin-top: 20px
+        }
+
+        .lwsr>.box>div {
+            flex: 1
+        }
+
+        .lwsr>.box .chart {
+
+            height: auto;
+            text-align: center;
+            color: #B6B6CB
+        }
+
+        .lwsr>.box .chart>div {
+            height: 90px;
+            width: 100%
+        }
+
+        .lwsr .chart_mark {
+            margin-top: 20px
+        }
+
+        .lwsr .chart_mark .box {
+            justify-content: center;
+            padding: 0 10%
+        }
+
+        .lwsr .chart_mark li {
+            flex: 1;
+            text-align: center
+        }
+
+        .lwsr .chart_mark li span::before {
+            content: '';
+            display: inline-block;
+            width: 13px;
+            height: 8px;
+            border-radius: 2px;
+            margin-right: 8px;
+            background: rgba(1, 204, 0, 1)
+        }
+
+        .lwsr .chart_mark .jhtr::before {
+            background: rgba(1, 204, 0, 1)
+        }
+
+        .lwsr .chart_mark .sjtr::before {
+            background: rgba(254, 255, 7, 1);
+        }
+
+        .lwsr .chart_mark .gdbf::before {
+            background: rgba(255, 4, 2, 1);
+        }
+
+        .area_list {
+            position: absolute;
+            bottom: 40px;
+            right: 0;
+            z-index: 9999;
+            border: 1px solid #1D2D7F;
+            font-size: 12px;
+            background: #162579;
+            padding: 4px 10px;
+            height: 280px;
+            min-width: 80px;
+        }
+
+        .area_list p {
+            color: #A8ABE2;
+            font-size: 14px
+        }
+
+        .area_list span {
+            display: inline-block;
+            padding: 10px 4px 10px 16px;
+            word-wrap: break-word;
+            cursor: pointer;
+        }
+
+        .area_list span:hover {
+            color: #00FFFF
+        }
+
+        .mapList {
+            position: absolute;
+            right: 33px;
+            top: 290px;
+            width: 100px;
+            display: none;
+        }
+
+        .mapList span {
+            font-size: 16px;
+        }
+
+        .mapList ul {
+            margin-top: 10px;
+            height: 100px;
+            overflow: hidden;
+        }
+
+        .mapList .square::before {
+            content: '';
+            display: inline-block;
+            height: 8px;
+            width: 8px;
+            margin-right: 10px;
+            border-radius: 100%;
+            background: #01C804;
+        }
+
+        .mapList .square1::before {
+            content: '';
+            display: inline-block;
+            height: 8px;
+            width: 8px;
+            margin-right: 10px;
+            border-radius: 100%;
+            background: #f33;
+        }
+
+        .mapList li {
+            cursor: pointer;
+        }
+
+        .mapList li:hover {
+            color: #329ae4;
+        }
+
+        /* 提示框 */
+        #tip {
+            display: none;
+            position: fixed;
+            right: 0;
+            width: 290px;
+            top: 41px;
+            height: 100%;
+            z-index: 1000;
+            background-color: #051253;
+            border: 1px solid #1E328B;
+        }
+
+        #tip .title {
+            height: 56px;
+            line-height: 56px;
+            padding: 0 26px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #tip .title img {
+            vertical-align: middle;
+            cursor: pointer;
+        }
+
+        #tip .content {
+            height: 80px;
+            padding: 10px 19px;
+            border-top: 1px solid #1E328B;
+            border-bottom: 1px solid #1E328B;
+            cursor: pointer;
+        }
+
+        #tip .content p>span::after {
+            content: '';
+            display: inline-block;
+            height: 8px;
+            width: 8px;
+            border-radius: 100%;
+            background: #FF5B5B;
+            margin-right: 8px;
+        }
+
+        .tips {
+            margin-top: 10px;
+            padding: 0 4px;
+            /* 超出隐藏 */
+            overflow: hidden;
+            /* 文本超出显示... */
+            text-overflow: ellipsis;
+            /* CSS盒模型必须设置 */
+            display: -webkit-box;
+            /* 定义子元素的排列方向 垂直方向 */
+            -webkit-box-orient: vertical;
+            /* 垂直方向 定义子元素排列的函数 */
+            -webkit-line-clamp: 2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="iframe">
+            <div class="header">
+                <!-- <div class="wrap_pic">
+                            <img class="header_bg" src="/images/pic_title.png" alt="">
+                        </div> -->
+                <div class="box">
+                    <div class="left">
+                        <img onclick="window.location.href='/pages/home/index.html'" class="logo"
+                            src="/images/icon_logo.png" alt="" />
+                    </div>
+                    <div class="center">
+                        <div>
+                            <h2 id="fullScreen" class="Modal">智慧工地现场监管云平台</h2>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="menu">
+                            <!-- <div onclick="window.location.href='/index.html'">
+                                        <img class="icon_default" src="/images/icon_sjzhzx.png" alt="">
+                                        <img class="icon_active" src="/images/icon_sjzhzx_active.png" alt="">
+                                        <span>监控指挥中心</span>
+                                    </div> -->
+                            <div class="nav" id='Nav'>
+                                <div class="nav_name" onclick="window.location.href = '/index.html'">
+                                    <span>监控指挥中心</span>
+                                    <img src="/images/icon_down.png" alt="" style="width:16px">
+                                </div>
+                                <div class="nav_list">
+                                    <p
+                                        onclick="window.location.href = window.location.origin+'/admin/site_overview/index.html?ref=addtabs'">
+                                        <span>项目预览</span>
+                                    </p>
+                                    <p
+                                        onclick="window.location.href = window.location.origin+'/admin/areamanagement/index.html?ref=addtabs'">
+                                        <span>后台管理</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="message">
+                            <img src="/images/icon_message.png" alt="">
+                            <!-- <span>3</span> -->
+                        </div>
+                        <div class="userInfo" onclick="global.page.logout()">
+                            <span>退出系统</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="time">
+                    <span id="date"></span>
+                    <span id='DAY'>星期二</span>
+                    <img style="width:24px" src="/images/icon_qing.png" />
+                    <span>28℃</span>
+                </div>
+            </div>
+        </div>
+        <div class="box module_top">
+            <!-- left -->
+            <div style="width:30%">
+                <!-- 工程总览 gczl -->
+                <div class="gczl">
+                    <div class="wrap-title">
+                        <p><span>工程总览</span></p>
+                    </div>
+                    <div class="chart" id="gczl_chart"></div>
+                </div>
+                <!-- 工程进度投资情况 gctz -->
+                <div class="gctz">
+                    <div class="wrap-title">
+                        <p><span>进度投资</span></p>
+                    </div>
+                    <div class="gctz_mark">
+                        <li>
+                            <p>390877万元</p>
+                            <div class="line"></div>
+                            <span>总计划投资</span>
+                        </li>
+                        <li>
+                            <p>109800万元</p>
+                            <div class="line"></div>
+                            <span>累计已投资</span>
+                        </li>
+                    </div>
+                    <div class="progress_wrap">
+                        <!-- <p>累计投资进度 </p> -->
+                        <div class="progress_tab">
+                            <div class="progress_number">
+                                <span>53%</span>
+                            </div>
+                            <div class="line"></div>
+                            <div class="progress"></div>
+                            <table cellspacing='0'>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="box progress_percentage">
+                            <li><span>0%</span></li>
+                            <li><span>10%</span></li>
+                            <li><span>20%</span></li>
+                            <li><span>30%</span></li>
+                            <li style="text-align:center"><span>40%</span></li>
+                            <li style="text-align:center"><span>50%</span></li>
+                            <li style="text-align:center"><span>60%</span></li>
+                            <li style="text-align:right"><span>70%</span></li>
+                            <li style="text-align:right"><span>80%</span></li>
+                            <li style="text-align:right"><span>90%</span></li>
+                            <li style="text-align:right"><span>100%</span></li>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- center -->
+            <div style="width:40%; ">
+                <div class="xmdd">
+                    <div class="wrap-title">
+                        <p><span>项目工程施工地点</span></p>
+                    </div>
+                    <div style="width:100%;height:100%" id="map">
+                    </div>
+                    <div class="mapList">
+                        <span>项目工程</span>
+                        <ul>
+                            <!-- <li>四海时代</li>
+                                <li>四海时代</li>
+                                <li>四海时代</li>
+                                <li>四海时代</li> -->
+                        </ul>
+
+                    </div>
+                    <!-- <div class="area_list">
+                        <p id="area_list_title">项目片区</p>
+                        <div id="area_list"></div>
+                    </div> -->
+                </div>
+            </div>
+            <!-- right -->
+            <div style="width:28%">
+                <!-- 天气 -->
+                <div class="xxjd">
+                    <div class="wrap-title">
+                        <p><span>工程形象进度排行</span></p>
+                    </div>
+                    <div class="chart" id="jdph"></div>
+                </div>
+                <!-- 各阶段劳务投入统计 -->
+                <div class="smzry">
+                    <div class="wrap-title">
+                        <p><span>实名制人员统计</span></p>
+                    </div>
+                    <div class="box">
+                        <li>
+                            <p id="companyCount">0</p>
+                            <div class="line"></div>
+                            <span>劳务单位</span>
+                        </li>
+                        <li>
+                            <p id="teamCount">0</p>
+                            <div class="line"></div>
+                            <span>劳务班组</span>
+                        </li>
+                        <li>
+                            <p id="personnelCount">0</p>
+                            <div class="line"></div>
+                            <span>在线人员</span>
+                        </li>
+                        <li>
+                            <p id="carCount">0</p>
+                            <div class="line"></div>
+                            <span>进场车次</span>
+                        </li>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="box module_bottom">
+            <div style="width:34%">
+                <div class="xmjc">
+                    <div class="wrap-title">
+                        <p><span>工程检查情况</span></p>
+                    </div>
+                    <div class="box">
+                        <div class="chart">
+                            <div id="project_check01"></div>
+                        </div>
+                        <div class="chart">
+                            <div id="project_check02"></div>
+                        </div>
+                        <div class="chart">
+                            <div id="project_check03"></div>
+                        </div>
+                        <div class="chart">
+                            <div id="project_check04"></div>
+                        </div>
+                    </div>
+                    <div class="chart_mark box">
+                        <li><span class="zgz">整改中</span></li>
+                        <li><span class="bhg">不合格</span></li>
+                        <li><span class="hg">合格</span></li>
+                    </div>
+                </div>
+
+                <div class="xcjg">
+                    <div class="wrap-title">
+                        <p><span>智慧工地现场监管云平台</span></p>
+                    </div>
+                    <div class="chart_mark">
+                        <span class="td">塔吊</span>
+                        <span class="mj">门禁</span>
+                        <span class="aqmsb">安全帽识别</span>
+                    </div>
+                    <div class="chart" id="project_monitor"></div>
+                </div>
+            </div>
+            <div style="width:36%">
+                <!-- 工程进度投资情况（年月） -->
+                <div class="gcjdtz">
+                    <div class="wrap-title">
+                        <p><span>工程进度投资情况（年月）</span></p>
+                    </div>
+                    <div>
+                        <div class="chart" id="chartBar3D_01"></div>
+                    </div>
+                    <div>
+                        <div class="chart" id="chartBar3D_02"></div>
+                    </div>
+                </div>
+            </div>
+            <div style="width:28%">
+                <div class="lwsr">
+                    <div class="wrap-title">
+                        <p><span>各阶段劳务投入统计</span></p>
+                    </div>
+                    <div class="box">
+                        <div>
+                            <div class="chart">
+                                <div id="project_progress01"></div>
+                                <span>三通一平</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="chart">
+                                <div id="project_progress02"></div>
+                                <span>基坑开挖</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div>
+                            <div class="chart">
+                                <div id="project_progress03"></div>
+                                <span>地下室施工</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="chart">
+                                <div id="project_progress04"></div>
+                                <span>主体结构</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div>
+                            <div class="chart">
+                                <div id="project_progress05"></div>
+                                <span>二次结构</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="chart">
+                                <div id="project_progress06"></div>
+                                <span>装修</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart_mark">
+                        <div class="box">
+                            <li><span class="jhtr">计划投入</span></li>
+                            <li><span class="sjtr">实际投入</span></li>
+                            <li><span class="gdbf">工地不符</span></li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 提示框 -->
+        <!-- <div id="tip">
+            <div class="title">
+                <span>消息中心</span>
+                <span><img src="./images/close.png" alt=""></span>
+            </div>
+            <div class="content">
+                <p><span>【任务】</span></p>
+                <p class="tips">3月13日，住建部发布《关于深入开展建筑施工 安全专项治理行动的通知》，请项目部....</p>
+            </div>
+            <div class="content">
+                <p><span>【设备报警】</span></p>
+                <p class="tips">3月13日，住建部发布《关于深入开展建筑施工 安全专项治理行动的通知》，请项目部....</p>
+            </div>
+            <div class="content">
+                <p><span>【消息】</span></p>
+                <p class="tips">3月13日，住建部发布《关于深入开展建筑施工 安全专项治理行动的通知》，请项目部....</p>
+            </div>
+            <div class="content">
+                <p><span>【任务】</span></p>
+                <p class="tips">3月13日，住建部发布《关于深入开展建筑施工 安全专项治理行动的通知》，请项目部....</p>
+            </div>
+            <div class="content">
+                <p><span>【设备报警】</span></p>
+                <p class="tips">3月13日，住建部发布《关于深入开展建筑施工 安全专项治理行动的通知》，请项目部....</p>
+            </div>
+            <div class="content">
+                <p><span>【消息】</span></p>
+                <p class="tips">3月13日，住建部发布《关于深入开展建筑施工 安全专项治理行动的通知》，请项目部....</p>
+            </div>
+        </div> -->
+    </div>
+
+</body>
+
+</html>
+<script src="http://api.map.baidu.com/api?v=2.0&ak=DD279b2a90afdf0ae7a3796787a0742e"></script>
+<script src="/js/plugins/china.js"></script>
+<script type="text/javascript" src="/js/request.js"></script>
+<script type="text/javascript" src="/js/map.js"></script>
+
+
+<script type="text/javascript">
+
+    $(function () {
+        // 顶部导航栏
+        $('#Nav').hover(function () {
+            $('.nav_list').show()
+        }, function () {
+            $('.nav_list').hide()
+        })
+    })
+    //工程总览
+    renderGCZLChart()
+
+    function renderGCZLChart() {
+        var chart = echarts.init(document.getElementById('gczl_chart'))
+        chart.setOption({
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a}<br/>{b} : {c}<br/>占比:({d}%)",
+                position: function (point, params, dom, rect, size) {
+                    // 固定在顶部
+                    return [point[0], '10%'];
+                }
+            },
+            series: [{
+                name: '工程',
+                type: 'pie',
+                radius: ['0%', '70%'],
+                color: '#FFFFFF',
+                label: {
+                    normal: {
+                        show: true,
+                        formatter: "{b}\n{c}",
+                        color: 'rgba(255,255,255,0.8)',
+                        fontSize: 18,
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        length: 10,
+                        length2: 20
+                    }
+                },
+                data: [{
+                    value: 5,
+                    name: '销售阶段',
+                    itemStyle: {
+                        normal: {
+                            color: 'rgba(255,255,2,1)'
+                        }
+                    }
+                },
+                {
+                    value: 2,
+                    name: '验收备案',
+                    itemStyle: {
+                        normal: {
+                            color: 'rgba(255,4,2,1)'
+                        }
+                    }
+                },
+                {
+                    value: 2,
+                    name: '在线阶段',
+                    itemStyle: {
+                        normal: {
+                            color: 'rgba(35, 121, 255, 0.9)'
+                        }
+                    }
+                },
+                {
+                    value: 3,
+                    name: '拆迁阶段',
+                    itemStyle: {
+                        normal: {
+                            color: 'rgba(1,204,0,1)'
+                        }
+                    }
+                }
+                ],
+
+            }]
+        });
+        window.addEventListener("resize", function () {
+            chart.resize();
+        });
+    }
+    //地图
+    renderMap('map')
+    //获取工程信息
+    global.ajax.getEngineering(function (res) {
+        var engineeringOverview = res.data.engineeringOverview
+        $('#gczl_total').html('项目总数：' + engineeringOverview.total)
+        $('#firstStage').html(engineeringOverview.firstStage + '项')
+        $('#secondStage').html(engineeringOverview.secondStage + '项')
+        $('#thirdStage').html(engineeringOverview.thirdStage + '项')
+        $('#fourthStage').html(engineeringOverview.fourthStage + '项')
+        renderGCJDTZChart(res)
+    })
+
+    //获取实名制人员统计
+    global.ajax.getStatistics(function (res) {
+        var res_obj = res.data.statisticsInfo
+        $('#carCount').html(res_obj.carCount)
+        $('#companyCount').html(res_obj.companyCount)
+        $('#personnelCount').html(res_obj.personnelCount)
+        $('#teamCount').html(res_obj.teamCount)
+        // $('#carCount').html((Math.random() * 100).toFixed(0))
+        // $('#companyCount').html((Math.random() * 100).toFixed(0))
+        // $('#personnelCount').html((Math.random() * 100).toFixed(0))
+        // $('#teamCount').html((Math.random() * 100).toFixed(0))
+    })
+
+    // $(function () {
+
+    // })
+    //智慧工地现场监管云平台
+    renderSBJGTJChart()
+
+    function renderSBJGTJChart() {
+        var myChart = echarts.init(document.getElementById('project_monitor'))
+        var option = {
+            tooltip: {
+                trigger: 'axis',
+                showContent: false
+            },
+            grid: {
+                show: false,
+                top: 20,
+                left: '6%',
+                right: '6%',
+                bottom: 30
+            },
+            xAxis: {
+                type: 'category',
+                data: ['04.11', '04.12', '04.13', '04.14', '04.15', '04.16', '04.17'],
+                axisLabel: {
+                    color: '#989CBE'
+                },
+                axisTick: {
+                    show: false
+                },
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: 'rgba(138,193,224,1)'
+                    }
+                },
+            },
+            yAxis: {
+                type: 'value',
+                splitNumber: 2,
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: 'rgba(73,97,107,0.1)'
+                    }
+                },
+                axisTick: {
+                    show: false
+                },
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: 'rgba(138,193,224,1)'
+                    }
+                },
+                axisLabel: {
+                    color: '#989CBE'
+                }
+            },
+            series: [{
+                type: 'line',
+                smooth: true,
+                label: {
+                    emphasis: {
+                        show: true
+                    }
+                },
+                seriesLayoutBy: 'row',
+                data: [{
+                    name: 'item01',
+                    value: 41.3
+                }, {
+                    name: 'item01',
+                    value: 46.3
+                }, {
+                    name: 'item01',
+                    value: 34.3
+                }, {
+                    name: 'item01',
+                    value: 54.3
+                }, {
+                    name: 'item01',
+                    value: 74.3
+                }, {
+                    name: 'item01',
+                    value: 24.3
+                }, {
+                    name: 'item01',
+                    value: 44.3
+                }],
+                itemStyle: {
+                    normal: {
+                        color: '#FFC900'
+                    }
+                }
+            },
+            {
+                type: 'line',
+                smooth: true,
+                label: {
+                    emphasis: {
+                        show: true
+                    }
+                },
+                seriesLayoutBy: 'row',
+                data: [58.5, 55.1, 62.7, 54.1, 23.4, 55.1, 12],
+                itemStyle: {
+                    normal: {
+                        color: 'rgba(35, 121, 255, 0.9)'
+                    }
+                }
+            },
+            {
+                type: 'line',
+                smooth: true,
+                label: {
+                    emphasis: {
+                        show: true
+                    }
+                },
+                seriesLayoutBy: 'row',
+                data: [48.1, 67.2, 46.5, 16.4, 65.2, 34.5, 32],
+                itemStyle: {
+                    normal: {
+                        color: '#00FFF9'
+                    }
+                }
+            },
+            ]
+        };
+        myChart.setOption(option)
+        window.addEventListener("resize", function () {
+            myChart.resize();
+        });
+    }
+
+
+    // 工程进度投资情况
+
+    function renderGCJDTZChart(res) {
+        // var arr = ['chartBar3D_01', 'chartBar3D_02']
+        console.log(res)
+        var monthData=res.data.engineeringMoney.monthPlanList;
+        var yearData=res.data.engineeringMoney.yearPlanList;
+        var month=[];
+        var planM=[];
+        var realM=[];
+        var year=[];
+        var yearPM=[];
+        var yearRM=[]
+        yearData.forEach(function(items){
+            year.push(items.year+'年');
+            yearPM.push(items.planMoney);
+            yearRM.push(items.realMoney)
+        })
+      
+        monthData.forEach(function(item){
+            month.push(item.month+'月');
+            planM.push(item.planMoney);
+            realM.push(item.realMoney)
+        })
+        //console.log(month,planM,realM,year,yearPM,yearRM,'月份')
+        var chart1 = echarts.init(document.getElementById('chartBar3D_01'))
+        var chart2 = echarts.init(document.getElementById('chartBar3D_02'))
+        chart1.setOption({
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b}: {c}万"
+            },
+            grid: {
+                show: false,
+                top: 50,
+                left: '8%',
+                right: '2%',
+                bottom: 30
+            },
+            xAxis: [{
+                type: 'category',
+                axisTick: {
+                    show: false
+                },
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: 'rgba(138,193,224,1)'
+                    }
+                },
+                axisLabel: {
+                    color: '#989CBE'
+                },
+                data: year
+            }],
+
+            yAxis: [{
+                type: 'value',
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: 'rgba(73,97,107,0.1)'
+                    }
+                },
+                axisTick: {
+                    show: false
+                },
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: 'rgba(138,193,224,1)'
+                    }
+                },
+                axisLabel: {
+                    color: '#989CBE'
+                }
+            }],
+            series: [{
+                name: '计划投入',
+                type: 'bar',
+                barGap: 0,
+
+                data: yearPM,
+                itemStyle: {
+                    normal: {
+                        color: '#f63c00'
+                    }
+                }
+            },
+            {
+                name: '实际投入',
+                type: 'bar',
+                data: yearRM,
+                itemStyle: {
+                    normal: {
+                        color: 'rgba(162,248,255,1)'
+                    }
+                }
+            },
+            ]
+        })
+        chart2.setOption({
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b}: {c}万"
+            },
+            grid: {
+                show: false,
+                top: 50,
+                left: '8%',
+                right: '2%',
+                bottom: 30
+            },
+            xAxis: [{
+                type: 'category',
+                axisTick: {
+                    show: false
+                },
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: 'rgba(138,193,224,1)'
+                    }
+                },
+                axisLabel: {
+                    color: '#989CBE'
+                },
+                data: month
+            }],
+
+            yAxis: [{
+                type: 'value',
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: 'rgba(73,97,107,0.1)'
+                    }
+                },
+                axisTick: {
+                    show: false
+                },
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: 'rgba(138,193,224,1)'
+                    }
+                },
+                axisLabel: {
+                    color: '#989CBE'
+                }
+            }],
+            series: [{
+                name: '计划投入',
+                type: 'bar',
+                barGap: 0,
+
+                data: planM,
+                itemStyle: {
+                    normal: {
+                        color: '#f63c00'
+                    }
+                }
+            },
+            {
+                name: '实际投入',
+                type: 'bar',
+                data: realM,
+                itemStyle: {
+                    normal: {
+                        color: 'rgba(162,248,255,1)'
+                    }
+                }
+            },
+            ]
+        })
+
+
+
+        window.addEventListener("resize", function () {
+            chart2.resize();
+            chart1.resize();
+        });
+    }
+    //各阶段劳务投入统计
+    renderLWDJChart()
+
+    function renderLWDJChart() {
+        var arr = [{
+            id: 'project_progress01',
+            title: '100%',
+            data1:10,
+            data2:30,
+            data3:22
+        }, {
+            id: 'project_progress02',
+            title: '100%',
+            data1:40,
+            data2:11,
+            data3:15
+        }, {
+            id: 'project_progress03',
+            title: '100%',
+            data1:33,
+            data2:9,
+            data3:19
+        }, {
+            id: 'project_progress04',
+            title: '100%',
+            data1:20,
+            data2:15,
+            data3:6
+        }, {
+            id: 'project_progress05',
+            title: '100%',
+            data1:8,
+            data2:22,
+            data3:34
+        }, {
+            id: 'project_progress06',
+            title: '90%',
+            data1:14,
+            data2:50,
+            data3:6
+        }]
+        arr.forEach(function (item) {
+            var chart = echarts.init(document.getElementById(item.id))
+            chart.setOption({
+                title: {
+                    text: item.title,
+                    x: '48%',
+                    y: '40%',
+                    textAlign: 'center',
+                    textStyle: {
+                        fontSize: 14,
+                        color: '#A8ABE2'
+                    },
+                    textAlign: 'center'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {d}%",
+                    position: function (point, params, dom, rect, size) {
+                        // 固定在顶部
+                        return [point[0], '10%'];
+                    }
+                },
+                grid: {
+
+                    top: 0,
+                    left: 0,
+                    right: '2%',
+                },
+                series: [{
+                    name: '工程',
+                    type: 'pie',
+                    radius: ['60%', '80%'],
+                    color: '#FFFFFF',
+                    label: {
+                        normal: {
+                            show: true,
+                            formatter: '{c}',
+                            color: 'rgba(255,255,255,0.8)',
+                            fontSize: 14,
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            length: 2,
+                            length2: 6
+                        }
+                    },
+                    data: [{
+                        value: item.data1,
+                        name: '计划投入',
+                        itemStyle: {
+                            normal: {
+                                color: 'rgba(1,204,0,1)'
+                            }
+                        }
+                    },
+                    {
+                        value: item.data2,
+                        name: '实际投入',
+                        itemStyle: {
+                            normal: {
+                                color: 'rgba(254,255,7,1)'
+                            }
+                        }
+                    },
+                    {
+                        value: item.data3,
+                        name: '工地不符',
+                        itemStyle: {
+                            normal: {
+                                color: 'rgba(255,4,2,1)'
+                            }
+                        }
+                    }
+                    ],
+                }]
+            });
+            window.addEventListener("resize", function () {
+                chart.resize();
+            });
+        })
+    }
+    //工程检查情况 
+    renderGCJCchart()
+
+    function renderGCJCchart(id, title) {
+        var arr = [{
+            id: 'project_check01',
+            title: '现场检查',
+            data1:10,
+            data2:12,
+            data3:30
+        }, {
+            id: 'project_check02',
+            title: '实测实量',
+            data1:15,
+            data2:9,
+            data3:20
+        }, {
+            id: 'project_check03',
+            title: '工序移交',
+            data1:9,
+            data2:20,
+            data3:45
+        }, {
+            id: 'project_check04',
+            title: '材料验收',
+            data1:20,
+            data2:24,
+            data3:6
+        }]
+
+        arr.forEach(function (item) {
+            var chart = echarts.init(document.getElementById(item.id))
+            chart.setOption({
+                title: {
+                    text: item.title,
+                    x: '48%',
+                    y: '38%',
+                    textAlign: 'center',
+                    textStyle: {
+                        fontSize: 12,
+                        color: '#A8ABE2'
+                    },
+                    textAlign: 'center'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)",
+                    position: function (point, params, dom, rect, size) {
+                        // 固定在顶部
+                        return [point[0], '10%'];
+                    }
+                },
+                series: [{
+                    name: '工程',
+                    type: 'pie',
+                    radius: ['58%', '80%'],
+                    color: '#FFFFFF',
+
+                    label: {
+                        normal: {
+                            show: true,
+                            formatter: '{c}',
+                            color: 'rgba(255,255,255,0.8)',
+                            fontSize: 14,
+                        },
+
+                    },
+                    labelLine: {
+                        normal: {
+                            length: 2,
+                            length2: 6
+                        }
+                    },
+                    data: [{
+                        value: item.data1,
+                        name: '不合格',
+                        itemStyle: {
+                            normal: {
+                                color: 'rgba(255,255,2,1)'
+                            }
+                        }
+                    },
+                    {
+                        value: item.data2,
+                        name: '整改中',
+                        itemStyle: {
+                            normal: {
+                                color: 'rgba(35, 121, 255, 0.9)'
+                            }
+                        }
+                    },
+                    {
+                        value: item.data3,
+                        name: '合格',
+                        itemStyle: {
+                            normal: {
+                                color: 'rgba(1,204,0,1)'
+                            }
+                        }
+                    }
+                    ],
+
+                }]
+            });
+            window.addEventListener("resize", function () {
+                chart.resize();
+            });
+        })
+    }
+
+    //工程形象进度排行
+    renderJDPHChart('jdph')
+
+    function renderJDPHChart(id) {
+        var chart = echarts.init(document.getElementById(id))
+        chart.setOption({
+            xAxis: [{
+                type: 'value',
+                axisLabel: {
+                    show: false
+                },
+                axisLine: {
+                    show: false
+                },
+                splitLine: {
+                    show: false
+                },
+                axisTick: {
+                    show: false
+                },
+
+            }],
+            yAxis: [{
+                type: 'category',
+                axisLine: {
+                    show: false
+                },
+                axisLabel: {
+                    color: '#989CBE',
+                    margin: 10,
+                    fontSize: 14
+                },
+                axisTick: {
+                    show: false
+                },
+                data: ['四海时代', '四海云创']
+            }],
+            grid: {
+                left: 80,
+                bottom: 110,
+                right: 10,
+                top: 30
+            },
+            series: [{
+                type: 'bar',
+                itemStyle: {
+                    normal: {
+                        color: 'rgba(30,44,109,1)'
+                    }
+                },
+                silent: true,
+                barWidth: 20,
+                barGap: '-100%', // Make series be overlap
+                data: [100, 100]
+            },
+            {
+                type: 'bar',
+                barWidth: 20,
+                z: 10,
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'right',
+                        formatter: '{c}%',
+                        color: '#FFFFFF',
+                        fontSize: 10
+                    }
+                },
+                data: [70, 60],
+                itemStyle: {
+                    normal: {
+                        color: 'rgba(103,242,95,1)'
+                    }
+                }
+            }
+            ]
+
+        });
+        window.addEventListener("resize", function () {
+            chart.resize();
+        });
+    }
+
+
+
+    // 固定提示消息框
+    //获取第一部分的高度.
+    // var topHeight = $('#Nav').height();
+    // $(window).on('scroll', function () {
+    //     var scrollTop1 = $(this).scrollTop();
+    //     if (scrollTop1 >= topHeight) {
+    //         $('#tip').css({
+    //             position: 'fixed',
+    //             top: '0px',
+    //         });
+
+    //     } else {
+    //         //设置第二部分定位还原.
+    //         $('#tip').css({
+    //             position: 'fixed',
+    //             top: '41px',
+    //         });
+
+    //     }
+    // });
+
+    // $('.message').on('click',function(){
+    //     $('#tip').show()
+    // })
+    // $('.title img').on('click',function(){
+    //     $('#tip').hide()
+    // })
+
+
+</script>

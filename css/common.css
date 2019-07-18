@@ -1,0 +1,170 @@
+body,
+div,
+p,
+h2,
+h3,
+span,
+a,
+ul,
+li,
+ol {
+    margin: 0;
+    padding: 0;
+    font-family: "FZY4JW--GB1-0","PingFang SC","Source Han Sans",'微软雅黑';
+    -ms-overflow-style: none
+}
+
+body {
+    color: #FFFFFF;
+    font-size: 14px;
+    min-height:100%;
+    height: auto;
+    position: relative;
+    /* background:linear-gradient(180deg,rgba(3,9,33,1),rgba(5,22,83,1),rgba(3,9,33,1)); */
+    background: url(/images/bg.jpg) no-repeat center;
+    /* background-size: 100% 400%; */
+    background-size: 100% 400%;
+    z-index: 9999;
+    
+}
+
+li {
+    list-style: none
+}
+
+a {
+    text-decoration: none;
+    color: #FFFFFF
+}
+
+html{
+    height: 100%
+}
+
+/* flex */
+.box {
+    display: flex;
+    justify-content: center
+}
+
+body::-webkit-scrollbar,#gtdqk_list::-webkit-scrollbar,#gtdqk_list table tbody::-webkit-scrollbar,#dwzzjg_list table tbody::-webkit-scrollbar,
+.dhsqlb table tbody::-webkit-scrollbar,.wrap_menu .menu::-webkit-scrollbar,.jBox-content::-webkit-scrollbar,.item_sbyj .content::-webkit-scrollbar
+,.ydjk .item_glrykq::-webkit-scrollbar{
+    display: none;
+}
+::-webkit-scrollbar{
+    height: 12px;
+    background-color: #11165c;
+}
+::-webkit-scrollbar-thumb{
+    /*width: 10px;*/
+    background-color:#A8ABE2;
+}
+.swiper-button-next, .swiper-button-prev{
+    width:16px;
+    height: 30px;
+    background-size: 16px 30px;
+}
+
+
+/* page */
+.wrap-title {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    font-size: 16px;
+    z-index: 99
+}
+.wrap-title span{
+    padding-right: 8px
+}
+.wrap-title img{
+   display: none;
+}
+.chart-sub-title {
+    position: absolute;
+    right: 5%;
+    top: 20px;
+    width: 50%;
+    text-align: right;
+    color: #A8ABE2
+}
+.wrap-nav {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #FFFFFF
+}
+
+.wrap-nav li {
+    padding: 0 18px;
+}
+
+.wrap-nav li span {
+    padding: 4px 0;
+    cursor: pointer;
+}
+.nav_active,.nav_active1{
+    border-bottom: 1px solid #00FFF9;
+    color: #00FFF9
+}
+.nav_active1 li span {
+    padding: 4px 0;
+    cursor: pointer;
+}
+/* jBox */
+.jBox-Modal .jBox-title{
+    background: #161b33;
+    border:none;
+    font-size: 16px
+}
+.jBox-container{
+    background: #262c4f
+}
+.jBox-Modal .jBox-content{
+    padding:0;
+}
+.viewer-container{
+    background-color:rgba(0,0,0,0.8)
+}
+/* 下面提示不见 */
+/* .viewer-footer{
+    display: none !important;
+} */
+.viewer-zoom-in,.viewer-zoom-out,.viewer-one-to-one,.viewer-reset,.viewer-play,.viewer-rotate-left,.viewer-flip-horizontal,.viewer-flip-vertical,.viewer-rotate-right,.viewer-title{
+    display: none !important;
+}
+.viewer-toolbar{
+    display: flex;
+    justify-content: center;
+}
+
+/* icon */
+.module_zs{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.module_zx{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.module_ys{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.module_yx{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+/* 质量管理页面 */
+.page .content>.box1>div{
+    width: 33.33%;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 0 16px;
+}

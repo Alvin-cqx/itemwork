@@ -1,0 +1,4034 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="pragma" content="no-cache">
+    <title>天鹅堡项目(安全管理)</title>
+    <script src="/js/plugins/jquery.min.js"></script>
+    <script src="/js/plugins/swiper/swiper.min.js"></script>
+    <script src="/js/plugins/echarts.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/js/plugins/swiper/swiper.min.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <script src="/js/plugins/paging/js/pageMe1.js"></script>
+
+    <style>
+        .page {
+            padding: 0 5px
+        }
+
+        .page>.box {
+            justify-content: space-between
+        }
+
+        .sbjc,
+        .ysjg,
+        .ydjk,
+        .ydjklb,
+        .hjjc,
+        .dhsqlb,
+        .dhsq {
+            position: relative;
+            background: rgba(5, 12, 39, 0.3);
+            box-shadow: 0px 1px 13px 0px rgba(70, 90, 201, 0.48) inset;
+            border: 1px solid rgba(85, 143, 255, 0.2);
+            margin-bottom: 5px;
+            padding: 60px 20px 15px 20px;
+            width: calc(100% - 40px);
+            margin-right: 20px;
+        }
+
+        body {
+            position: relative;
+        }
+
+        /* 设备监测 */
+        .sbjc {
+            height: 370px;
+        }
+
+        .sbjc .wrap-nav li {
+            padding: 0 6px;
+        }
+
+        .sbjc .content {
+            margin-top: 10px
+        }
+
+        .sbjc .swiper-wrapper {
+            margin-left: 40px
+        }
+
+        .sbjc .des {
+            position: absolute;
+            top: 0;
+            left: 55%;
+            /* color: #9193BF */
+        }
+
+        .sbjc .info-list {
+            margin-top: 30px;
+            flex-wrap: wrap;
+            justify-content: flex-start
+        }
+
+        .sbjc .info-list>div {
+            width: 14%;
+            min-width: 66px;
+            font-size: 12px;
+            color: #A8ABE2;
+            text-align: center
+        }
+
+        .sbjc .info-list p {
+            color: #A8ABE2;
+            padding: 2px 0
+        }
+
+        .sbjc .info-list span {
+            /* color: #5D72B5 */
+        }
+
+
+        /* 验收结果 */
+        .ysjg {
+            height: 380px;
+        }
+
+        .ysjg .wrap-nav {
+            right: 14px;
+        }
+
+        .ysjg .wrap-nav li {
+            padding: 0 6px;
+            font-size: 13px
+        }
+
+        .ysjg .list {
+            height: 100%;
+            overflow-y: auto;
+            -ms-overflow-style: none;
+        }
+
+        .ysjg .list .list-header {
+            font-size: 15px
+        }
+
+        .ysjg .list li {
+            /* height: 30%; */
+            width: 30%;
+            padding: 6px 0;
+            color: #A8ABE2
+        }
+
+        .ysjg .list li:first-child {
+            width: 40%
+        }
+
+
+        /* 移动监控 */
+        .ydjk {
+            height: 500px;
+        }
+
+        .ydjk .list>div {
+            flex: 1;
+            text-align: center;
+            border-right: 1px dotted #A8ABE2;
+            /* color: #A8ABE2; */
+            cursor: pointer;
+        }
+
+        .ydjk .list p {
+            padding-bottom: 6px
+        }
+
+        .ydjk .list span {
+            font-weight: 600;
+            color: #FFBC6B;
+            font-size: 30px;
+            font-family: 'ClockFont'
+        }
+
+        .ydjk .list>div:last-child {
+            border-right: none
+        }
+
+        .ydjk .content-nav {
+            margin-top: 40px;
+        }
+
+        .ydjk .content-nav li {
+            padding: 0 16px;
+            color: #FFFFFF;
+            cursor: pointer;
+            text-align: center
+        }
+
+        .ydjk .content-body {
+            margin-top: 30px;
+        }
+
+        /* 管理人员考勤 */
+        .ydjk .item_glrykq {
+            /* color: #A8ABE2; */
+            padding: 0 10px 0 20px;
+            height: 343px;
+            display: none;
+            overflow-y: auto;
+        }
+
+        .item_glrykq table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .item_glrykq table tr td,
+        .item_glrykq table tr th {
+            padding: 7px 12px;
+            width: 21%;
+            border: 1px solid #414a7d;
+        }
+
+        .item_glrykq table tr th {
+            text-align: left;
+            font-size: 15px;
+            color: #FFFFFF
+        }
+
+        .item_glrykq>div {
+            margin-top: 12px
+        }
+
+        .item_glrykq .modal_active,
+        .modal_work {
+            font-size: 16px;
+            font-weight: 600
+        }
+
+        /* 工人违规 */
+        .ydjk .item_grwg {
+            display: none;
+            height: 480px;
+            /* color: #9193BF */
+        }
+
+        .ydjk .item_grwg p {
+            font-size: 16px;
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #A8ABE2
+        }
+
+        .ydjk .item_grwg .illegal {
+            padding: 0 20%;
+            margin: 10px 0 20px 0
+        }
+
+        .ydjk .item_grwg .illegal>li {
+            flex: 1;
+
+            text-align: center
+        }
+
+        .ydjk .item_grwg .illegal>li span {
+            padding: 4px 0;
+            cursor: pointer;
+        }
+
+        .ydjk .item_grwg .wrap-img {
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            padding: 0 10%;
+            height: 210px;
+        }
+
+        .ydjk .item_grwg .wrap-img>div {
+            width: 33.3%;
+            margin-bottom: 13px;
+            text-align: center
+        }
+
+        .ydjk .item_grwg .wrap-img img {
+            width: 90%;
+
+        }
+
+        .ydjk .item_grwg .wrap-btn {
+            margin-top: 4px;
+            margin-left: 178px;
+        }
+
+        .ydjk .item_grwg .wrap-btn button {
+            border: none;
+            cursor: pointer;
+            padding: 6px 20px;
+            border-radius: 23px;
+            color: #FFFFFF;
+            background: #2B4BFF;
+            background-image: linear-gradient(90deg, #16D0FF 7%, rgba(0, 255, 248, 0.14) 97%);
+            outline: none
+        }
+
+        /* 劳务统计 */
+
+
+        /* 劳务投入样式 */
+        .item_lwtr {
+            display: none;
+            padding: 0 10px 0 10px
+        }
+
+        .item_lwtr_header {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 10px;
+            font-size: 14px;
+            /* color: #A8ABE2 */
+        }
+
+        .item_lwtr_header .box {
+            width: 100%;
+        }
+
+        .item_lwtr_header .box>div {
+            flex: 1
+        }
+
+        .item_lwtr_header .right {
+            text-align: right;
+            position: relative;
+        }
+
+        .item_lwtr_header .right a {
+            color: #50E3C2;
+            padding-left: 8px;
+            cursor: pointer;
+        }
+
+        .item_lwtr_header .stage_list {
+            display: none;
+            position: absolute;
+            right: -30px;
+            top: 30px;
+            background: #1C2E8F;
+        }
+
+        .item_lwtr_header .stage_list li {
+            padding: 8px 20px;
+            cursor: pointer;
+        }
+
+        .item_lwtr_header .stage_list li:hover {
+            color: #50E3C2;
+        }
+
+        .item_lwtr .left span a {
+            color: #50E3C2
+        }
+
+        .item_lwtr table {
+            text-align: center;
+            margin-top: 10px;
+            width: 100%;
+            border-collapse: collapse;
+            /* color: #A8ABE2; */
+        }
+
+        .item_lwtr table tr th,
+        .item_lwtr table tr td {
+            padding: 7px 8px;
+            width: 25%;
+            border: 1px solid #414a7d;
+        }
+
+        .item_lwtr table tr td a {
+            cursor: pointer;
+        }
+
+        /* 移动监控列表 */
+        .ydjklb {
+            height: 250px;
+        }
+
+        .ydjklb .list {
+            height: 100%;
+            overflow: auto
+        }
+
+        .ydjklb .box {
+            justify-content: space-between;
+        }
+
+        .ydjklb .equipment {
+            cursor: pointer;
+        }
+
+        .ydjklb .equipment:hover {
+            background: #2B4BFF
+        }
+
+        .ydjklb .list li {
+            width: 25%;
+            text-align: center;
+            /* color: #A8ABE2; */
+            padding: 8px 0;
+        }
+
+        .ydjklb .list li:first-child {
+            width: 12%
+        }
+
+        .ydjklb .list .state {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 100%;
+        }
+
+        .state-online {
+            background: #50E3C2;
+        }
+
+
+        .state-outline {
+            background: #434380;
+        }
+
+        /* 环境监测 */
+        .hjjc {
+            height: 260px;
+        }
+
+        .hjjc .wrap-nav {
+            right: 14px;
+        }
+
+        .hjjc .wrap-nav li {
+            padding: 0 6px
+        }
+
+        .hjjc .info-list>div {
+            flex: 1;
+            text-align: center;
+            font-size: 12px;
+            color: #5D72B5;
+        }
+
+        .hjjc .info-list p {
+            color: #A8ABE2;
+            padding: 2px 0
+        }
+
+        .hjjc .chart {
+            margin-top: 10px
+        }
+
+        .hjjc .chart>div {
+            flex: 1
+        }
+
+        .hjjc .hjyjz {
+            margin-top: 10px;
+            padding: 0 10%;
+        }
+
+        .hjjc .hjyjz .box {
+            margin-top: 10px;
+        }
+
+        .hjjc .hjyjz .box>li {
+            /* flex: 1; */
+            margin-right: 5px;
+            text-align: center
+        }
+
+        .hjjc .hjyjz p,
+        .hjjc .hjyjz .box>li span:first-child {
+            /* color: #A8ABE2 */
+        }
+
+        /* 动火申请列表 */
+        .dhsqlb {
+            height: 158px;
+            padding: 60px 20px 15px 20px;
+        }
+
+        .dhsqlb .box {
+            justify-content: space-between
+        }
+
+        .dhsqlb .list li {
+            width: 15%;
+            text-align: center;
+            color: #A8ABE2;
+            padding: 6px 0;
+        }
+
+        .dhsqlb .list li:first-child {
+            width: 5%
+        }
+
+        .dhsqlb .list li:nth-child(2) {
+            width: 30%
+        }
+
+        /* 动火申请 */
+        .dhsq {
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dhsq .wrap-title li {
+            padding: 4px 20px 4px 0;
+            cursor: pointer;
+        }
+
+        .dhsq .wrap-title span {
+            padding-right: 0
+        }
+
+        .dhsq .wrap-swiper {
+            margin-top: 10px;
+            overflow: hidden;
+            height: 100%;
+
+        }
+
+        .item_ylpx {
+            margin-top: 10px;
+        }
+
+        .dhsq .wrap-swiper img,
+        #swiper11 img {
+            width: 88%;
+            height: 200px;
+            margin-left: 24px;
+        }
+
+        .dhsq .swiper-slide {
+            width: 100%;
+            /* max-height: 200px; */
+            /* overflow: hidden */
+        }
+
+        .dhsq .list {
+            height: 25%;
+            width: 100%;
+            /* padding-left: 15%; */
+            margin-top: 2px;
+            /* overflow-x: hidden;
+            overflow-y: scroll; */
+            /* color: #9193BF */
+        }
+
+        .dhsq .list>p {
+            font-size: 16px;
+            margin-bottom: 10px
+        }
+
+        .dhsq .list li {
+            /* flex: 1; */
+            /* padding: 4px 6px 4px 0px; */
+            height: 60px;
+        }
+
+        /* modal */
+        /*  */
+
+        .lwry_modal {
+            color: #A8ABE2
+        }
+
+        .lwry_modal .item01 {
+            padding-bottom: 20px;
+        }
+
+        .lwry_modal .item02 {
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .lwry_modal .table-header {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .lwry_modal table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        /* 劳务班组 */
+        .lwbz_modal {
+            padding: 60px 30px 0 30px;
+            color: #A8ABE2
+        }
+
+        .lwbz_modal .list-header {
+            border-bottom: 1px dotted #A8ABE2;
+        }
+
+        .lwbz_modal .list {
+            margin-top: 20px
+        }
+
+        .lwbz_modal .box li {
+            flex: 1;
+            text-align: center;
+            padding: 8px 0
+        }
+
+        .lwbz_modal .list-header li {
+            padding: 16px 0;
+            /* margin-left: 33px */
+        }
+
+        /* #frttt {
+            color: #00FFF9;
+           background-color: rebeccapurple
+
+
+
+        } */
+
+
+        /* 监控视频样式 */
+
+
+        .ydjk_active {
+            background: #2A4AFD;
+            color: #FFFFFF
+        }
+
+        /* 按钮样式 */
+        .control .wrap-list .right ul {
+            padding-top: 5px;
+        }
+
+        .control .wrap-list .right ul li {
+            float: left;
+            width: 25%;
+            text-align: right;
+
+        }
+
+        .control .wrap-list .right ul li a {
+            display: inline-block;
+            color: #A8ABE2;
+        }
+
+
+        /* 人员查考明细 */
+
+        .modal_active,
+        .modal_work {
+            color: #00FFF9
+        }
+
+
+        .boxlist {
+            cursor: pointer;
+        }
+
+        /* 工人违规 */
+
+
+        /* 动火申请 */
+        .dhsqlb .applyList {
+            cursor: pointer
+        }
+
+        .dhsqlb .list {
+            /* height: 100%; */
+            /* overflow: auto; */
+            /* overflow: hidden; */
+        }
+
+        .dhsqlb .list table {
+            width: 100%;
+            text-align: center;
+        }
+
+        .dhsqlb .list table tr td {
+            padding: 5px 0;
+            border: 0;
+            vertical-align: top;
+            /* color: #A8ABE2; */
+        }
+
+        .dhsq-modal .work-container .titles {
+            padding-bottom: 36px;
+            border-bottom: 1px solid rgba(168, 171, 226, 0.5);
+        }
+
+        .dhsq-modal .work-container .titles p,
+        .dhsq-modal .work-container .pic p {
+            font-size: 16px;
+            /* color: #A8ABE2; */
+            margin-top: 20px;
+        }
+
+        .dhsq-modal .work-container .pic {
+            display: flex;
+            justify-content: flex-start;
+            padding: 36px 0;
+            border-bottom: 1px solid #535C9C;
+        }
+
+        .dhsq-modal .work-container .pic .position {
+            margin-right: 220px;
+        }
+
+
+        /* 环境监测 */
+        .info-list div span {
+            color: #FFF;
+        }
+
+        /* 分页器位置 */
+        .swiper-container-horizontal>.swiper-pagination-bullets,
+        .swiper-pagination-custom,
+        .swiper-pagination-fraction {
+            bottom: 106px;
+            left: 0;
+            width: 100%
+        }
+
+        .swiper-pagination-bullet-active {
+            background-color: #004fff;
+        }
+
+        .timeAll {
+            color: #00FFF9;
+        }
+
+        .security_modal {
+            display: none
+        }
+
+
+
+        .sfsdgs {
+            width: 100%;
+            height: 250px;
+            /* margin-top: 20px; */
+
+        }
+
+
+
+        .sdfrt-tuo {
+            width: 100%;
+            height: 80%;
+            background-color: #00FFF9
+        }
+
+        .sdfrt-bootems {
+            width: 80%;
+            height: 10%;
+            /* padding: 0 55px */
+            display: flex;
+            justify-content: space-between;
+            margin-left: 10%
+        }
+
+        .tub {
+            display: flex;
+            align-items: center;
+
+        }
+
+        .tub span {
+            /* color: #A8ABE2; */
+            font-size: 12px
+        }
+
+        .sdfrt-bootems-one {
+            width: 5px;
+            height: 5px;
+
+            border-radius: 5px;
+            margin-right: 6px;
+        }
+
+        .hide {
+            display: none
+        }
+
+        /* .square2::after {
+            top: 40%;
+        } */
+
+        /* .square3::after {
+            top: 40%;
+        } */
+
+        #tghu {
+            /* position: absolute;
+            bottom: -42%;
+            z-index: 5;
+            width: 80%;
+            padding-left: 10%; */
+        }
+
+        .listContent {
+            height: 100%;
+        }
+
+        .listContent li {
+            height: 20%;
+            text-align: left;
+            /* margin-left: 20%; */
+        }
+
+
+        .dhsqlb .table thead tr,
+        .dhsqlb table tr {
+            display: table;
+            table-layout: fixed;
+            width: 100%;
+            /* color: #A8ABE2; */
+        }
+
+        .dhsqlb table tbody {
+            display: block;
+            height: 132px;
+            overflow-y: auto;
+        }
+
+        .applyWidth {
+            width: 28px;
+        }
+
+        #gfkn,
+        #gfkn1 {
+            display: flex;
+        }
+
+        #gfkn>div,
+        #gfkn1>div {
+            width: 70%;
+        }
+
+        .gfknn {
+            display: flex;
+        }
+
+        .gfknn>div {
+            /* flex: 1; */
+        }
+
+        .sbjc .warm {
+            position: absolute;
+            top: -4px;
+            right: 170px;
+            display: inline-block;
+            width: 6px;
+            height: 15px;
+            border-radius: 100%;
+            background: red;
+            line-height: 14px;
+            /* text-align: center; */
+            /* font-size: 13px; */
+        }
+
+        #swiper30 .swiper-button-prev {
+            left: 42px;
+        }
+
+        #swiper30 .swiper-button-next {
+            right: 20px;
+            top: 105px;
+        }
+
+        #swiper11 .swiper-button-prev,
+        #swiper12 .swiper-button-prev,
+        #swiper13 .swiper-button-prev,
+        #swiper14 .swiper-button-prev,
+        #swiper15 .swiper-button-prev,
+        #swiper16 .swiper-button-prev,
+        #swiper17 .swiper-button-prev,
+        #swiper18 .swiper-button-prev,
+        #swiper19 .swiper-button-prev,
+        #swiper20 .swiper-button-prev,
+        #swiper31 .swiper-button-prev,
+        #swiper32 .swiper-button-prev,
+        #swiper33 .swiper-button-prev,
+        #swiper34 .swiper-button-prev,
+        #swiper35 .swiper-button-prev,
+        #swiper36 .swiper-button-prev,
+        #swiper37 .swiper-button-prev,
+        #swiper38 .swiper-button-prev,
+        #swiper39 .swiper-button-prev {
+            left: 42px;
+        }
+
+        #swiper11 .swiper-button-next,
+        #swiper12 .swiper-button-next,
+        #swiper13 .swiper-button-next,
+        #swiper14 .swiper-button-next,
+        #swiper15 .swiper-button-next,
+        #swiper16 .swiper-button-next,
+        #swiper17 .swiper-button-next,
+        #swiper18 .swiper-button-next,
+        #swiper19 .swiper-button-next,
+        #swiper20 .swiper-button-next,
+        #swiper31 .swiper-button-next,
+        #swiper32 .swiper-button-next,
+        #swiper33 .swiper-button-next,
+        #swiper34 .swiper-button-next,
+        #swiper35 .swiper-button-next,
+        #swiper36 .swiper-button-next,
+        #swiper37 .swiper-button-next,
+        #swiper38 .swiper-button-next,
+        #swiper39 .swiper-button-next {
+            right: 18px;
+            top: 108px;
+        }
+
+        .swiper8prev {
+            left: 28px;
+            top: 171px;
+        }
+
+        .swiper9prev {
+            left: 8px;
+            top: 101px;
+        }
+
+        .swiper9next {
+            top: 99px;
+            right: 1px
+        }
+
+        .swiper8next {
+            right: 21px;
+            top: 169px
+        }
+
+        .swiper11next {
+            right: 18px;
+            top: 104px;
+        }
+
+        .item_ylpx {
+            display: none;
+        }
+
+        #gfkn2 img {
+            width: 88%;
+            height: 200px;
+            margin-left: 24px;
+        }
+
+        /* 预警设备 */
+        .ydjk .item_sbyj {
+            display: none;
+        }
+
+        .ydjk .item_sbyj .content {
+            margin-top: 50px;
+            text-align: center;
+            height: 240px;
+            overflow-y: auto;
+        }
+
+        .ydjk .item_sbyj .content li {
+            margin-top: 20px;
+        }
+
+        .illegalContent {
+            height: 210px;
+        }
+
+        .illegal_01 {
+            display: none;
+            text-align: center;
+        }
+
+        .illegal_00 span,
+        .illegal_01 span {
+            margin: 0 auto;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="page">
+        <div class="box">
+            <div style="width:30%" class="left">
+                <div class="sbjc">
+                    <img class="module_ys" src="/images/pic_ys.png" alt="">
+                    <img class="module_yx" src="/images/pic_yx.png" alt="">
+                    <img class="module_zs" src="/images/pic_zs.png" alt="">
+                    <img class="module_zx" src="/images/pic_zx.png" alt="">
+                    <div class="wrap-title">
+                        <span>设备监测</span>
+                        <img src="../../images/pic_title.png" alt="">
+                    </div>
+                    <div class="wrap-nav tab_nav">
+                        <div class="box">
+                            <!-- <li class="warm">3</li> -->
+                            <li><span class="nav_active">塔吊</span></li>
+                            <li><span>电梯</span></li>
+                            <li><span>卸料平台</span></li>
+                            <li><span>基坑监测</span></li>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper pic_view">
+                                <div class="swiper-slide">
+                                    <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery"
+                                        data-group="g7" data-src="/pages/security/img/pic01.png">
+                                        <img style="width:40%" src="/pages/security/img/pic01.png" alt="">
+                                    </a>
+
+                                    <div class="des">
+                                        <p>工作预警：</p>
+                                        <div style="height:40px"></div>
+                                        <p>区域预警：</p>
+                                        <div style="height:40px"></div>
+                                        <p>塔群预警：</p>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery"
+                                        data-group="g7" data-src="/pages/security/img/pic01.png">
+                                        <img style="width:40%" src="/pages/security/img/pic01.png" alt="">
+                                    </a>
+                                    <div class="des">
+                                        <p>工作预警：</p>
+                                        <div style="height:40px"></div>
+                                        <p>区域预警：</p>
+                                        <div style="height:40px"></div>
+                                        <p>塔群预警：</p>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery"
+                                        data-group="g7" data-src="/pages/security/img/pic01.png">
+                                        <img style="width:40%" src="/pages/security/img/pic01.png" alt="">
+                                    </a>
+                                    <div class="des">
+                                        <p>工作预警：</p>
+                                        <div style="height:40px"></div>
+                                        <p>区域预警：</p>
+                                        <div style="height:40px"></div>
+                                        <p>塔群预警：</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="swiper-button-prev swiper-button-white"></div>
+                            <!--左箭头-->
+                            <div class="swiper-button-next swiper-button-white"></div>
+                            <!--右箭头-->
+                        </div>
+
+                    </div>
+                    <div class="box info-list">
+                        <div>
+                            <img src="/images/icon_gd.png" alt="">
+                            <p>高度</p>
+                            <span>0m/s</span>
+                        </div>
+                        <div>
+                            <img src="/images/icon_jd.png" alt="">
+                            <p>角度</p>
+                            <span>0m/s</span>
+                        </div>
+                        <div>
+                            <img src="/images/icon_fd.png" alt="">
+                            <p>幅度</p>
+                            <span>0m/s</span>
+                        </div>
+                        <div>
+                            <img src="/images/icon_lj.png" alt="">
+                            <p>力矩</p>
+                            <span>0m/s</span>
+                        </div>
+                        <div>
+                            <img src="/images/icon_zz.png" alt="">
+                            <p>载重</p>
+                            <span>0m/s</span>
+                        </div>
+                        <div>
+                            <img src="/images/icon_fs.png" alt="">
+                            <p>风速</p>
+                            <span>0m/s</span>
+                        </div>
+                        <div>
+                            <img src="/images/icon_bl.png" alt="">
+                            <p>倍速</p>
+                            <span>0m/s</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ysjg">
+                    <img class="module_ys" src="/images/pic_ys.png" alt="">
+                    <img class="module_yx" src="/images/pic_yx.png" alt="">
+                    <img class="module_zs" src="/images/pic_zs.png" alt="">
+                    <img class="module_zx" src="/images/pic_zx.png" alt="">
+                    <div class="wrap-title">
+                        <span>验收结果</span>
+                    </div>
+                    <div class="wrap-nav tab_nav">
+                        <div class="box">
+                            <li><span class="nav_active" name="aqxc">安全巡查</span></li>
+                            <li><span name="aqys">安全验收</span></li>
+                            <li><span name="aqyj">安全月检</span></li>
+                            <li><span name="aqzx">安全专项</span></li>
+                        </div>
+                    </div>
+                    <div class="wrap_content">
+                        <div class="aqxc item">
+                            <div class="box"
+                                style="margin-left:20px; margin-bottom:20px; height: 200px; flex-direction: column">
+                                <div style="flex:1 ; height: 50%;">
+                                    <div style="width:90%; height: 100%;" id="ysjg_chart01"></div>
+                                </div>
+                                <div style="flex:1;height: 50%; margin-top: 3px">
+                                    <div id="ysjg_chart02" style="width:90%; height: 100%;"></div>
+                                </div>
+                            </div>
+                            <div style="height:140px" id="ysjg_chart03"></div>
+                            <div class="sdfrt-bootems">
+                                <div class="tub">
+                                    <div class="sdfrt-bootems-one" style="background-color: #F2F2FF;">
+                                    </div>
+                                    <span>未验收</span>
+                                </div>
+
+                                <div class="tub">
+                                    <div class="sdfrt-bootems-one" style="background-color: #3B5B4B;">
+                                    </div>
+                                    <span>已关闭</span>
+                                </div>
+
+                                <div class="tub">
+                                    <div class="sdfrt-bootems-one" style="background-color: #FF0402;">
+                                    </div>
+                                    <span>已逾期</span>
+                                </div>
+
+                                <div class="tub">
+                                    <div class="sdfrt-bootems-one" style="background-color: #FEFF07;">
+                                    </div>
+                                    <span>待处理</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="aqys item hide">
+                            <div style="height:240px" id="ysjg_chart04"></div>
+                        </div>
+                        <div class="aqyj item hide"></div>
+                        <div class="aqzx item hide"></div>
+                    </div>
+                </div>
+            </div>
+            <div style="width:38%" class="center">
+                <div class="ydjk">
+                    <img class="module_ys" src="/images/pic_ys.png" alt="">
+                    <img class="module_yx" src="/images/pic_yx.png" alt="">
+                    <img class="module_zs" src="/images/pic_zs.png" alt="">
+                    <img class="module_zx" src="/images/pic_zx.png" alt="">
+                    <div class="wrap-title">
+                        <span>工地现场管理</span>
+                        <img src="../../images/pic_title.png" alt="">
+                    </div>
+                    <div class="list box liop">
+                        <div class='lwry'>
+                            <p>劳务人员</p>
+                            <span id="workersCount">0</span>
+                        </div>
+                        <div class="glrs">
+                            <p>管理人数</p><span id="managerCount">0</span>
+                        </div>
+                        <div>
+                            <p>临时人员</p><span id="tempCount">0</span>
+                        </div>
+                        <div class="lwdw">
+                            <p>劳务单位</p><span id="companyCount">0</span>
+                        </div>
+                        <div class="lwbz">
+                            <p>劳务班组</p><span id="teamCount">0</span>
+                        </div>
+                        <div>
+                            <p>进场车次</p><span id="carCount">0</span>
+                        </div>
+                    </div>
+                    <div class="content-nav box workManger">
+                        <li contentNode="item_lwtj"><span class="nav_active">劳务统计</span></li>
+                        <li contentNode="item_lwtr"><span>劳务投入</span></li>
+                        <li contentNode="item_glrykq"><span>管理人员考勤</span></li>
+                        <li contentNode="item_grwg"><span>工人违规</span></li>
+                        <li contentNode="item_sbyj"><span>设备预警</span></li>
+                    </div>
+                    <div class="content-body">
+                        <!-- 劳务统计 -->
+                        <div class="item_lwtj">
+                            <div id="item_lwtj_chart" style="height:340px"></div>
+                        </div>
+                        <!-- 劳务投入 -->
+                        <div class="item_lwtr" id="item_lwtr">
+                            <div class="content">
+                                <div class="item_lwtr_header">
+                                    <!-- <div class="box">
+                                        <div class="left">
+                                            <span>今日非法闯入人数:<a>12</a></span>
+                                        </div>
+                                        <div class="right">
+                                            <span>阶段</span><a id="stage">桩机</a>
+                                            <ul class="stage_list">
+                                                <li><span>桩机</span></li>
+                                                <li><span>地下室</span></li>
+                                                <li><span>主体</span></li>
+                                            </ul>
+                                        </div>
+                                    </div> -->
+                                </div>
+
+                                <!-- <table>
+                                    <tr>
+                                        <td>单位名称</td>
+                                        <td>工种名称</td>
+                                        <td>计划劳务投入</td>
+                                        <td>实际人数</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="5">深圳市青柠互动科技开发有限公司</td>
+                                        <td><a class="modal_active">电工</a></td>
+                                        <td style="width:30%">0</td>
+                                        <td style="width:20%">21</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a class="modal_active">电焊工</a></td>
+                                        <td>0</td>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a class="modal_active">水泥工</a></td>
+                                        <td>0</td>
+                                        <td>8</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a class="modal_active">电工</a></td>
+                                        <td>0</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a class="modal_active">水泥工</a></td>
+                                        <td>0</td>
+                                        <td>10</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td rowspan="2">深圳市青柠互动科技开发有限公司</td>
+                                        <td><a class="modal_active">水泥工</a></td>
+                                        <td>0</td>
+                                        <td>21</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a class="modal_active">电焊工</a></td>
+                                        <td>0</td>
+                                        <td>12</td>
+                                    </tr>
+                                </table> -->
+                            </div>
+                        </div>
+                        <!-- 管理人员考勤 -->
+                        <div class="item_glrykq" id="item_glrykq">
+                            <div>
+                                <table>
+                                    <tr>
+                                        <th colspan="5">建设单位</th>
+                                    </tr>
+                                    <tr>
+                                        <td><span>在职：</span><a class="modal_active" href="#">9</a></td>
+                                        <td><span>在岗：</span><a class="modal_active" href="#">7</a></td>
+                                        <td><span>缺勤：</span><a class="modal_active" href="#">2</a></td>
+                                        <td><span>请假：</span><a class="modal_active" href="#">2</a></td>
+
+                                    </tr>
+                                </table>
+                            </div>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <th colspan="5">监理单位</th>
+                                    </tr>
+                                    <tr>
+                                        <td><span>在职：</span><a class="modal_active" href="#">9</a></td>
+                                        <td><span>在岗：</span><a class="modal_active" href="#">7</a></td>
+                                        <td><span>缺勤：</span><a class="modal_active" href="#">2</a></td>
+                                        <td><span>请假：</span><a class="modal_active" href="#">2</a></td>
+
+                                    </tr>
+                                </table>
+                            </div>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <th colspan="5">总承包单位</th>
+                                    </tr>
+                                    <tr>
+                                        <td><span>在职：</span><a class="modal_active" href="#">9</a></td>
+                                        <td><span>在岗：</span><a class="modal_active" href="#">7</a></td>
+                                        <td><span>缺勤：</span><a class="modal_active" href="#">2</a></td>
+                                        <td><span>请假：</span><a class="modal_active" href="#">2</a></td>
+
+                                    </tr>
+                                </table>
+                            </div>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <th colspan="5">专业分包单位</th>
+                                    </tr>
+                                    <tr>
+                                        <td><span>在职：</span><a class="modal_active" href="#">9</a></td>
+                                        <td><span>在岗：</span><a class="modal_active" href="#">7</a></td>
+                                        <td><span>缺勤：</span><a class="modal_active" href="#">2</a></td>
+                                        <td><span>请假：</span><a class="modal_active" href="#">2</a></td>
+
+                                    </tr>
+                                </table>
+                            </div>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <th colspan="5">值班表</th>
+                                    </tr>
+                                    <tr>
+                                        <td><span>单位：</span><a class="modal_work" href="#">9</a></td>
+                                        <td><span>应到：</span><a class="modal_work" href="#">7</a></td>
+                                        <td><span>实到：</span><a class="modal_work" href="#">2</a></td>
+                                        <td><span>未到：</span><a class="modal_work" href="#">2</a></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- 工人违规 -->
+                        <div class="item_grwg">
+                            <div>
+                                <p>今日违规人次：<span class="grwgNum">22</span></p>
+                            </div>
+                            <div class="box illegal">
+                                <li contentNode="illegal_00"><span class="nav_active">四海时代（10）</span></li>
+                                <li contentNode="illegal_01"><span>四海云创（8）</span></li>
+                            </div>
+                            <div class="illegalContent">
+                                <div class="illegal_00">
+                                    <div class="wrap-img pic_view">
+                                        <div>
+                                            <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery"
+                                                data-group="g8" data-src="/pages/security/img/pic_aqm.png">
+                                                <img style="width:90%" src="/pages/security/img/pic_aqm.png" alt="">
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery"
+                                                data-group="g8" data-src="/pages/security/img/pic_aqm.png">
+                                                <img style="width:90%" src="/pages/security/img/pic_aqm.png" alt="">
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery"
+                                                data-group="g8" data-src="/pages/security/img/pic_aqm.png">
+                                                <img style="width:90%" src="/pages/security/img/pic_aqm.png" alt="">
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery"
+                                                data-group="g8" data-src="/pages/security/img/pic_aqm.png">
+                                                <img style="width:90%" src="/pages/security/img/pic_aqm.png" alt="">
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery"
+                                                data-group="g8" data-src="/pages/security/img/pic_aqm.png">
+                                                <img style="width:90%" src="/pages/security/img/pic_aqm.png" alt="">
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery"
+                                                data-group="g8" data-src="/pages/security/img/pic_aqm.png">
+                                                <img style="width:90%" src="/pages/security/img/pic_aqm.png" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="wrap-btn">
+                                        <button onclick="Security.showModal('ckgd-modal','违规列表')">查看更多</button>
+                                    </div> -->
+                                </div>
+
+                                <div class="illegal_01">
+                                    <div class="wrap-img pic_view">
+                                        <div>
+                                            <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery"
+                                                data-group="g8" data-src="/pages/security/img/pic_aqm.png">
+                                                <img style="width:90%" src="/pages/security/img/pic_aqm.png" alt="">
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery"
+                                                data-group="g8" data-src="/pages/security/img/pic_aqm.png">
+                                                <img style="width:90%" src="/pages/security/img/pic_aqm.png" alt="">
+                                            </a>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- <div class="wrap-btn">
+                                        <button onclick="Security.showModal('ckgd-modal','违规列表')">查看更多</button>
+                                    </div> -->
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- 设备预警 -->
+                        <div class="item_sbyj">
+                            <div class="content">
+                                <li>暂无数据</li>
+                                <!-- <li>沙井项目四海时代工程1号塔吊 各机构传感器 ( 称重传感器故障 2019/05/27 05:34 发生报警</li>
+                                <li>沙井项目四海时代工程1号塔吊 各机构传感器 ( 称重传感器故障 2019/05/27 05:34 发生报警</li>
+                                <li>沙井项目四海时代工程1号塔吊 各机构传感器 ( 称重传感器故障 2019/05/27 05:34 发生报警</li>
+                                <li>沙井项目四海时代工程1号塔吊 各机构传感器 ( 称重传感器故障 2019/05/27 05:34 发生报警</li>
+                                <li>沙井项目四海时代工程1号塔吊 各机构传感器 ( 称重传感器故障 2019/05/27 05:34 发生报警</li>
+                                <li>沙井项目四海时代工程1号塔吊 各机构传感器 ( 称重传感器故障 2019/05/27 05:34 发生报警</li>
+                                <li>沙井项目四海时代工程1号塔吊 各机构传感器 ( 称重传感器故障 2019/05/27 05:34 发生报警</li>
+                                <li>沙井项目四海时代工程1号塔吊 各机构传感器 ( 称重传感器故障 2019/05/27 05:34 发生报警</li>
+                                <li>沙井项目四海时代工程1号塔吊 各机构传感器 ( 称重传感器故障 2019/05/27 05:34 发生报警</li> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ydjklb">
+                    <img class="module_ys" src="/images/pic_ys.png" alt="">
+                    <img class="module_yx" src="/images/pic_yx.png" alt="">
+                    <img class="module_zs" src="/images/pic_zs.png" alt="">
+                    <img class="module_zx" src="/images/pic_zx.png" alt="">
+                    <div class="wrap-title">
+                        <span>移动监控列表</span>
+                    </div>
+                    <div class="list">
+                        <div class="box">
+                            <li><span>在线状态</span></li>
+                            <li><span>用户名</span></li>
+                            <li><span>手机号</span></li>
+                            <li><span>最后一次上线时间</span></li>
+                        </div>
+                        <div id="ydjklb_list"></div>
+                    </div>
+                </div>
+            </div>
+            <div style="width:30%" class="right">
+                <div class="hjjc">
+                    <img class="module_ys" src="/images/pic_ys.png" alt="">
+                    <img class="module_yx" src="/images/pic_yx.png" alt="">
+                    <img class="module_zs" src="/images/pic_zs.png" alt="">
+                    <img class="module_zx" src="/images/pic_zx.png" alt="">
+                    <div class="wrap-title">
+                        <span>环境监测</span>
+                        <img src="/images/pic_title.png" alt="">
+                    </div>
+                    <div class="wrap-nav tab_nav">
+                        <div class="box" id="hjjc_engineering_list"></div>
+                    </div>
+                    <div class="box info-list">
+                        <div>
+                            <img src="/images/icon_fs.png" alt="">
+                            <p>风速</p>
+                            <span id='icon_fs'>0m/s</span>
+                        </div>
+                        <div>
+                            <img src="/images/icon_fx.png" alt="">
+                            <p>风向</p>
+                            <span id="icon_fx">180°</span>
+                        </div>
+                        <div>
+                            <img src="/images/icon_dqy.png" alt="">
+                            <p>大气压</p>
+                            <span id="icon_dqy">0KPa</span>
+                        </div>
+                        <div>
+                            <img src="/images/icon_wd.png" alt="">
+                            <p>温度</p>
+                            <span id="icon_wd">0℃</span>
+                        </div>
+                        <div>
+                            <img src="/images/icon_sd.png" alt="">
+                            <p>湿度</p>
+                            <span id="icon_sd">0%</span>
+                        </div>
+                        <div>
+                            <img src="/images/icon_zy.png" alt="">
+                            <p>噪声</p>
+                            <span id="icon_zs">0dB</span>
+                        </div>
+                    </div>
+                    <div class="chart box">
+                        <div>
+                            <div style="height:120px" id="chart01"></div>
+                        </div>
+                        <div>
+                            <div style="height:120px" id="chart02"></div>
+                        </div>
+                    </div>
+                    <div class="hjyjz">
+                        <p style="text-align:center">
+                            <span style="color:#E45D12;font-size: 18px">环境预警值</span>
+                        </p>
+                        <div class="box">
+                            <li><span>扬尘：</span><span style="color:#E45D12;margin-right: 5px">75ug/m3</span>|</li>
+                            <li><span>噪声：</span><span style="color:#E45D12;margin-right: 5px">70dB</span>|</li>
+                            <li><span>风速: </span><span style="color:#E45D12;margin-right: 5px">10.8m/s</span>|</li>
+                            <li><span>温度: </span><span style="color:#E45D12;margin-right: 5px">35℃</span></li>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="dhsqlb">
+                    <img class="module_ys" src="/images/pic_ys.png" alt="">
+                    <img class="module_yx" src="/images/pic_yx.png" alt="">
+                    <img class="module_zs" src="/images/pic_zs.png" alt="">
+                    <img class="module_zx" src="/images/pic_zx.png" alt="">
+                    <div class="wrap-title">
+                        <span>动火申请列表</span>
+                    </div>
+                    <div class="list">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 28px">序</th>
+                                    <!-- <th>动火部位</th> -->
+                                    <th>总包</th>
+                                    <th>安全员</th>
+                                    <th>监理</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr class="applyList">
+                                            <td class="applyWidth">1.</td>
+                                            <td>云创大厦</td>
+                                            <td>2019.04.22</td>
+                                            <td class="square2">2019.04.22</td>
+                                            <td class="square2">2019.04.22</td>
+                                            <td class="square2">2019.04.22</td>
+                                    </tr>
+                                    <tr class="applyList">
+                                            <td class="applyWidth">2.</td>
+                                            <td>云创大厦</td>
+                                            <td>2019.04.22</td>
+                                            <td class="square2">2019.04.22</td>
+                                            <td class="square2">2019.04.22</td>
+                                            <td class="square2">2019.04.22</td>
+                                    </tr>
+                                    <tr class="applyList">
+                                            <td class="applyWidth">3.</td>
+                                            <td>云创大厦</td>
+                                            <td>2019.04.22</td>
+                                            <td class="square2">2019.04.22</td>
+                                            <td class="square2">2019.04.22</td>
+                                            <td class="square2">2019.04.22</td>
+                                    </tr>
+                                    <tr class="applyList">
+                                            <td class="applyWidth">4.</td>
+                                            <td>云创大厦</td>
+                                            <td>2019.04.22</td>
+                                            <td class="square2">2019.04.22</td>
+                                            <td class="square2">2019.04.22</td>
+                                            <td class="square2">2019.04.22</td>
+                                    </tr>
+                                    <tr class="applyList">
+                                            <td class="applyWidth">5.</td>
+                                            <td>云创大厦</td>
+                                            <td>2019.04.22</td>
+                                            <td class="square2">2019.04.22</td>
+                                            <td class="square2">2019.04.22</td>
+                                            <td class="square2">2019.04.22</td>
+                                    </tr>
+                                    <tr class="applyList">
+                                            <td class="applyWidth">6.</td>
+                                            <td>云创大厦</td>
+                                            <td>2019.04.22</td>
+                                            <td class="square2">2019.04.22</td>
+                                            <td class="square2">2019.04.22</td>
+                                            <td class="square2">2019.04.22</td>
+                                    </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="dhsq">
+                    <img class="module_ys" src="/images/pic_ys.png" alt="">
+                    <img class="module_yx" src="/images/pic_yx.png" alt="">
+                    <img class="module_zs" src="/images/pic_zs.png" alt="">
+                    <img class="module_zx" src="/images/pic_zx.png" alt="">
+                    <div class="wrap-title">
+                        <div class="box dhsqList">
+                            <li contentNode='item_bqjy'><span class="nav_active">班前教育</span></li>
+                            <li contentNode='item_ylpx'><span>演练培训</span></li>
+                        </div>
+                    </div>
+                    <div class="content-body">
+                        <!-- 班前教育 -->
+                        <div class="item_bqjy">
+                            <div class="wrap-swiper">
+                                <div class="swiper-container1" style="height: 100%;" id="swiper8">
+                                    <div class="swiper-wrapper pic_view" id="gfkn">
+                                        <!-- <div class="swiper-slide gfknn swiper-no-swiping" style="text-align:center;">
+                                            <div style="width: 70%;height: 100%;">
+                                                <div class="swiper-container " id="swiper10">
+                                                    <div class="swiper-wrapper pic_view">
+                                                      <div class="swiper-slide swiper-no-swiping">
+                                                        <img src="/pages/security/img/pic_honghuo01.png" alt="">
+                                                      </div>
+                                                      <div class="swiper-slide swiper-no-swiping">
+                                                        <img src="/pages/security/img/pic_honghuo02.png" alt="">
+                                                      </div>
+                                                    </div>
+                                                    <div class="swiper-button-prev swiper-button-white swiper10prev"></div>
+                                                   
+                                                    <div class="swiper-button-next swiper-button-white swiper10next"></div>
+                                                  </div>
+                                            </div>
+                                            <div class="list" id="tghu" style="width: 30%;height: 100%;">
+                                                <div class="listContent">
+                                                    <li><span>消防演习</span></li>
+                                                    <li><span>2018.12.14</span></li>
+                                                    <li><span>深圳市西部城建工程</span></li>
+                                                    <li><span>阎继承</span></li>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide gfknn swiper-no-swiping" style="text-align:center;">
+                                            <div style="width: 70%;height: 100%;">
+                                                <div class="swiper-container " id="swiper11">
+                                                    <div class="swiper-wrapper pic_view">
+                                                      <div class="swiper-slide swiper-no-swiping">
+                                                        <img src="/pages/security/img/pic01.png" alt="">
+                                                      </div>
+                                                      <div class="swiper-slide swiper-no-swiping">
+                                                        <img src="/pages/security/img/pic02.png" alt="">
+                                                      </div>
+                                                    </div>
+                                                    <div class="swiper-button-prev swiper-button-white swiper11prev"></div>
+                                             
+                                                    <div class="swiper-button-next swiper-button-white swiper11next"></div>
+                                                </div>
+                                            </div>
+                                            <div class="list" id="tghu" style="width: 30%;height: 100%;">
+                                                <div class="listContent">
+                                                    <li><span>消防演习</span></li>
+                                                    <li><span>2018.12.14</span></li>
+                                                    <li><span>深圳市西部城建工程</span></li>
+                                                    <li><span>阎继承</span></li>
+
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                    <div class="swiper8prev swiper-button-prev swiper-button-white"></div>
+
+                                    <div class="swiper8next swiper-button-next swiper-button-white"></div>
+
+                                    <div class="swiper-pagination"></div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- 演练培训 -->
+                        <div class="item_ylpx">
+                            <div class="swiper-container swiper-no-swiping" id="swiper9">
+                                <div class="swiper-wrapper pic_view" id="gfkn2">
+                                    <!-- <div class="swiper-slide gfknn swiper-no-swiping" style="text-align:center;">
+                                        <div style="width: 70%;height: 100%;">
+                                            <div class="swiper-container " id="swiper10">
+                                                <div class="swiper-wrapper pic_view">
+                                                  <div class="swiper-slide swiper-no-swiping">
+                                                    <img src="/pages/security/img/pic_honghuo01.png" alt="">
+                                                  </div>
+                                                  <div class="swiper-slide swiper-no-swiping">
+                                                    <img src="/pages/security/img/pic_honghuo02.png" alt="">
+                                                  </div>
+                                                </div>
+                                                <div class="swiper-button-prev swiper-button-white swiper10prev"></div>
+                                               
+                                                <div class="swiper-button-next swiper-button-white swiper10next"></div>
+                                              </div>
+                                        </div>
+                                        <div class="list" id="tghu" style="width: 30%;height: 100%;">
+                                            <div class="listContent">
+                                                <li><span>消防演习</span></li>
+                                                <li><span>2018.12.14</span></li>
+                                                <li><span>深圳市西部城建工程</span></li>
+                                                <li><span>阎继承</span></li>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide gfknn swiper-no-swiping" style="text-align:center;">
+                                        <div style="width: 70%;height: 100%;">
+                                            <div class="swiper-container " id="swiper11">
+                                                <div class="swiper-wrapper pic_view">
+                                                  <div class="swiper-slide swiper-no-swiping">
+                                                    <img src="/pages/security/img/pic01.png" alt="">
+                                                  </div>
+                                                  <div class="swiper-slide swiper-no-swiping">
+                                                    <img src="/pages/security/img/pic02.png" alt="">
+                                                  </div>
+                                                </div>
+                                                <div class="swiper-button-prev swiper-button-white swiper11prev"></div>
+                                         
+                                                <div class="swiper-button-next swiper-button-white swiper11next"></div>
+                                            </div>
+                                        </div>
+                                        <div class="list" id="tghu" style="width: 30%;height: 100%;">
+                                            <div class="listContent">
+                                                <li><span>消防演习</span></li>
+                                                <li><span>2018.12.14</span></li>
+                                                <li><span>深圳市西部城建工程</span></li>
+                                                <li><span>阎继承</span></li>
+
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <div class="swiper-button-prev swiper-button-white swiper9prev"></div>
+
+                                <div class="swiper-button-next swiper-button-white swiper9next"></div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+    </div>
+    </div>
+    </div>
+
+
+    <!-- 劳务人员 -->
+    <div class="lwry_modal security_modal" id="lwry_modal">
+        <div class="work-container">
+            <div class="modal_nav" id="frttt">
+                <!-- <span name="item_01" class="active">四海时代大厦</span>
+                <span name="item_02">四海云创大厦</span> -->
+            </div>
+
+            <div class="modal_body lwry_modal sgdft">
+                <!-- <div class="item_01">
+                    <div>
+                        <p class="title">
+                            <span>劳务分包单位</span>
+                            <span style="float:right">在岗人员（36）</span>
+                        </p>
+                        <table>
+                            <tr>
+                                <td>所属单位</td>
+                                <td>班组名称</td>
+                                <td>工种</td>
+                                <td>人数</td>
+                                <td>姓名</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1">深圳市泰辉建筑劳务有限公司</td>
+                                <td>基坑支护班组</td>
+                                <td>电焊工</td>
+                                <td>1</td>
+                                <td>叶子豪</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3">深圳市俊业建筑劳务有限公司</td>
+                                <td rowspan="1">混泥土班组</td>
+                                <td>普工</td>
+                                <td>1</td>
+                                <td>张无忌</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1">木工班组</td>
+                                <td rowspan="1">泥水工</td>
+                                <td owspan="1">28</td>
+                                <td>郑邦道 邹小燕 <br>梁排芳 熊天波<br>张秋丽 叶大姑<br>叶秋丽 张秋豪<br>黎天秋
+                                    邹小燕<br>梁志峰 王天豪<br>赵天波 黎天秋<br>叶子豪 张小燕<br>邹小燕 黎天秋<br>黎天秋
+                                    段志峰<br>赵武松 赵子豪<br>黎天秋 邹小燕<br>黎天秋 李天下<br>赵武松 武子秋<br></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1">钢筋工班组</td>
+                                <td rowspan="1">钢筋工</td>
+                                <td owspan="1">2</td>
+                                <td>张秋丽 梁排芳</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <p class="title">
+                            <span>劳务分包单位</span>
+                        </p>
+                        <table>
+                            <tr>
+                                <td>所属单位</td>
+                                <td>管理人员类型</td>
+                                <td>姓名</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">深圳市青柠互动科技开发有限公司</td>
+                                <td rowspan="1">技术负责人</td>
+                                <td>梁排芳</td>
+                            </tr>
+                            <tr>
+                                <td>材料员</td>
+                                <td>张无忌 黎天秋</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="item_02">
+                    <div>
+                        <p class="title">
+                            <span>劳务分包单位</span>
+                            <span style="float:right">在岗人员（36）</span>
+                        </p>
+                        <table>
+                            <tr>
+                                <td>所属单位</td>
+                                <td>班组名称</td>
+                                <td>工种</td>
+                                <td>人数</td>
+                                <td>姓名</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1">深圳市恒泰基建筑工程有限公司</td>
+                                <td>水电班组</td>
+                                <td>电焊工</td>
+                                <td>1</td>
+                                <td>郑邦道</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="10">深圳市俊业建筑劳务有限公司</td>
+                                <td rowspan="1">混凝土班组</td>
+                                <td>混凝土工</td>
+                                <td>1</td>
+                                <td>梁排芳</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1">木工班组</td>
+                                <td rowspan="1">木工</td>
+                                <td rowspan="1">2</td>
+                                <td rowspan="1">邹小燕 段志峰</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1">混凝土班组</td>
+                                <td rowspan="1">钢筋工</td>
+                                <td rowspan="1">5</td>
+                                <td rowspan="1">赵武松 熊天波<br>张秋丽 王大姑<br>张秋丽</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <p class="title">
+                            <span>专业分包单位</span>
+                        </p>
+                        <table>
+                            <tr>
+                                <td>所属单位</td>
+                                <td>班组名称</td>
+                                <td>工种</td>
+                                <td>人数</td>
+                                <td>姓名</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="4">深圳市恒泰基建筑工程有限公司</td>
+                                <td rowspan="2">水电班组</td>
+                                <td>电焊工</td>
+                                <td>2</td>
+                                <td>邹小燕 段志峰</td>
+                            </tr>
+                            <tr>
+                                <td>混凝土工</td>
+                                <td>4</td>
+                                <td>赵武松 熊天波<br>张秋丽 王大姑</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1">木工班组</td>
+                                <td>木工</td>
+                                <td>2</td>
+                                <td>赵武松 熊天波</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <table>
+                            <tr>
+                                <td>所属单位</td>
+                                <td>管理人员类型</td>
+                                <td>姓名</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1">深圳市青柠互动科技开发有限公司</td>
+                                <td rowspan="1">普工班组</td>
+                                <td>叶子豪</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 管理人数 -->
+    <div class="glrs_modal security_modal" id="glrs_modal">
+        <div class="security">
+            <div class="work-container">
+                <div class="modal_nav">
+                    <span name="item_01" class="active">实时在场人员</span>
+                    <span name="item_02" style="margin-left:33px">在岗时长统计</span>
+                </div>
+                <div class="modal_body">
+                    <div class="item_01 sloty">
+                        <!-- <div class="wrap">
+                            <div class="table_header">
+                                <div class="title"> <span>四海时代大厦</span> <span>在岗人员（3）</span></div>
+                            </div>
+                            <p>监理单位</p> <span>暂无在场人员</span>
+                            <p>建设单位</p> <span>暂无在场人员</span>
+                            <p>监理单位</p> <span>暂无在场人员</span>
+                            <table id="6df32a4b01924f86ac7804a8c0ffd9e2">
+                                <tbody>
+                                    <tr>
+                                        <td>所属单位</td>
+                                        <td>管理人员类型</td>
+                                        <td>姓名</td>
+                                    </tr>
+                                    <tr id="da66c0c95dad4aeebfe7607dec17b616">
+                                        <td rowspan="4">广州监理公司</td>
+                                        <td rowspan="1" id="e81ad34f99c84967b6495a59de6fd2cc"> 销售人员</td>
+                                        <td>梁智锋</td>
+                                    </tr>
+                                    <tr id="28ef7826c17d42b78809f56f08891a6a">
+                                        <td rowspan="1">安全主任</td>
+                                        <td>梁智锋</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div>
+                                <div class="table_title">总承包单位</div>
+                                <table>
+                                    <tr>
+                                        <td>所属单位</td>
+                                        <td>管理人员类型</td>
+                                        <td>姓名</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="8">深圳市西部城建工程有限公司</td>
+                                        <td>质量员</td>
+                                        <td>何俊明</td>
+                                    </tr>
+                                    <tr>
+                                        <td>安全员</td>
+                                        <td>张启峰</td>
+                                    </tr>
+                                    <tr>
+                                        <td>资料员</td>
+                                        <td>林传龙</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div>
+                                <p>专业分包单位</p>
+                                <span>暂无在场人员</span>
+                                <p>其他</p>
+                                <span>暂无在场人员</span>
+                            </div>
+                        </div> -->
+
+                        <!-- <div class="wrap">
+                            <div class="table_header">
+                                <div class="title">
+                                    <span>四海时代大厦</span>
+                                    <span>在岗人员（1）</span>
+                                </div>
+                                <p>建设单位</p>
+                                <span>暂无在场人员</span>
+                                <p>监理单位</p>
+                                <span>暂无在场人员</span>
+                            </div>
+                            <div>
+                                <div class="table_title">总承包单位</div>
+                                <table>
+                                    <tr>
+                                        <td>所属单位</td>
+                                        <td>管理人员类型</td>
+                                        <td>姓名</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="8">深圳市西部城建工程有限公司</td>
+                                        <td>质量员</td>
+                                        <td>何俊明</td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                            <div>
+                                <p>专业分包单位</p>
+                                <span>暂无在场人员</span>
+                                <p>其他</p>
+                                <span>暂无在场人员</span>
+                            </div>
+                        </div> -->
+
+                    </div>
+
+                    <div class="item_02 sloty-2">
+                        <!-- <table>
+                            <tr>
+                                <td>所属单位</td>
+                                <td>管理人员类型</td>
+                                <td>姓名</td>
+                                <td>在岗时长</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="5">深圳市西部城建工程有限公司</td>
+                                <td>质量员</td>
+                                <td>何俊明</td>
+                                <td><a href="#">1小时23分钟</a></td>
+                            </tr>
+                            <tr>
+                                <td>安全员</td>
+                                <td>张启峰</td>
+                                <td><a href="#">1小时23分钟</a></td>
+                            </tr>
+                            <tr>
+                                <td>资料员</td>
+                                <td>林传龙</td>
+                                <td><a href="#">1小时23分钟</a></td>
+                            </tr>
+                            <tr>
+                                <td>质量员</td>
+                                <td>何俊明</td>
+                                <td><a href="#">1小时23分钟</a></td>
+                            </tr>
+                            <tr>
+                                <td>安全员</td>
+                                <td>张启峰</td>
+                                <td><a href="#">1小时23分钟</a></td>
+                            </tr>
+                        </table> -->
+                        <!-- <table>
+                            <tr>
+                                <td>所属单位</td>
+                                <td>管理人员类型</td>
+                                <td>姓名</td>
+                                <td>在岗时长</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="5">深圳市西部城建工程有限公司</td>
+                                <td>资料员</td>
+                                <td>林传龙</td>
+                                <td><a href="#">1小时23分钟</a></td>
+                            </tr>
+                            <tr>
+                                <td>质量员</td>
+                                <td>何俊明</td>
+                                <td><a href="#">1小时23分钟</a></td>
+                            </tr>
+                            <tr>
+                                <td>安全员</td>
+                                <td>张启峰</td>
+                                <td><a href="#">1小时23分钟</a></td>
+                            </tr>
+                            <tr>
+                                <td>资料员</td>
+                                <td>林传龙</td>
+                                <td><a href="#">1小时23分钟</a></td>
+                            </tr>
+                            <tr>
+                                <td>质量员</td>
+                                <td>林传龙</td>
+                                <td><a href="#">1小时23分钟</a></td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <td>所属单位</td>
+                                <td>管理人员类型</td>
+                                <td>姓名</td>
+                                <td>在岗时长</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="5">深圳市西部城建工程有限公司</td>
+                                <td>安全员</td>
+                                <td>张启峰</td>
+                                <td><a href="#">1小时23分钟</a></td>
+                            </tr>
+                            <tr>
+                                <td>资料员</td>
+                                <td>林传龙</td>
+                                <td><a href="#">1小时23分钟</a></td>
+                            </tr>
+                            <tr>
+                                <td>质量员</td>
+                                <td>林传龙</td>
+                                <td><a href="#">1小时23分钟</a></td>
+                            </tr>
+                            <tr>
+                                <td>安全员</td>
+                                <td>张启峰</td>
+                                <td><a href="#">1小时23分钟</a></td>
+                            </tr>
+                            <tr>
+                                <td>资料员</td>
+                                <td>林传龙</td>
+                                <td><a href="#">1小时23分钟</a></td>
+                            </tr>
+                        </table> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 劳务单位 -->
+    <div class="lwdw_modal security_modal eynyo" id="lwdw_modal">
+        <div>
+            <table>
+                <tr>
+                    <td>所属单位</td>
+                    <td>人数</td>
+                </tr>
+                <!-- <tr>
+                    <td>深圳市骏安人防工程防护设备有限公司</td>
+                    <td>11</td>
+                </tr>
+                <tr>
+                    <td>深圳地址建设工程公司</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>深圳市俊业建筑劳务有限公司</td>
+                    <td>21</td>
+                </tr>
+                <tr>
+                    <td>深圳市鹏胜土石方工程有限公司</td>
+                    <td>12</td>
+                </tr>
+                <tr>
+                    <td>深圳市兆鹏机电设备有限公司</td>
+                    <td>22</td>
+                </tr>
+                <tr>
+                    <td>广东东方雨虹防水工程有限公司</td>
+                    <td>33</td>
+                </tr>
+                <tr>
+                    <td>深圳西部城建工程有限公司</td>
+                    <td>44</td>
+                </tr>
+                <tr>
+                    <td>深圳市青柠互动科技开发有限公司</td>
+                    <td>22</td>
+                </tr>
+                <tr>
+                    <td>深圳市鹏胜土石方工程有限公司</td>
+                    <td>22</td>
+                </tr>
+                <tr>
+                    <td>深圳市泰辉建筑劳务有限公司</td>
+                    <td>22</td>
+                </tr>
+                <tr>
+                    <td>深圳市中深建设监理有限公司</td>
+                    <td>22</td>
+                </tr>
+                <tr>
+                    <td>深圳市东力建筑劳务有限公司</td>
+                    <td>22</td>
+                </tr>
+                <tr>
+                    <td>深圳市东力建筑劳务有限公司</td>
+                    <td>22</td>
+                </tr>
+                <tr>
+                    <td>深圳市青柠互动科技开发有限公司</td>
+                    <td>22</td>
+                </tr>
+                <tr>
+                    <td>深圳市东力建筑劳务有限公司</td>
+                    <td>22</td>
+                </tr>
+                <tr>
+                    <td>深圳市东力建筑劳务有限公司</td>
+                    <td>22</td>
+                </tr> -->
+            </table>
+        </div>
+    </div>
+    <!-- 劳务班组 -->
+    <div class="lwbz_modal security_modal" id="lwbz_modal">
+        <div>
+            <table>
+                <tr>
+                    <td>所属单位</td>
+                    <td>班组名称</td>
+                    <td>人数</td>
+                </tr>
+                <tr>
+                    <td>深圳市骏安人防工程防护设备有限公司</td>
+                    <td>水电班组</td>
+                    <td>5</td>
+                </tr>
+                <tr>
+                    <td>深圳地址建设工程公司</td>
+                    <td>人防班组</td>
+                    <td>15</td>
+                </tr>
+                <tr>
+                    <td>深圳市俊业建筑劳务有限公司</td>
+                    <td>塔吊班组</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>深圳市鹏胜土石方工程有限公司</td>
+                    <td>混凝土班组</td>
+                    <td>18</td>
+                </tr>
+                <tr>
+                    <td>深圳市兆鹏机电设备有限公司</td>
+                    <td>钢筋工班组</td>
+                    <td>8</td>
+                </tr>
+                <tr>
+                    <td>广东东方雨虹防水工程有限公司</td>
+                    <td>机电班组</td>
+                    <td>12</td>
+                </tr>
+                <tr>
+                    <td>深圳西部城建工程有限公司</td>
+                    <td>普工班组</td>
+                    <td>23</td>
+                </tr>
+                <tr>
+                    <td>深圳市青柠互动科技开发有限公司</td>
+                    <td>消防班组</td>
+                    <td>5</td>
+                </tr>
+                <tr>
+                    <td>深圳市鹏胜土石方工程有限公司</td>
+                    <td>防水班组</td>
+                    <td>11</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- 计划与实际人数明细 -->
+    <div class="security_modal lwtr_detais_modal" id="lwtr_detais_modal">
+        <div class="work-container">
+            <table class="lwtrTable">
+                <tr>
+                    <td><span>所属单位</span></td>
+                    <td><span>班组名称</span></td>
+                    <td><span>工种</span></td>
+                </tr>
+                <!-- <tr>
+                    <td><span>深圳市俊业建筑劳务有限公司</span></td>
+                    <td><span>钢筋工班组</span></td>
+                    <td><span>钢筋工</span></td>
+                </tr>
+                <tr>
+                    <td><span>深圳市俊业建筑劳务有限公司</span></td>
+                    <td><span>钢筋工班组</span></td>
+                    <td><span>钢筋工</span></td>
+                </tr>
+                <tr>
+                    <td><span>深圳市俊业建筑劳务有限公司</span></td>
+                    <td><span>钢筋工班组</span></td>
+                    <td><span>钢筋工</span></td>
+                </tr> -->
+            </table>
+
+            <div class="content">
+                <div class="item planPersonInfo">
+                    <!-- <p>计划劳务投入人数: 60</p>
+                    <div>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                    </div> -->
+                </div>
+                <div class="item actualPersonInfo">
+                    <!-- <p>实际人数：57</p>
+                    <div>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                        <li>乔海军</li>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 管理员人考勤统计 -->
+    <div class="security_modal rykq_detais_modal" id="rykq_detais_modal">
+        <div class="work-container">
+            <div class="content">
+                <!-- <p class="title">建设单位</p> -->
+                <!-- <div>
+                    <span>深圳市和冠房地产开发有限公司</span>
+                    <table>
+                        <tr>
+                            <td>管理人员类型</td>
+                            <td>姓名</td>
+                            <td>上班 | 下班 </td>
+                            <td>缺勤</td>
+                            <td>请假</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="1">项目负责人</td>
+                            <td>闫继承</td>
+                            <td>9:30-09:57</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>专业工程师</td>
+                            <td>张鹏</td>
+                            <td>9:30-09:57</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>管理人员类型</td>
+                            <td rowspan="1">庄晓强</td>
+                            <td rowspan="1"></td>
+                            <td rowspan="1" class="square3"></td>
+                            <td>
+                        <tr>
+                            <td>管理人员类型</td>
+                            <td rowspan="1">沈冠君</td>
+                            <td rowspan="1"></td>
+                            <td owspan="1"></td>
+                            <td>9:30-09:57</td>
+                        </tr>
+                    </table>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 考勤人员值班信息 -->
+    <div class="security_modal zbxx_detais_modal" id="zbxx_detais_modal">
+        <div class="work-container">
+            <div class="content">
+                <div class='workItem'>
+                    <!-- <div>
+                        <p class="title">建设单位</p>
+                        <table>
+                            <tr>
+                                <td>单位名称</td>
+                                <td>管理人员类型</td>
+                                <td>姓名</td>
+                                <td>上班 | 下班 </td>
+
+                            </tr>
+                            <tr>
+                                <td rowspan="1">深圳市和冠房地产开发有限公司</td>
+                                <td>现场经理</td>
+                                <td>宋子一</td>
+                                <td>9:30-</td>
+                            </tr>
+                        </table>
+                    </div> -->
+                </div>
+                <div class="worklists">
+                    <!-- <p class="workerList">值班表(2019年3月13日)</p>
+                    <table>
+                        <tr>
+                            <td>单位名称</td>
+                            <td>管理人员类型</td>
+                            <td>姓名</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="1">深圳市和冠房地产开发有限公司</td>
+                            <td>现场经理</td>
+                            <td>宋子一</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="1">深圳市和冠房地产开发有限公司</td>
+                            <td>现场经理</td>
+                            <td>宋子一</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="1">深圳市和冠房地产开发有限公司</td>
+                            <td>现场经理</td>
+                            <td>宋子一</td>
+                        </tr>
+                    </table> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 查看更多照片 -->
+    <div class="security_modal ckgd_modal" id="ckgd-modal">
+        <div class="work-container pic_view">
+            <div class="picbox">
+                <!-- <div class="pic_list">
+                    <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery" data-group="g9"
+                        data-src="/pages/security/img/pic_aqm.png">
+                        <img src="/pages/security/img/pic_aqm.png" alt="">
+                    </a>
+                    <p>1#东北</p>
+                    <span class="time">2018.10.09 15:14:14</span>
+                    <p class="des">1人未戴安全帽</p>
+                </div>
+                <div class="pic_list">
+                    <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery" data-group="g9"
+                        data-src="/pages/security/img/pic_aqm.png">
+                        <img src="/pages/security/img/pic_aqm.png" alt="">
+                    </a>
+                    <p>1#东北</p>
+                    <span class="time">2018.10.09 15:14:14</span>
+                    <p class="des">1人未戴安全帽</p>
+                </div>
+                <div class="pic_list">
+                    <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery" data-group="g9"
+                        data-src="/pages/security/img/pic_aqm.png">
+                        <img src="/pages/security/img/pic_aqm.png" alt="">
+                    </a>
+                    <p>1#东北</p>
+                    <span class="time">2018.10.09 15:14:14</span>
+                    <p class="des">1人未戴安全帽</p>
+                </div>
+                <div class="pic_list">
+                    <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery" data-group="g9"
+                        data-src="/pages/security/img/pic_aqm.png">
+                        <img src="/pages/security/img/pic_aqm.png" alt="">
+                    </a>
+                    <p>1#东北</p>
+                    <span class="time">2018.10.09 15:14:14</span>
+                    <p class="des">1人未戴安全帽</p>
+                </div>
+                <div class="pic_list">
+                    <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery" data-group="g9"
+                        data-src="/pages/security/img/pic_aqm.png">
+                        <img src="/pages/security/img/pic_aqm.png" alt="">
+                    </a>
+                    <p>1#东北</p>
+                    <span class="time">2018.10.09 15:14:14</span>
+                    <p class="des">1人未戴安全帽</p>
+                </div>
+                <div class="pic_list">
+                    <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery" data-group="g9"
+                        data-src="/pages/security/img/pic_aqm.png">
+                        <img src="/pages/security/img/pic_aqm.png" alt="">
+                    </a>
+                    <p>1#东北</p>
+                    <span class="time">2018.10.09 15:14:14</span>
+                    <p class="des">1人未戴安全帽</p>
+                </div>
+                <div class="pic_list">
+                    <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery" data-group="g9"
+                        data-src="/pages/security/img/pic_aqm.png">
+                        <img src="/pages/security/img/pic_aqm.png" alt="">
+                    </a>
+                    <p>1#东北</p>
+                    <span class="time">2018.10.09 15:14:14</span>
+                    <p class="des">1人未戴安全帽</p>
+                </div>
+                <div class="pic_list">
+                    <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery" data-group="g9"
+                        data-src="/pages/security/img/pic_aqm.png">
+                        <img src="/pages/security/img/pic_aqm.png" alt="">
+                    </a>
+                    <p>1#东北</p>
+                    <span class="time">2018.10.09 15:14:14</span>
+                    <p class="des">1人未戴安全帽</p>
+                </div>
+                <div class="pic_list">
+                    <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery" data-group="g9"
+                        data-src="/pages/security/img/pic_aqm.png">
+                        <img src="/pages/security/img/pic_aqm.png" alt="">
+                    </a>
+                    <p>1#东北</p>
+                    <span class="time">2018.10.09 15:14:14</span>
+                    <p class="des">1人未戴安全帽</p>
+                </div>
+                <div class="pic_list">
+                    <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery" data-group="g9"
+                        data-src="/pages/security/img/pic_aqm.png">
+                        <img src="/pages/security/img/pic_aqm.png" alt="">
+                    </a>
+                    <p>1#东北</p>
+                    <span class="time">2018.10.09 15:14:14</span>
+                    <p class="des">1人未戴安全帽</p>
+                </div>
+                <div class="pic_list">
+                    <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery" data-group="g9"
+                        data-src="/pages/security/img/pic_aqm.png">
+                        <img src="/pages/security/img/pic_aqm.png" alt="">
+                    </a>
+                    <p>1#东北</p>
+                    <span class="time">2018.10.09 15:14:14</span>
+                    <p class="des">1人未戴安全帽</p>
+                </div>
+                <div class="pic_list">
+                    <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery" data-group="g9"
+                        data-src="/pages/security/img/pic_aqm.png">
+                        <img src="/pages/security/img/pic_aqm.png" alt="">
+                    </a>
+                    <p>1#东北</p>
+                    <span class="time">2018.10.09 15:14:14</span>
+                    <p class="des">1人未戴安全帽</p>
+                </div>
+                <div class="pic_list">
+                    <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery" data-group="g9"
+                        data-src="/pages/security/img/pic_aqm.png">
+                        <img src="/pages/security/img/pic_aqm.png" alt="">
+                    </a>
+                    <p>1#东北</p>
+                    <span class="time">2018.10.09 15:14:14</span>
+                    <p class="des">1人未戴安全帽</p>
+                </div>
+                <div class="pic_list">
+                    <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery" data-group="g9"
+                        data-src="/pages/security/img/pic_aqm.png">
+                        <img src="/pages/security/img/pic_aqm.png" alt="">
+                    </a>
+                    <p>1#东北</p>
+                    <span class="time">2018.10.09 15:14:14</span>
+                    <p class="des">1人未戴安全帽</p>
+                </div>
+                <div class="pic_list">
+                    <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery" data-group="g9"
+                        data-src="/pages/security/img/pic_aqm.png">
+                        <img src="/pages/security/img/pic_aqm.png" alt="">
+                    </a>
+                    <p>1#东北</p>
+                    <span class="time">2018.10.09 15:14:14</span>
+                    <p class="des">1人未戴安全帽</p>
+                </div>
+                <div class="pic_list">
+                    <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery" data-group="g9"
+                        data-src="/pages/security/img/pic_aqm.png">
+                        <img src="/pages/security/img/pic_aqm.png" alt="">
+                    </a>
+                    <p>1#东北</p>
+                    <span class="time">2018.10.09 15:14:14</span>
+                    <p class="des">1人未戴安全帽</p>
+                </div> -->
+            </div>
+            <div id="illgelRecord" class="page_div record_div"></div>
+        </div>
+
+    </div>
+
+    <!-- 人员查考明细 -->
+    <div class="security_modal rykcmx_modal" id="rykcmx_modal">
+        <div class="modal_content">
+            <div class="security">
+                <div class="work-container">
+                    <table>
+                        <tr>
+                            <td>项目名称</td>
+                            <td>人员</td>
+                            <td>单位名称</td>
+                            <td>考勤时间</td>
+                            <td>进出类型</td>
+                        </tr>
+                        <!-- <tr>
+                            <td rowspan="1">四海时代大厦</td>
+                            <td>张鹏鹏</td>
+                            <td>深圳市和冠房地产开发有限公司</td>
+                            <td>2019-03-13<br>10:01:16</td>
+                            <td>进入工地</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="1">四海时代大厦</td>
+                            <td>张鹏鹏</td>
+                            <td>深圳市和冠房地产开发有限公司</td>
+                            <td>2019-03-13<br>10:01:16</td>
+                            <td>进入工地</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="1">四海时代大厦</td>
+                            <td>张鹏鹏</td>
+                            <td>深圳市和冠房地产开发有限公司</td>
+                            <td>2019-03-13<br>10:01:16</td>
+                            <td>进入工地</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="1">四海时代大厦</td>
+                            <td>张鹏鹏</td>
+                            <td>深圳市和冠房地产开发有限公司</td>
+                            <td>2019-03-13<br>10:01:16</td>
+                            <td>进入工地</td>
+                        </tr> -->
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 火车申请 -->
+    <div class="dhsq_modal security_modal" id="dhsq_modal">
+        <div class="work-container pic_view">
+            <div class="title">
+                <p>
+                    <span>项目名称:</span>
+                    <span class="projectName">沙井项目</span>
+                </p>
+                <p>
+                    <span>动火申请人:</span>
+                    <span class="uName">刘明久</span></p>
+                <p>
+                    <span>单位名称:</span>
+                    <span class="companyName">深圳市俊业建筑劳务有限公司</span>
+                </p>
+                <p>
+                    <span>动火部位:</span>
+                    <span class="engineeringName">时代大厦</span>
+                </p>
+            </div>
+            <!-- <div class="wrap_content">
+                <div class="box">
+                    <div class="left">
+                        <p><span>总包:</span> <span>刘明久</span></p>
+                        <p><span>时间:</span> <span>2018-07-12</span></p>
+                    </div>
+                    <div class="right">
+                        <img src="/pages/security/img/pic_honghuo01.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="wrap_content">
+                <div class="box">
+                    <div class="left">
+                        <p><span>总包:</span> <span>齐锦海</span></p>
+                        <p><span>时间:</span> <span>2018-07-12</span></p>
+                    </div>
+                    <div class="right">
+                        <img src="/pages/security/img/pic_honghuo02.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="wrap_content">
+                <div class="box">
+                    <div class="left">
+                        <p><span>总包:</span> <span>彭小赢</span></p>
+                        <p><span>时间:</span> <span>2018-07-12</span></p>
+                    </div>
+                    <div class="right">
+                        <img src="/pages/security/img/pic_honghuo03.png" alt="">
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+
+
+    <!-- 进场车次 -->
+    <div class="security_modal jccc_modal" id='jccc_modal'>
+        <div class="work-container pic_view">
+            <div class="modal_nav" id="CarIn">
+                <!-- <span class="active">四海时代大厦</span>
+                <span>四海云创大厦</span> -->
+            </div>
+            <div class="content">
+                <table>
+                    <!-- <tr>
+                        <td>所属单位</td>
+                        <td>车辆名称</td>
+                        <td>车牌号</td>
+                        <td>进出时间</td>
+                        <td>进出类型</td>
+                        <td>查看车牌</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="1">青柠互动</td>
+                        <td>运泥车</td>
+                        <td>粤B1234</td>
+                        <td>2019-03-13 10:01:16</td>
+                        <td>进入工地</td>
+                        <td><a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery" data-group="g16"
+                                data-src="/images/carNum.jpg">
+                                <img src="/images/carNum.jpg" alt="" class="carNum">
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="1">青柠互动</td>
+                        <td>运泥车</td>
+                        <td>粤B1234</td>
+                        <td>2019-03-13 10:01:16</td>
+                        <td>进入工地</td>
+                        <td><a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery" data-group="g16"
+                                data-src="/images/carNum.jpg">
+                                <img src="/images/carNum.jpg" alt="" class="carNum">
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="1">青柠互动</td>
+                        <td>运泥车</td>
+                        <td>粤B1234</td>
+                        <td>2019-03-13 10:01:16</td>
+                        <td>进入工地</td>
+                        <td><a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery" data-group="g16"
+                                data-src="/images/carNum.jpg">
+                                <img src="/images/carNum.jpg" alt="" class="carNum">
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="1">青柠互动</td>
+                        <td>运泥车</td>
+                        <td>粤B1234</td>
+                        <td>2019-03-13 10:01:16</td>
+                        <td>进入工地</td>
+                        <td><a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery" data-group="g16"
+                                data-src="/images/carNum.jpg">
+                                <img src="/images/carNum.jpg" alt="" class="carNum">
+                            </a>
+                        </td>
+                    </tr> -->
+
+                    <!-- 分页功能 -->
+                    <!-- <div id="CarData" class="page_div" style="margin-top: 40px"></div> -->
+                </table>
+            </div>
+            <div id="CarRecord" class="page_div"></div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
+<script src="/js/ocx.js"></script>
+<script src="/js/request.js"></script>
+<script src="./js/security.js"></script>
+
+<script type="text/javascript">
+
+    //解决区域滚动bug
+    document.getElementById('item_glrykq').addEventListener('mousewheel', function (e) {
+        e.stopPropagation()
+        if (this.scrollTop <= 0 && e.wheelDelta > 0 || this.scrollTop >= this.scrollHeight - this.offsetHeight && e.wheelDelta < 0) {
+            e.preventDefault()
+        }
+
+    }, false)
+    $(function () {
+        global.ajax.getMoblieStatisticsInfo();////工地现场管理
+        global.ajax.getLabourNumInfo();//查询劳务人员总数
+        global.ajax.getManageNumInfo(); // 查询管理人员总数
+        global.ajax.getCarNumInfo() // 查询车辆总数
+        global.ajax.getLabourCpyNumInfo() // 查询劳务单位总数
+        global.ajax.getLabourTeamNumInfo()// 查询劳务班组总数
+        task = setInterval(function () {
+            global.ajax.getMoblieStatisticsInfo();////工地现场管理
+            global.ajax.getLabourNumInfo();//查询劳务人员总数
+            global.ajax.getManageNumInfo(); // 查询管理人员总数
+            global.ajax.getCarNumInfo() // 查询车辆总数
+            global.ajax.getLabourCpyNumInfo() // 查询劳务单位总数
+            global.ajax.getLabourTeamNumInfo()// 查询劳务班组总数
+        }, 15000)
+
+        renderHJJCHTML() //环境监测
+        Security.statisticsList() //劳务统计
+
+        $('#stage').on('click', function () {
+            $('.stage_list').slideToggle()
+        })
+        $('.stage_list').find('li').each(function () {
+            $(this).on('click', function () {
+
+                $('#stage').html($(this).find('span').html())
+                $('.stage_list').slideToggle()
+            })
+        })
+
+
+
+
+
+
+        $('.ysjg .wrap-nav').find('span').each(function () {
+            $(this).on('click', function () {
+                var type = $(this).attr('name')
+                if (type == 'aqys') {
+                    global.ajax.Safetyacceptance(function (res) {
+                        //console.log("安全验收");
+
+                        //console.log(res.data);
+                        var CValue = [] //工序名称
+                        var ValueEx = [] //总分
+
+                        //      console.log(res.data.items.length);
+                        for (var ig = 0; ig <= res.data.items.length - 1; ig++) {
+                            // console.log(res.data.items[ig].valueEx);
+                            CValue.push(res.data.items[ig].cValue)
+                            // CValue+=res.data.items[ig].cValue+","   //valueEx
+                            ValueEx.push(res.data.items[ig].valueEx)
+
+
+                        }
+                        //  console.log(CValue, ValueEx);
+                        //安全验收的页面
+                        Security.renderSafeReturn(CValue, ValueEx)
+                    })
+                }
+                $('.wrap_content').find('.item').each(function () {
+                    console.log($(this))
+                    $(this).hide()
+                })
+                $('.' + type).show()
+            })
+
+        })
+    })
+
+    //模态层
+    var modal
+    //环境检查
+    //环境检查设备id
+    var ambientId = null
+    global.ajax.getNowAmbientData(function (res) {
+
+        var list = res.data.ambientInspectData
+        var html = ''
+        list.forEach(function (item, i) {
+            var active = ''
+            if (i == 0) {
+                active = 'nav_active'
+                ambientId = item.ambientId
+            }
+            html += '<li aid="' + item.ambientId + '"><span class="' + active + '">' + item
+                .projectEngineeringName + '</span></li>'
+
+        })
+        $('#hjjc_engineering_list').html(html)
+        global.page.tabNav('.tab_nav', function (_this) {
+            ambientId = _this.attr('aid')
+            renderHJJCHTML()
+        })
+        renderHJJCHTML()
+    })
+    //环境检测数据渲染
+    function renderHJJCHTML() {
+        // if (!ambientId) return
+        global.ajax.getTimePeriodData(ambientId, function (res) {
+            //console.log(res,'111111111111')
+            var inspectDataList = res.data.inspectDataList
+            if (inspectDataList.length > 0) {
+                Security.formatHJJCData(inspectDataList)
+            } else {
+                $('#icon_fs').html('0m/s')
+                $('#icon_fx').html('0度')
+                $('#icon_dqy').html('0KP/a')
+                $('#icon_wd').html('0℃')
+                $('#icon_sd').html('0%')
+                $('#icon_zs').html('0dB')
+                Security.renderHJJCChart('chart01', 0, 'PM2.5')
+                Security.renderHJJCChart('chart02', 0, 'PM10')
+            }
+        })
+        // var inspectDataList = [{
+        //     "dtime": 0,
+        //     "name": "数据时间",
+        //     "value": "05-05",
+        //     "unit": "20:27",
+        //     "code": "dtime",
+        //     "flag": 0
+        // },
+        // {
+        //     "dtime": 1557059220000,
+        //     "name": "风速",
+        //     "value": (Math.random()).toFixed(1),
+        //     "unit": "m/s",
+        //     "code": "129",
+        //     "flag": 0
+        // },
+        // {
+        //     "dtime": 1557059220000,
+        //     "name": "风向",
+        //     "value": (Math.random() * 100).toFixed(1),
+        //     "unit": "度",
+        //     "code": "130",
+        //     "flag": 0
+        // },
+        // {
+        //     "dtime": 1557059220000,
+        //     "name": "大气压",
+        //     "value": (Math.random() * 100).toFixed(1),
+        //     "unit": "KPa",
+        //     "code": "127",
+        //     "flag": 0
+        // },
+        // {
+        //     "dtime": 1557059220000,
+        //     "name": "大气温度",
+        //     "value": (Math.random() * 100).toFixed(1),
+        //     "unit": "℃",
+        //     "code": "126",
+        //     "flag": 0
+        // },
+        // {
+        //     "dtime": 1557059220000,
+        //     "name": "大气湿度",
+        //     "value": (Math.random() * 100).toFixed(1),
+        //     "unit": "%",
+        //     "code": "128",
+        //     "flag": 0
+        // },
+        // {
+        //     "dtime": 1557059220000,
+        //     "name": "PM2.5",
+        //     "value": (Math.random() * 40).toFixed(1),
+        //     "unit": "ug/m3",
+        //     "code": "108",
+        //     "flag": 0
+        // },
+        // {
+        //     "dtime": 1557059220000,
+        //     "name": "PM10",
+        //     "value": (Math.random() * 40).toFixed(1),
+        //     "unit": "ug/m3",
+        //     "code": "107",
+        //     "flag": 0
+        // },
+        // {
+        //     "dtime": 1557059220000,
+        //     "name": "噪声",
+        //     "value": (Math.random() * 100).toFixed(1),
+        //     "unit": "dB",
+        //     "code": "894",
+        //     "flag": 0
+        // },
+        // {
+        //     "dtime": 1557059220000,
+        //     "name": "扬尘",
+        //     "value": (Math.random() * 100).toFixed(1),
+        //     "unit": "ug/m3",
+        //     "code": "895",
+        //     "flag": 0
+        // }
+        // ]
+        // Security.formatHJJCData(inspectDataList)
+    }
+    // Security.getMoblieStatisticsInfo()
+    // Security.statisticsList()
+    // 定时器任务
+
+    // task = setInterval(function () {
+    //     renderHJJCHTML() //环境监测
+    //     // Security.getMoblieStatisticsInfo()
+    //     Security.statisticsList()
+    // }, 5000)
+
+    // 查询项目下所有工程
+    global.ajax.getEngineeringList(function (res) {
+
+    })
+    var imageUrl;
+
+    // 获取照片url
+    getImg()
+    checkData()
+
+
+    function getImg() {
+        global.ajax.getImg(function (res) {
+            imageUrl = res.data.pic_server
+        })
+    }
+
+    function checkData() {
+
+        //劳务人员详情
+        $('#workersCount').on('click', function () {
+            // onclick="Security.showModal('lwry_modal','劳务人员')"
+
+            global.ajax.ServiceDetails(function (res) {
+                // 发起请求前清空数据
+                $("#frttt").empty()
+                $(".sgdft").empty()
+                console.log(res, '劳务人员详情')
+                var html = ''
+                var gh = 0
+                // 获取工程列表
+                var engineeringList = res.data.engineeringList;
+                engineeringList.forEach(function (item, i) {
+
+                    var active = '';
+                    // 人数
+                    // var num = item.totalNum;
+                    if (i == 0) {
+                        active = 'active';
+                    }
+                    gh++
+                    var ite = 'item_00' + gh;
+                    $("#frttt").append('<span class="' + active + '" name="' + ite + '" " >' + item.engineeringName + '</span>') //添加大厦
+                    $("#frttt span").css("margin-left", "33px");
+                    $(".sgdft").append('<div class="' + ite + '"></div>') //切换表格
+                    // 获取公司类型列表
+                    // var companyTypeList = item.companyTypeList;
+                    // // console.log(companyTypeListp,'获取公司类型列表');
+                    // companyTypeList.forEach(function (item1, i) {
+                    //     // var l = item1.companyNameList.length;
+                    //     // console.log(l, '长度')
+                    //     var ite1 = '.item_00' + (i + 1);
+                    //     console.log(ite1,'ite1ite1ite1ite1')
+                    //     html = '<div>' +
+                    //         '<p class="title">' +
+                    //         '<span>' + item1.companyTypeName + '</span>' +
+                    //         '<span style="float:right">在岗人员（' + num + '）</span>' +
+                    //         '</p>' +
+                    //         '<table>' +
+                    //         '<tbody><tr>' +
+                    //         '<td style="width:20%">所属单位</td>' +
+                    //         '<td style="width:20%">班组名称</td>' +
+                    //         '<td style="width:20%">工种</td>' +
+                    //         '<td style="width:20%">人数</td>' +
+                    //         '<td style="width:20%">姓名</td>' +
+                    //         '</tr>'
+                    //     // html += '<tr><td  rowspan="' + l + '">' + item1.companyName + '</td>'
+                    //     item1.companyNameList.forEach(function (item2) {
+                    //         var c = 0;
+
+                    //         item2.attTeamList.forEach(function (item4) {
+                    //             c += item4.workTypeNameList.length
+                    //             // console.log(item4, '长度',c)
+                    //         })
+
+                    //         html += '<tr><td  rowspan="' + c + '">' + item2.companyName + '</td>';
+                    //         item2.attTeamList.forEach(function (item3) {
+                    //             var l = item3.workTypeNameList.length;
+                    //             html += '<td rowspan="' + l + '">' + item3.teamName + '</td>';
+
+                    //             item3.workTypeNameList.forEach(function (item4) {
+                    //                 // item4.personStatistics.personNameList=['asdasd','asdasdasd','asdasdasd','asdasdasd','asdasd','asdasdasd','asdasdasd','asdasdasd','asdasd','asdasdasd','asdasdasd','asdasdasd']
+                    //                 html += '<td>' + item4.workTypeName + '</td><td>' + item4.personStatistics.count + '</td><td>' + item4.personStatistics.personNameList + '</td><tr>'
+                    //                 // item4.personStatistics.forEach(function(item5){
+                    //                 //     html+='<td>' + item5.count + '</td>' 
+                    //                 // })
+                    //             })
+                    //         })
+                    //     })
+                    //     html += '</tbody></table>'
+                    //     html += '</div>'
+                    //     $(ite1).append(html)
+
+
+                    // })
+
+
+
+
+
+                })
+
+
+                var first = engineeringList[0];
+
+       
+
+                first.companyTypeList.forEach(function (item1, i) {
+                    // var l = item1.companyNameList.length;
+                    // console.log(l, '长度')
+                    var ite1 = '.item_001';
+                    var num = 0
+                    item1.companyNameList.forEach(function (item2) {
+                        item2.attTeamList.forEach(function (item3) {
+                            item3.workTypeNameList.forEach(function (item4) {
+                                num += item4.personStatistics.count
+                            })
+                        })
+                    })
+                    // console.log(ite1, 'ite1ite1ite1ite1')
+                    html = '<div>' +
+                        '<p class="title">' +
+                        '<span>' + item1.companyTypeName + '</span>' +
+                        '<span style="float:right">在岗人员（' + num + '）</span>' +
+                        '</p>' +
+                        '<table>' +
+                        '<tbody><tr>' +
+                        '<td style="width:20%">所属单位</td>' +
+                        '<td style="width:20%">班组名称</td>' +
+                        '<td style="width:20%">工种</td>' +
+                        '<td style="width:20%">人数</td>' +
+                        '<td style="width:20%">姓名</td>' +
+                        '</tr>'
+                    // html += '<tr><td rowspan="' + l + '">' + item1.companyName + '</td>'
+                    item1.companyNameList.forEach(function (item2) {
+                        var c = 0;
+
+                        item2.attTeamList.forEach(function (item4) {
+                            c += item4.workTypeNameList.length
+                            // console.log(item4, '长度',c)
+                        })
+
+                        html += '<tr><td rowspan="' + c + '">' + item2.companyName + '</td>';
+                        item2.attTeamList.forEach(function (item3) {
+                            var l = item3.workTypeNameList.length;
+                            html += '<td rowspan="' + l + '">' + item3.teamName + '</td>';
+
+                            item3.workTypeNameList.forEach(function (item4) {
+                                // item4.personStatistics.personNameList=['asdasd','asdasdasd','asdasdasd','asdasdasd','asdasd','asdasdasd','asdasdasd','asdasdasd','asdasd','asdasdasd','asdasdasd','asdasdasd']
+                                html += '<td>' + item4.workTypeName + '</td><td>' + item4.personStatistics.count + '</td><td>';
+                                item4.personStatistics.personNameList.forEach(function (name, i) {
+                                    html += (i % 2 == 0) ? name + '&nbsp&nbsp' : name + '&nbsp' + '<br>'
+
+                                })
+                                html += '</td><tr>'
+
+                                // item4.personStatistics.forEach(function(item5){
+                                // html+='<td>' + item5.count + '</td>' 
+                                // })
+                            })
+                        })
+                    })
+                    html += '</tbody></table>'
+                    html += '</div>'
+                    $(ite1).append(html)
+                })
+
+                var second = engineeringList[1];
+                
+                second.companyTypeList.forEach(function (item1, i) {
+                    // var l = item1.companyNameList.length;
+                    // console.log(l, '长度')
+                    var ite2 = '.item_002';
+                    var num1 = 0;
+                    item1.companyNameList.forEach(function (item2) {
+                        item2.attTeamList.forEach(function (item3) {
+                            item3.workTypeNameList.forEach(function (item4) {
+                                num1 += item4.personStatistics.count
+                            })
+                        })
+                    })
+
+                    html = '<div>' +
+                        '<p class="title">' +
+                        '<span>' + item1.companyTypeName + '</span>' +
+                        '<span style="float:right">在岗人员（' + num1 + '）</span>' +
+                        '</p>' +
+                        '<table>' +
+                        '<tbody><tr>' +
+                        '<td style="width:20%">所属单位</td>' +
+                        '<td style="width:20%">班组名称</td>' +
+                        '<td style="width:20%">工种</td>' +
+                        '<td style="width:20%">人数</td>' +
+                        '<td style="width:20%">姓名</td>' +
+                        '</tr>'
+                    // html += '<tr><td rowspan="' + l + '">' + item1.companyName + '</td>'
+                    item1.companyNameList.forEach(function (item2) {
+                        var c = 0;
+
+                        item2.attTeamList.forEach(function (item4) {
+                            c += item4.workTypeNameList.length
+                            // console.log(item4, '长度',c)
+                        })
+
+                        html += '<tr><td rowspan="' + c + '">' + item2.companyName + '</td>';
+                        item2.attTeamList.forEach(function (item3) {
+                            var l = item3.workTypeNameList.length;
+                            html += '<td rowspan="' + l + '">' + item3.teamName + '</td>';
+
+                            item3.workTypeNameList.forEach(function (item4) {
+                                // item4.personStatistics.personNameList=['asdasd','asdasdasd','asdasdasd','asdasdasd','asdasd','asdasdasd','asdasdasd','asdasdasd','asdasd','asdasdasd','asdasdasd','asdasdasd']
+                                html += '<td>' + item4.workTypeName + '</td><td>' + item4.personStatistics.count + '</td><td>'
+                                item4.personStatistics.personNameList.forEach(function (name, i) {
+                                    html += (i % 2 == 0) ? name + '&nbsp&nbsp' : name + '&nbsp' + '<br>'
+
+                                })
+                                html += '</td><tr>'
+                                // item4.personStatistics.forEach(function(item5){
+                                // html+='<td>' + item5.count + '</td>' 
+                                // })
+                            })
+                        })
+                    })
+                    html += '</tbody></table>'
+                    html += '</div>'
+                    $(ite2).append(html);
+                    $(ite2).hide()
+                })
+
+
+                // 调用模态窗
+                Security.showModal('lwry_modal', '劳务人员')
+            })
+
+        })
+
+
+
+
+        //管理人员详情
+        $('#managerCount').on('click', function () {
+            global.ajax.ManagementDetails(function (res) {
+                //清空数据
+                $('.sloty').empty()
+                $('.sloty-2').empty()
+                //console.log(res.data, '管理人员详情');
+                var HTML = ''
+                var HTMLL = ''
+                // 实时在场人员
+                var managerData = res.data.engineeringList;
+                managerData.forEach(function (item, index) {
+                    HTML += '<div class="wrap">' +
+                        '<div class="table_header">' +
+                        '<div class="title"> <span>' + item.engineeringName + '</span> <span>在岗人员（' + item.totalCount + '）</span></div>' +
+                        '</div>'
+                    item.companyTypeList.forEach(function (item1, index) {
+                        HTML += '<p>' + item1.companyTypeName + '</p>'
+                        HTML += '<table>' +
+                            '<tbody>' +
+                            '<tr>' +
+                            '<td style="width:33.33%">所属单位</td>' +
+                            '<td style="width:33.33%">管理人员类型</td>' +
+                            '<td style="width:33.33%">姓名</td>' +
+                            '</tr>'
+                        item1.companyNameList.forEach(function (item2, index) {
+                            var l = item2.attManageList.length
+                            HTML += '<tr><td  rowspan="' + l + '">' + item2.companyName + '</td>'
+                            //console.log(item2.companyName, 'companyName', item2)
+
+                            item2.attManageList.forEach(function (item3, k) {
+                                HTML += '<td>' + item3.manageTypeName + '</td><td>' + item3.manageList + '</td><tr>'
+                                //console.log(item3.manageList[k], 'item3', item3.manageTypeName)
+                            })
+                        })
+                        HTML += '<tbody></table>'
+                    })
+                    HTML += '</div>'
+                })
+
+                $('.sloty').append(HTML)
+
+                // 在线统计时长
+                var onLineData = res.data.nowTimeCompanyList;
+                // console.log('onLineData',onLineData)
+                onLineData.forEach(function (item1, index) {
+                    var g = 0;
+                    HTMLL += '<table>' +
+                        '<tbody>' +
+                        '<tr>' +
+                        '<td style="width:25%">所属单位</td>' +
+                        '<td style="width:25%">管理人员类型</td>' +
+                        '<td style="width:25%">姓名</td>' +
+                        '<td style="width:25%">在岗时长</td>' +
+                        '</tr>'
+                    item1.manageTypeList.forEach(function (item2, index) {
+                        g += item2.personList.length || 0
+
+                    })
+                    HTMLL += '<tr><td  rowspan="' + g + '">' + item1.companyName + '</td>'
+                    item1.manageTypeList.forEach(function (item2, index) {
+                        var s = item2.personList.length;
+                        HTMLL += '<td rowspan="' + s + '">' + item2.manageTypeName + '</td>'
+                        item2.personList.forEach(function (item3) {
+                            var count = item3.count ? item3.count : ''
+                            HTMLL += '<td>' + item3.personnelName + '</td><td ><a href="#" NameId="' + item3.personnelId + '">' + count + '</a></td><tr>'
+                        })
+
+                    })
+
+                    HTMLL += '<tbody></table>'
+                })
+
+                $('.sloty-2').append(HTMLL);
+                // 弹出模态窗
+                Security.showModal('glrs_modal', '管理人数')
+
+
+
+
+
+            })
+
+        })
+
+
+        //劳务单位详情
+        $('#companyCount').on('click', function () {
+            global.ajax.LaborStatistics(function (res) {
+                // console.log('res', res)
+                $(".eynyo  table").empty()
+                //console.log("劳务单位");
+                $(".eynyo  table").append('<tr><td>所属单位</td><td>人数</td>')
+                res.data.statisticsCpyPersonList.forEach(function (item) {
+                    $(".eynyo  table").append('<tr> <td>' + item.companyName + '</td> <td>' + item.count + '</td></tr>')
+                })
+                Security.showModal('lwdw_modal', '劳务单位')
+            })
+        })
+
+
+        // 演练培训
+        global.ajax.Exerciseraining(function (res) {
+            //console.log(res.data.trainRecordList, "演练培训");
+
+            var data = res.data.trainRecordList;
+            var dataF = []
+            var dataS = [];
+            // type  1班前培训 2演练培训
+            data.forEach(function (item) {
+                if (item.trainingType == 1) {
+                    dataF.push(item)
+                } else if (item.trainingType == 2) {
+                    dataS.push(item)
+                }
+            })
+            dataF.forEach(function (item, i) {
+                var html = ''
+
+                var urls = item.urls;
+                html += '<div class="swiper-slide gfknn swiper-no-swiping" style="text-align:center;"><div style="width: 70%;height: 100%;">' +
+                    '<div class="swiper-container " id="' + 'swiper' + (30 + i) + '">' +
+                    '<div class="swiper-wrapper pic_view">';
+                urls.forEach(function (items) {
+                    html += '<div class="swiper-slide swiper-no-swiping"><a href="javascript:void(0)" data-magnify="gallery" data-group="g8" data-src="' + (imageUrl + items) + '"><img src="' + (imageUrl + items) + '" alt=""></a></div>'
+                })
+                html += '</div>' +
+                    '<div class="swiper-button-prev swiper-button-white "></div>' +
+                    '<div class="swiper-button-next swiper-button-white "></div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="list" id="tghu" style="width: 26%;height: 100%;">' +
+                    '<div class="listContent">' +
+                    '<li><span>' + item.content + '</span></li>' +
+                    '<li><span>' + item.addTime + '</span></li>' +
+                    '<li><span>' + item.companyName + '</span></li>' +
+                    '<li><span>' + item.userName + '</span></li>' +
+                    '</div>'
+                //console.log(html, urls, '渲染')
+                $("#gfkn").append(html);
+
+
+
+            })
+
+            dataS.forEach(function (item, i) {
+                var html = ''
+
+                var urls = item.urls;
+                html += '<div class="swiper-slide gfknn swiper-no-swiping" style="text-align:center;"><div style="width: 70%;height: 100%;">' +
+                    '<div class="swiper-container " id="' + 'swiper' + (11 + i) + '">' +
+                    '<div class="swiper-wrapper pic_view">';
+                urls.forEach(function (items) {
+                    html += '<div class="swiper-slide swiper-no-swiping"><a href="javascript:void(0)" data-magnify="gallery" data-group="g11" data-src="' + (imageUrl + items) + '"><img src="' + (imageUrl + items) + '" alt=""></a></div>'
+                })
+                html += '</div>' +
+                    '<div class="swiper-button-prev swiper-button-white "></div>' +
+                    '<div class="swiper-button-next swiper-button-white "></div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="list" id="tghu" style="width: 30%;height: 100%;">' +
+                    '<div class="listContent">' +
+                    '<li><span>' + item.content + '</span></li>' +
+                    '<li><span>' + item.addTime + '</span></li>' +
+                    '<li><span>' + item.companyName + '</span></li>' +
+                    '<li><span>' + item.userName + '</span></li>' +
+                    '</div>'
+                //console.log(html, urls, '渲染')
+                $("#gfkn2").append(html);
+
+
+            })
+
+            var mySwiper = new Swiper('#swiper8', {
+                autoplay: false, //可选选项，自动滑动
+                navigation: {
+                    nextEl: '.swiper8next',
+                    prevEl: '.swiper8prev',
+                },
+                observer: true,//修改swiper自己或子元素时，自动初始化swiper
+                observeParents: true//修改swiper的父元素时，自动初始化swiper
+            });
+            var mySwiper1 = new Swiper('#swiper9', {
+                autoplay: false, //可选选项，自动滑动
+                navigation: {
+                    nextEl: '.swiper9next',
+                    prevEl: '.swiper9prev',
+                },
+                observer: true,//修改swiper自己或子元素时，自动初始化swiper
+                observeParents: true//修改swiper的父元素时，自动初始化swiper
+            });
+            $('#gfkn2').find('.swiper-container').each(function () {
+                var id = '#' + $(this).attr('id')
+                new Swiper(id, {
+                    autoplay: false, //可选选项，自动滑动
+                    navigation: {
+                        nextEl: id + ' .swiper-button-prev',
+                        prevEl: id + ' .swiper-button-next',
+                    },
+                    observer: true,//修改swiper自己或子元素时，自动初始化swiper
+                    observeParents: true//修改swiper的父元素时，自动初始化swiper
+                })
+            })
+            $('#gfkn').find('.swiper-container').each(function () {
+                var id = '#' + $(this).attr('id')
+                new Swiper(id, {
+                    autoplay: false, //可选选项，自动滑动
+                    navigation: {
+                        nextEl: id + ' .swiper-button-prev',
+                        prevEl: id + ' .swiper-button-next',
+                    },
+                    observer: true,//修改swiper自己或子元素时，自动初始化swiper
+                    observeParents: true//修改swiper的父元素时，自动初始化swiper
+                })
+            })
+
+            global.page.pic_view()
+
+        })
+
+        // 安全月检
+        global.ajax.Safetyinspection(function (res) {
+            var CValue = [] //工序名称
+            var ValueEx = [] //总分
+
+
+            for (var ig = 0; ig <= res.data.items.length - 1; ig++) {
+
+                CValue.push(res.data.items[ig].cValue)
+                // CValue+=res.data.items[ig].cValue+","   //valueEx
+                ValueEx.push(res.data.items[ig].valueEx)
+
+
+            }
+        })
+        // 安全巡查
+        global.ajax.patrol(function (res) {
+            //console.log("安全巡查", res);
+
+            // console.log(res.data.items.length-1);
+            var zuobD = res.data.items.slice(0, 5) //给左边的数据
+            var zuopy = res.data.items.slice(5, 10)
+            var zuobl = res.data.items.slice(res.data.items.length - 4, res.data.items.length)
+            var CValue = [] //给左边的数据
+            var ValueEx = [] //给左边的数据
+
+            var CValueright = [] //给右边的数据
+            var ValueExright = [] //给右边的数据
+            //  console.log(zuobl);
+            var sth = [] //给下面的y轴数据
+            var gyuy = [] //这是总数据
+            var tgh = [] //整体的底数据
+            var noes = [] //第一层的数据
+            var noesp = [] //第二层的数据
+            var noesl = [] //第三层的数据
+            var noeso = [] //第四层的数据
+            //   要用的  var noesr=[] //第5层的数据
+            for (var ig = 0; ig <= zuobl.length - 1; ig++) {
+                gyuy.push(zuobl[ig].typeValueEx.split('|'))
+                sth.push(zuobl[ig].valueEx)
+            }
+
+            for (var ol = 0; ol <= gyuy.length - 1; ol++) {
+                //  console.log(gyuy[ol]);
+                var hju = 0
+                noes.push(gyuy[ol][0]) //第一层
+                noesp.push(parseInt(gyuy[ol][0]) + parseInt(gyuy[ol][1])) //第二层
+                noesl.push(parseInt(gyuy[ol][0]) + parseInt(gyuy[ol][1]) + parseInt(gyuy[ol][2])) //第三层
+                noeso.push(parseInt(gyuy[ol][0]) + parseInt(gyuy[ol][1]) + parseInt(gyuy[ol][2]) + parseInt(gyuy[ol][3])) //第四层
+                //   要用的     noesr.push(parseInt(gyuy[ol][0])+parseInt(gyuy[ol][1])+parseInt(gyuy[ol][2])+parseInt(gyuy[ol][3])+parseInt(gyuy[ol][4]))//第四层
+                for (var gj = 0; gj <= gyuy[ol].length - 1; gj++) {
+                    //   console.log(gyuy[ol][0]);
+                    hju += parseInt(gyuy[ol][gj]) //整体的底数据
+                    // tgh+=gyuy[ol][gj]
+                    // console.log("---");
+                }
+                tgh.push(hju)
+
+
+            }
+
+            for (var ig = 0; ig <= zuobD.length - 1; ig++) { //给左边的数据
+                CValue.push(zuobD[ig].typeValue)
+                ValueEx.push(zuobD[ig].valueEx)
+            }
+
+            for (var ig = 0; ig <= zuopy.length - 1; ig++) { //给右边的数据
+                CValueright.push(zuopy[ig].typeValue)
+                ValueExright.push(zuopy[ig].valueEx)
+            }
+            // console.log(ValueExright,ValueEx,'数据')
+
+            // 安全巡查 第一个图表
+            Security.renderSafeEchartF(CValue, ValueEx)
+
+            // 安全巡查 第二个图表
+            Security.renderSafeEchartS(ValueExright, CValueright)
+
+
+            // 安全巡查 第三个图表
+            Security.renderSafeEchartT(sth, tgh, noes, noesp, noesl, noeso)
+
+
+        })
+
+
+        // global.ajax.getMoblieStatisticsInfo(function(res){
+        //     console.log(res,'当天考勤')
+        // })
+        // global.ajax.dygryhdgs()
+
+
+        //查询劳务班组
+        $('#teamCount').on('click', function () {
+            global.ajax.dygryhdgs(function (res) {
+                $("#lwbz_modal table").empty()
+                console.log(res, '查询劳务班组');
+                $("#lwbz_modal table").append('<tr><td>所属单位</td><td>班组名称</td><td>人数</td>')
+                for (var ig = 0; ig <= res.data.statisticsCpyTeamList.length - 1; ig++) {
+                    //console.log(res.data.statisticsCpyTeamList[ig]);
+                    var num = res.data.statisticsCpyTeamList[ig].num ? res.data.statisticsCpyTeamList[ig].num : ''
+                    $("#lwbz_modal table").append('<tr><td>' + res.data.statisticsCpyTeamList[ig].companyName + '</td><td>' + res.data.statisticsCpyTeamList[ig].teamName + '</td><td>' + num + '</td>')
+                }
+
+                Security.showModal('lwbz_modal', '劳务班组')
+            })
+
+        })
+
+
+        // 进场车次
+        $('#carCount').on('click', function () {
+            global.ajax.getEngineeringList(function (res) {
+                // console.log(res, 'resresresres')
+                var engineeringList = res.data.engineeringList
+                var engineeringId = null;
+                var html = ''
+                engineeringList.forEach(function (item, i) {
+                    var active = ''
+                    if (i == 0) {
+                        active = 'active'
+                        engineeringId = item.engineeringId
+                    }
+                    html += '<span class="' + active + '" engineeringId="' + item.engineeringId + '"> ' + item.engineeringName + '</span>'
+                })
+                $('#CarIn').html(html);
+                Security.renderCarInfo(engineeringId);
+                Security.showModal('jccc_modal', '进场车次')
+            })
+        })
+
+        // 动火申请列表
+        global.ajax.dhuosqlb(function (res) {
+            var applyList = res.data.useFireList;
+            var html = '';
+            // console.log(applyList, '动火申请列表');
+
+            sortData(applyList);
+            // console.table(applyList,['engineeringName','fireApplyTime','mainContractorTime','safetyOfficerTime'])
+            applyList.forEach(function (item, i) {
+                // console.log(item.fireApplyTime.slice(5))
+                // var fireApplyTime = item.fireApplyTime.slice(5);
+                // var mainContractorTime = item.mainContractorTime.slice(5);
+                // var safetyOfficerTime = item.safetyOfficerTime.slice(5);
+                // var supervisionTime = item.supervisionTime.slice(5);
+                var mainContractorTime = item.mainContractorTime;
+                var safetyOfficerTime = item.safetyOfficerTime;
+                var supervisionTime = item.supervisionTime;
+                // html += '<tr class="applyList" useFireId="' + item.useFireId +
+                //     '"><td class="applyWidth">' + (i + 1 + '.') + '</td><td>' + item
+                //         .engineeringName + '</td>';
+                html += '<tr class="applyList" useFireId="' + item.useFireId +
+                    '"><td class="applyWidth">' + (i + 1 + '.') + '</td>';
+                if (item.mainContractorStatus == 1) {
+                    html += '<td class="square2">' + mainContractorTime + '</td>'
+                } else {
+                    html += '<td class="square3"><span><span></td>'
+                };
+                if (item.safetyOfficerStatus == 1) {
+                    html += '<td class="square2">' + safetyOfficerTime + '</td>'
+                } else {
+                    html += '<td class="square3"></td>'
+                };
+                if (item.supervisionStatus == 1) {
+                    html += '<td class="square2">' + supervisionTime + '</td>'
+                } else {
+                    html += '<td class="square3"></td>'
+                }
+                html += '</tr>'
+            })
+            $('.dhsqlb .list>table').append(html);
+
+            //动火申请详情
+            $('.applyList').each(function () {
+                $(this).on('click', function () {
+                    var applyDetail;
+                    Security.showModal('dhsq_modal', '动火申请');
+                    var usefireid = $(this).attr('usefireid');
+                    global.ajax.dhsqxq(usefireid, function (res) {
+                        if (!res) return;
+                        console.log(res, usefireid, '动火申请详情')
+                        applyDetail = res.data.useFireDeatil;
+                        // console.log(applyDetail, '11111111')
+                        parent.window.$('#dhsq_modal .projectName').html(
+                            applyDetail.projectName);
+                        parent.window.$('#dhsq_modal .uName').html(applyDetail
+                            .uid);
+                        parent.window.$('#dhsq_modal .companyName').html(
+                            applyDetail.companyName);
+                        parent.window.$('#dhsq_modal .engineeringName').html(
+                            applyDetail.engineeringName);
+                        var fileList = applyDetail.fileList;
+                        console.log(fileList, '11111111');
+                        var html = '';
+                        var arr = ['总包', '安全员', '监理员'];
+                        var type = [{ id: 6 }, { id: 8 }, { id: 7 }];
+                        fileList.forEach(function (v) {
+                            type.forEach(function (s) {
+                                if (s.id == v.jobType) {
+                                    s.uid = v.uid
+                                    s.addTime = v.addTime
+                                    s.fileUrl = v.fileUrl
+                                }
+                            })
+                        })
+                        // console.log(type,'新组成')
+
+                        type.forEach(function (item, i) {
+                            html += '<div class="wrap_content"><div class="box"><div class="left"><p><span>' + arr[i] + '：</span>' +
+                                '<span>' + item.uid + '</span></p><p><span>时间：</span><span>' + item.addTime + '</span></p></div><div class="right"><a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery" data-group="g10" data-src="' + (imageUrl + item.fileUrl) + '"><img src="' + (imageUrl + item.fileUrl) + '" alt=""></a></div></div></div>'
+                        })
+                        parent.window.$('#dhsq_modal .work-container').append(html);
+                        // 调用查看图片预览
+                        parent.window.$('.pic_view').each(function () {
+                            var $node = $(this)
+                            $node.find('img').each(function (i) {
+                                $(this).click(function () {
+                                    console.log('1')
+                                    parent.window.pic_view($node.prop('outerHTML'), i);
+
+                                })
+                            })
+                        })
+
+                    })
+
+                })
+            })
+
+
+
+            // 把时间从低到高排列，冒泡排序
+            function sortData(applyList) {
+                for (var n = 1; n < applyList.length; n++) {
+                    for (var k = 0; k < applyList.length - 1; k++) {
+                        var min = applyList[k].fireApplyTime;
+                        var nextCount = applyList[k + 1].fireApplyTime;
+                        if (min < nextCount) {
+                            var preData = applyList[k];
+                            applyList[k] = applyList[k + 1];
+                            applyList[k + 1] = preData;
+                        }
+                    }
+                }
+            }
+
+        })
+
+
+
+        // 劳务投入
+        global.ajax.getPlanPersonInput(function (res) {
+            // console.log(res, 'getPlanPersonInput')
+            if (res.data.personInputList.length === 0) {
+                $('#item_lwtr').html('<p style="text-align:center">暂无数据</p>')
+            } else {
+                var personInputList = res.data.personInputList
+                var html = '<table><tr><td>单位名称</td><td>工种名称</td><td>计划劳务投入</td><td>实际人数</td></tr>';
+                personInputList.forEach(function (item) {
+                    var c = item.typeItem.length
+                    html += '<tr><td rowspan="' + c + '">' + item.companyName + '</td>';
+                    item.typeItem.forEach(function (item2) {
+                        // item2.actualNum = (Math.random() * 20).toFixed(0)
+                        // item2.planNum = (Math.random() * 20).toFixed(0)
+                        html += '<td><a style="color:#00FFF9" class="modal_active" workTypeId="' + item2.workTypeId + '">' + item2.typeName + '</a></td><td style="width:30%">' + item2.planNum + '</td><td style="width:30%">' + item2.actualNum + '</td></tr>';
+                    })
+                })
+                html += '</table>'
+
+                $('#item_lwtr').html(html)
+
+            }
+
+
+            //劳务投入
+            $('.item_lwtr').find('.modal_active').each(function () {
+                $(this).on('click', function () {
+
+                    var worktypeid = $(this).attr("worktypeid")
+
+                    global.ajax.getPlanPersonInputDetail(worktypeid, function (res) {
+                        console.log(res, 'getPlanPersonInputDetail')
+                        // 所属单位
+                        var cpyInfo = res.data.cpyInfo;
+                        var cpyInfoHtml = '<tr><td><span>' + cpyInfo.companyName + '</span></td><td><span>' + cpyInfo.teamName + '</span></td><td><span>' + cpyInfo.typeName + '</span></td></tr>'
+                        parent.window.$('#lwtr_detais_modal .lwtrTable').append(cpyInfoHtml);
+                        // 计划人数
+                        var planPersonInfo = res.data.planPersonInfo;
+                        var planPersonInfoHtml = '<p>计划劳务投入人数:' + planPersonInfo.planNum + '</p><div>';
+                        planPersonInfo.personNamePlan.forEach(function (item) {
+                            planPersonInfoHtml += '<li>' + item + '</li>'
+                        })
+                        planPersonInfoHtml += '</div>'
+                        parent.window.$('.planPersonInfo').html(planPersonInfoHtml)
+                        // 实际人数
+                        var actualPersonInfo = res.data.actualPersonInfo
+                        var actualPersonInfoHtml = '<p>实际人数:' + actualPersonInfo.actualNum + '</p><div>';
+                        actualPersonInfo.personName.forEach(function (item) {
+                            actualPersonInfoHtml += '<li>' + item + '</li>'
+                        })
+                        actualPersonInfoHtml += '</div>'
+                        parent.window.$('.actualPersonInfo').html(actualPersonInfoHtml)
+
+                    })
+                    Security.showModal('lwtr_detais_modal', '计划与实际人数明细')
+                })
+            })
+        })
+
+
+        //工人违规
+        global.ajax.getViolationPCRecord(function (res) {
+            console.log(res, '工人违规')
+            var data = res.data
+            $('.grwgNum').html(data.totalNum)
+            var violationRecord = data.violationRecord;
+            var illegalNav = '';
+            var imgHtmlF = ''
+            var imgHtmlS = ''
+            violationRecord.forEach(function (item, i) {
+                if (i == 0) {
+                    illegalNav += '<li engineeringId="' + item.engineeringId + '" contentNode="' + 'illegal_0' + i + '"><span class="nav_active">' + item.engineeringName + '(' + item.num + ')' + '</span></li>'
+                    if (!item.violationRecordItem) {
+                        $('.illegal_00 .wrap-img').html('<span>暂无数据</span>')
+
+                    } else {
+                        item.violationRecordItem.forEach(function (s) {
+                            imgHtmlF += '<div><a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery" ' +
+                                ' data-group="g8" data-src="' + (imageUrl + s.imgUrl) + '"><img style="width:164px;height:90px" src="' + (imageUrl + s.imgUrl) + '" alt=""></a></div>'
+                        })
+                        if (item.violationRecordItem.length >= 6) {
+                            imgHtmlF += '<div class="wrap-btn" engineeringId="' + item.engineeringId + '"><button>查看更多</button></div>'
+                        }
+
+                        $('.illegal_00 .wrap-img').html(imgHtmlF)
+                    }
+
+                } else {
+                    illegalNav += '<li engineeringId="' + item.engineeringId + '" contentNode="' + 'illegal_0' + i + '"><span>' + item.engineeringName + '(' + item.num + ')' + '</span></li>'
+                    if (!item.violationRecordItem) {
+                        $('.illegal_01 .wrap-img').html('<span>暂无数据</span>')
+                    } else {
+                        item.violationRecordItem.forEach(function (v) {
+                            imgHtmlS += '<div><a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery" ' +
+                                ' data-group="g8" data-src="' + (imageUrl + v.imgUrl) + '"><img style="width:164px;height:90px" src="' + (imageUrl + v.imgUrl) + '" alt=""></a></div>'
+
+                        })
+                        if (item.violationRecordItem.length >= 6) {
+                            imgHtmlS += '<div class="wrap-btn" engineeringId="' + item.engineeringId + '"><button>查看更多</button></div>'
+                        }
+                        $('.illegal_01 .wrap-img').html(imgHtmlS)
+                    }
+
+
+
+                }
+
+
+            })
+            $('.illegal').html(illegalNav)
+            // 切换
+            global.page.tabNav('.illegal')
+            // 图片预览
+            global.page.pic_view()
+
+            // 查看更多
+            $('.illegalContent').on('click', '.wrap-btn', function () {
+                var engineeringId = $(this).attr('engineeringId')
+                Security.renderillegal(engineeringId)
+                Security.showModal('ckgd-modal', '违规列表')
+
+
+            })
+
+
+
+
+        })
+
+
+
+        //管理人员考勤（人员总数统计）
+        global.ajax.getmanagerAmount(function (res) {
+            console.log(res, '管理人员')
+            // 值班表
+            global.ajax.getmanageAttendanceOndutyAmount(function (RES) {
+
+                var RES = RES.data;
+
+                console.log(RES, 'RESRESRESRES')
+                var html = ''
+                var data = res.data;
+                data.forEach(function (item) {
+                    var onJobAmount = item.onJobAmount ? item.onJobAmount : 0
+                    var workingAmount = item.workingAmount ? item.workingAmount : 0
+                    var leaveAmout = item.leaveAmout ? item.leaveAmout : 0  //缺勤字段
+                    html += '<div>' +
+                        '<table>' +
+                        '<tr>' +
+                        '<th colspan="5">' + item.companyTypeName + '</th>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td><span>在职：</span><a class="modal_active" href="#" companyTypeId="' + item.companyTypeId + '" companyTypeName="'+item.companyTypeName+'">' + onJobAmount + '</a></td>' +
+                        '<td><span>在岗：</span><a class="modal_active" href="#" companyTypeId="' + item.companyTypeId + '" companyTypeName="'+item.companyTypeName+'">' + workingAmount + '</a></td>' +
+                        '<td><span>缺勤：</span><a class="modal_active" href="#" companyTypeId="' + item.companyTypeId + '" companyTypeName="'+item.companyTypeName+'">' + (onJobAmount-workingAmount-leaveAmout) + '</a></td>' +
+                        '<td><span>请假：</span><a class="modal_active" href="#" companyTypeId="' + item.companyTypeId + '" companyTypeName="'+item.companyTypeName+'">' + leaveAmout + '</a></td>' +
+                        '</tr>' +
+                        '</table>' +
+                        '</div>'
+                })
+                html += '<div>' +
+                    '<table>' +
+                    '<tr>' +
+                    '<th colspan="5">值班表</th>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td><span>单位：</span><a class="modal_work" href="#">' + RES.company + '</a></td>' +
+                    '<td><span>应到：</span><a class="modal_work" href="#">' + RES.person + '</a></td>' +
+                    '<td><span>实到：</span><a class="modal_work" href="#">' + RES.work + '</a></td>' +
+                    '<td><span>未到：</span><a class="modal_work" href="#">' + RES.nowork + '</a></td>' +
+                    '</tr>' +
+                    '</table>' +
+                    '</div>'
+                $('#item_glrykq').html(html);
+                //管理人员考勤弹窗
+                $('.item_glrykq').find('.modal_active').each(function () {
+                    $(this).on('click', function () {
+                        var companyTypeId = $(this).attr('companyTypeId')
+                        var companyTypeName=$(this).attr('companyTypeName')
+                        manageDetail(companyTypeName,companyTypeId)
+                        Security.showModal('rykq_detais_modal', '管理人员考勤')
+                    })
+                })
+
+                // 值班人员信息
+                $('.item_glrykq').find('.modal_work').each(function () {
+                    $(this).on('click', function () {
+
+
+                        getmanageAttendanceOndutyDetail()
+
+                        Security.showModal('zbxx_detais_modal', '管理人员值班信息')
+                    })
+                })
+
+
+            })
+
+        })
+
+
+        // 管理人员考勤详情
+        function manageDetail(companyTypeName,companyTypeId) {
+            global.ajax.getmanageAttendanceDetail(companyTypeId, function (res) {
+                // console.log(res, '管理人员考勤详情')
+                var data = res.data;
+                var html = '<p class="title">'+companyTypeName+'</p>';
+                if (data.length === 0) {
+                    parent.window.$('#rykq_detais_modal .content').html('<p style="text-align:center">暂无数据</p>');
+                    return;
+                }
+                data.forEach(function (item) {
+                    html += '<div>' +
+                        '<span>' + item.companyName + '</span>' +
+                        '<table>' +
+                        '<tr>' +
+                        '<td style="width:24%">管理人员类型</td>' +
+                        '<td style="width:14%">姓名</td>' +
+                        '<td style="width:24%">上班 | 下班 </td>' +
+                        '<td style="width:14%">缺勤</td>' +
+                        '<td style="width:24%">请假</td>' +
+                        '</tr>'
+                    item.personList.forEach(function (v) {
+                        var inTime = v.inTime ? v.inTime : ''
+                        var outTime = v.outTime ? v.outTime : ''
+                        var typeName = v.typeName ? v.typeName : ''
+                        var personnelName = v.personnelName ? v.personnelName : ''
+                        var aticve = inTime ? '' : 'square3'  
+
+                        var leaveEndTime = v.leaveEndTime ? v.leaveEndTime : ''
+                        var leaveStartTime = v.leaveStartTime ? v.leaveStartTime : ''
+                        if(leaveEndTime){
+                            aticve='' 
+                        }
+                        html += '<tr>' +
+                            '<td rowspan="1">' + typeName + '</td>' +
+                            '<td>' + personnelName + '</td>' +
+                            '<td>' + (inTime + '-' + outTime) + '</td>' +
+
+                            '<td class="' + aticve + '"></td>' +
+                            '<td>' + (leaveStartTime + '-' + leaveEndTime) + '</td>' +
+                            '</tr>'
+                    })
+                    html += '</table></div>'
+                })
+
+                parent.window.$('#rykq_detais_modal .content').html(html)
+            })
+        }
+
+
+
+        // 值班表详情
+        function getmanageAttendanceOndutyDetail() {
+            global.ajax.getmanageAttendanceOndutyDetail(function (res) {
+                // console.log(res, '值班表详情')
+               if(res.data.length===0){
+                parent.window.$('.workItem').empty()
+                parent.window.$('.worklists').empty()
+                parent.window.$('.workItem').append('<p style="text-align:center">暂无数据</p>')
+                return;
+               }
+                var data = res.data;
+                var HTML = ''
+                var html=' <p class="workerList">值班表(2019年3月13日)</p>'+
+                    '<table>'+
+                        '<tr>'+
+                            '<td>单位名称</td>'+
+                            '<td>管理人员类型</td>'+
+                            '<td>姓名</td>'+
+                    '</tr>'
+                // $('.workerList').html(unit.formatDate(new Date(), 'yyyy-MM-dd'))
+                data.forEach(function (item) {
+                    HTML += '<div>'+
+                        '<p class="title"> '+item.companyTypeName+'</p>'+
+                            '<table>'+
+                                '<tr>'+
+                                    '<td style="width:25%">单位名称</td>'+
+                                    '<td style="width:25%">管理人员类型</td>'+
+                                    '<td style="width:25%">姓名</td>'+
+                                    '<td style="width:25%">上班 | 下班 </td>'+
+                                '</tr>'
+                    item.personList.forEach(function(v){
+                        var inTime = v.inTime ? v.inTime : ''
+                        var outTime = v.outTime ? v.outTime : ''
+                        HTML+='<tr>'+
+                                    '<td rowspan="1">'+(v.companyName?v.companyName:'')+'</td>'+
+                                    '<td>'+(v.typeName?v.typeName:'')+'</td>'+
+                                    '<td>'+(v.personnelName?v.personnelName:'')+'</td>'+
+                                    '<td>' + (inTime + '-' + outTime) + '</td>'+
+                            '</tr>';
+                        html+=' <tr>'+
+                                '<td rowspan="1">'+(v.companyName?v.companyName:'')+'</td>'+
+                                '<td>'+(v.typeName?v.typeName:'')+'</td>'+
+                                '<td>'+(v.personnelName?v.personnelName:'')+'</td>'+
+                            '</tr>'
+                    })
+                    HTML+='</table></div>'
+
+                })
+                html+='</table>'
+                parent.window.$('.workItem').html(HTML)
+                parent.window.$('.worklists').html(html)
+            })
+        }
+    }
+    $(function () { //请求
+
+    })
+</script>

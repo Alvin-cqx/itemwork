@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="pragma" content="no-cache">
+    <title>天鹅堡项目(统计报表)</title>
+    <script src="/js/plugins/jquery.min.js"></script>
+    <link rel="stylesheet" href="../../css/common.css">
+    <link src="/js/plugins/laydate/theme/default/laydate.css">
+    <link rel="stylesheet" href="../../js/plugins/fyq/1.css">
+    <style>
+        .page {
+            position: absolute;
+            top: 0px;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .content {
+            height: 99%;
+            min-height: 750px
+        }
+
+        .content>.box {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .content>.box>div {
+            background: rgba(5, 12, 39, 0.3);
+            box-shadow: 0px 1px 13px 0px rgba(70, 90, 201, 0.48);
+            border: 1px solid rgba(85, 143, 255, 0.2);
+        }
+
+        .content .wrap-menu {
+            width: 250px;
+            padding-top: 40px;
+            margin-right: 10px
+        }
+
+        .content .wrap-menu li {
+            border-left: 3px solid #162579;
+            cursor: pointer;
+            color: #A8ABE2
+        }
+
+        .content .wrap-menu li span {
+            display: inline-block;
+            padding: 20px 0 22px 20px;
+            margin: 2px 0
+        }
+
+        .content .wrap_form {
+            width: calc(100% - 260px);
+            padding: 30px;
+        }
+
+        .wrap_form .form_header {
+            position: relative;
+        }
+
+        .wrap_form .form_header li {
+            display: inline-block;
+            color: #A8ABE2;
+            padding-right: 20px
+        }
+
+        .wrap_form .form_header li button {
+            background-color: #1f2b57;
+            border: 1px solid rgba(145, 147, 191, 1);
+            outline: none;
+            padding: 5px 16px;
+            color: #FFFFFF;
+            border-radius: 23px;
+            cursor: pointer;
+        }
+
+        .wrap_form .form_header .download {
+            position: absolute;
+            top: 0;
+            right: 0;
+            border: 0;
+            padding: 6px 24px;
+            outline: none;
+            color: #FFFFFF;
+            cursor: pointer;
+            border-radius: 23px;
+            background: #162579;
+            background-image: linear-gradient(90deg, #16D0FF 7%, rgba(0, 255, 248, 0.14) 97%);
+        }
+
+        .wrap_form .form_header input {
+            background: #1f2b57;
+            border: 1px solid rgba(145, 147, 191, 1);
+            outline: none;
+            padding: 6px;
+            color: #A8ABE2;
+            margin-left: 10px
+        }
+
+        .form_table {
+            margin-top: 40px
+        }
+
+        .form_table table {
+            width: 100%;
+            border-left: 1px solid rgba(83, 92, 156, 0.6);
+            border-bottom: 1px solid rgba(83, 92, 156, 0.6);
+            text-align: center;
+            color: #A8ABE2
+        }
+
+        .form_table tr td {
+            border-right: 1px solid rgba(83, 92, 156, 0.6);
+            border-top: 1px solid rgba(83, 92, 156, 0.6);
+        }
+
+        .form_table table>tbody>tr>td {
+            height: 40px
+        }
+
+        .table_06 .form_table table>tbody>tr:first-child>td {
+            background: #1f2b57;
+        }
+
+
+
+        .table_01 .form_table>table>tbody>tr:first-child>td,
+        .table_02 .form_table>table>tbody>tr:first-child>td,
+        .table_03 .form_table>table>tbody>tr:first-child>td,
+        .table_07 .form_table>table>tbody>tr:first-child>td,
+        .table_08 .form_table>table>tbody>tr:first-child>td {
+            height: 80px;
+            /* background: rgba(3, 10, 37, 1); */
+        }
+
+        .td_table {
+            position: relative;
+            /* overflow: hidden; */
+            overflow-y: hidden;
+            overflow-x: auto;
+            -ms-overflow-style: -ms-autohiding-scrollbar;
+
+        }
+
+
+        .date_table {
+            position: absolute;
+            top: -1px;
+            left: 0;
+            bottom: 0;
+            height: 1000px;
+            width: 100%;
+            /* overflow-x: auto;
+            overflow-y: hidden; */
+            /* overflow:scroll; */
+
+        }
+
+        .date_table>table {
+            width: 100%;
+
+        }
+
+        .date_table>table>tbody>tr {
+            background: #38427d;
+        }
+
+        .date_table>table>tbody>tr td {
+            height: 40px;
+            padding: 1px 12px;
+            white-space: nowrap
+        }
+
+        .table_01 .date_table>table>tbody>tr:first-child>td,
+        .table_02 .date_table>table>tbody>tr:first-child>td,
+        .table_03 .date_table>table>tbody>tr:first-child>td {
+            background: #38427d;
+        }
+
+        .table_01 .date_table>table>tbody>tr:nth-child(2)>td,
+        .table_02 .date_table>table>tbody>tr:nth-child(2)>td,
+        .table_03 .date_table>table>tbody>tr:nth-child(2)>td {
+            height: 37px;
+            background: #38427d;
+        }
+
+
+        .table_02,
+        .table_03,
+        .table_04,
+        .table_05,
+        .table_06,
+        .table_07,
+        .table_08 {
+            display: none
+        }
+
+        /* .table_hover{
+            background: #0D1C73 !important
+        } */
+
+        .table_04 .form_table tr td p:first-child {
+            margin-bottom: 16px
+        }
+
+        .table_04 .form_table>table tr td p span {
+            padding-right: 4%
+        }
+
+        .table_04 .form_table>table tr td p strong {
+            padding-left: 10px
+        }
+
+        .table_mark span {
+            display: inline-block;
+            padding-right: 3%;
+            padding-bottom: 20px;
+            color: #A8ABE2
+        }
+
+        .menu_active {
+            background: #0D1B6F;
+            border-left: 3px solid #38E9EC !important;
+            color: #FFFFFF !important
+        }
+
+        .chooseAll {
+            position: relative;
+            top: -5px;
+            left: 12px;
+            float: right;
+            width: 181px;
+            height: 27px;
+            background: #1f2b57;
+            border: 1px solid rgba(145, 147, 191, 1);
+        }
+
+        .chooseAll ul {
+            position: absolute;
+            top: 26px;
+            z-index: 1;
+            padding-left: 18px;
+            background-color: #1f2b57;
+            display: none;
+        }
+
+        .chooseAll ul li {
+            float: left;
+            width: 100%;
+            height: 38px;
+            line-height: 38px;
+        }
+
+        .chooseAll ul li a:hover {
+            color: #00FFF9;
+        }
+
+        .chooseAll ul li a {
+            display: block;
+            width: 100%;
+            color: #A8ABE2;
+        }
+
+        .allChoose,
+        .allchoose {
+            float: left;
+            line-height: 27px;
+            padding-left: 10px;
+            margin-left: 6px;
+            color: #A8ABE2;
+            width: 78%;
+        }
+
+        .upPic {
+            cursor: pointer;
+        }
+
+        /* 外面盒子样式---自己定义 */
+        .page_div {
+            margin: 20px 10px 20px 0;
+            color: #666;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* 页数按钮样式 */
+        .page_div button {
+            display: inline-block;
+            min-width: 30px;
+            height: 28px;
+            cursor: pointer;
+            color: #666;
+            font-size: 13px;
+            line-height: 28px;
+            background-color: #f9f9f9;
+            border: 1px solid #dce0e0;
+            text-align: center;
+            margin: 0 4px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        #firstPage,
+        #lastPage,
+        #nextPage,
+        #prePage {
+            width: 50px;
+            color: #0073A9;
+            border: 1px solid #ccc
+        }
+
+        #nextPage,
+        #prePage {
+            width: 70px
+        }
+
+        .page_div .current {
+            background-color: #2e4084;
+            border-color: #2e4084;
+            color: #FFF
+        }
+
+        /* 页面数量 */
+        .totalPages {
+            margin: 0 10px
+        }
+
+        .totalPages span,
+        .totalSize span {
+            color: #0073A9;
+            margin: 0 5px
+        }
+
+        /*button禁用*/
+        .page_div button:disabled {
+            opacity: .5;
+            cursor: no-drop
+        }
+    </style>
+</head>
+<!-- <script src="../../js/sj/rli.js"></script> -->
+
+
+<body>
+    <div class="page">
+        <div class="content">
+            <div class="box">
+                <div class="wrap-menu">
+                    <li class="menu_active" name="table_01"><span>管理人员考勤统计报表(考勤机)</span></li>
+                    <li name="table_02"><span>管理人员在岗时长统计报表(门禁)</span></li>
+                    <li name="table_03"><span>劳务人员在岗时长统计报表</span></li>
+                    <li name="table_04"><span>环境监测数据统计报表</span></li>
+                    <li name="table_05"><span>人员月考勤统计报表（住建局）</span></li>
+                    <li name="table_06"><span>动火申请统计报表</span></li>
+                </div>
+                <div class="wrap_form">
+                    <div class="table_01">
+                        <div class="form_header">
+                            <li>
+                                <span>单位:</span>
+                                <input class="danw1" type="text">
+                            </li>
+                            <li>
+                                <span>姓名:</span>
+                                <input class="renm1" type="text">
+                            </li>
+                            <li>
+                                <span>职务:</span>
+                                <input class="zhiw1" type="text">
+                            </li>
+                            <li>
+                                <span>月份:</span>
+                                <input class="yfen1 layData" type="text" id="demo0">
+
+                            </li>
+                            <!-- <li>
+                                <span>类型:</span>
+                                <div class="chooseAll">
+                                    <span>
+                                        <a href="javascript:void(0)" class="allchoose onechoose">全部</a>
+                                        <img src="./img/icon_select01.png" alt="" style="margin-top:8px" class="upPic">
+                                    </span>
+                                    <ul>
+                                        <li><a href="javascript:void(0)">全部</a></li>
+                                        <li><a id="1" href="javascript:void(0)">总承包单位</a></li>
+                                        <li><a id="4" href="javascript:void(0)">监理单位</a></li>
+                                        <li><a id="1" href="javascript:void(0)">总承包单位</a></li>
+                                        <li><a id="2" href="javascript:void(0)">代建单位</a></li>
+                                        <li><a id="3" href="javascript:void(0)">建设单位</a></li>
+                                        <li><a id="4" href="javascript:void(0)">监理单位</a></li>
+                                        <li><a id="5" href="javascript:void(0)">专业分包单位</a></li>
+                                        <li><a id="6" href="javascript:void(0)">劳务分包单位</a></li>
+                                        <li><a id="7" href="javascript:void(0)">施工单位</a></li>
+                                        <li><a id="8" href="javascript:void(0)">设计单位</a></li>
+                                        <li><a id="9" href="javascript:void(0)">其他</a></li>
+                                    </ul>
+                                </div>
+                            </li> -->
+
+                            <li>
+                                <button class="chax1">查询</button>
+                            </li>
+                            <!-- <button class="download">下载</button> -->
+                        </div>
+                        <div class="form_table astwsf">
+                            <!-- 布局的地方 -->
+                            <!-- <table cellspacing="0" id="dyzt01">    <tr>        <td style="width:50px">序</td>        <td style="width:200px">单位 </td>        <td style="width:100px">职务</td>        <td style="width:100px">姓名</td>        <td style="width:100px" id="dyzt01-index">月份</td>               <td style="width:100px">总出勤天数</td>    </tr></table> -->
+
+
+                        </div>
+                        <!-- <div class="box" id="wrap1" style="margin-top: 20px"></div> -->
+                        <div id="page1" class="page_div" style="margin-top: 40px"></div>
+                    </div>
+                    <!------------------------ table_02 -------------------------->
+                    <div class="table_02">
+                        <div class="form_header">
+                            <li>
+                                <span>单位:</span>
+                                <input class="danw2" type="text">
+                            </li>
+                            <li>
+                                <span>姓名:</span>
+                                <input class="xmin2" type="text">
+                            </li>
+                            <li>
+                                <span>职务:</span>
+                                <input class="zhiw2" type="text">
+                            </li>
+                            <li>
+                                <span>月份:</span>
+                                <input class="yfen2 layData" type="text" id="demo1">
+                            </li>
+                            <!-- <li>
+                                <span>类型:</span>
+                                <div class="chooseAll">
+                                    <span>
+                                        <a href="javascript:void(0)" class="allchoose">全部</a>
+                                        <img src="./img/icon_select01.png" alt="" style="margin-top:8px" class="upPic">
+                                    </span>
+                                    <ul>
+                                        <li><a id="1" href="javascript:void(0)">全部</a></li>
+                                        <li><a id="2" href="javascript:void(0)">总承包单位</a></li>
+                                        <li><a id="3" href="javascript:void(0)">监理单位</a></li>
+                                        <li><a id="1" href="javascript:void(0)">总承包单位</a></li>
+                                        <li><a id="2" href="javascript:void(0)">代建单位</a></li>
+                                        <li><a id="3" href="javascript:void(0)">建设单位</a></li>
+                                        <li><a id="4" href="javascript:void(0)">监理单位</a></li>
+                                        <li><a id="5" href="javascript:void(0)">专业分包单位</a></li>
+                                        <li><a id="6" href="javascript:void(0)">劳务分包单位</a></li>
+                                        <li><a id="7" href="javascript:void(0)">施工单位</a></li>
+                                        <li><a id="8" href="javascript:void(0)">设计单位</a></li>
+                                        <li><a id="9" href="javascript:void(0)">其他</a></li>
+                                    </ul>
+
+                                </div>
+                            </li> -->
+                            <li>
+                                <button class="chax2">查询</button>
+                            </li>
+                            <!-- <button class="download">下载</button> -->
+                        </div>
+                        <div class="table_bott">
+                            <!-- //往里面添加表格 -->
+                            <!-- <div class="form_table" id="dyzt02">        <table cellspacing="0">            <tr>                <td style="width:50px">序</td>                <td style="width:150px">单位 </td>                <td style="width:100px">职务</td>                <td style="width:50px">姓名</td>                <td style="width:100px">身份证</td>                <td style="width:100px" id="dyzt02-index">月份</td>                <td style="width:100px">月总时长统计</td>            </tr>        </table>    </div> -->
+                        </div>
+                        <!-- <div class="box" id="wrap2" style="margin-top: 20px"></div> -->
+
+                        <div id="page2" class="page_div" style="margin-top: 40px"></div>
+                    </div>
+                    <!------------------------ table_03 -------------------------->
+                    <div class="table_03">
+                        <div class="form_header">
+                            <li>
+                                <span>单位:</span>
+                                <input class="danw3" type="text">
+                            </li>
+                            <li>
+                                <span>姓名:</span>
+                                <input class="xmin3" type="text">
+                            </li>
+                            <!-- <li>
+                                <span>职务:</span>
+                                <input class="zhiw3" type="text">
+                            </li> -->
+                            <li>
+                                <span>月份:</span>
+                                <input class="yfen3 layData" type="text" id="demo2">
+                            </li>
+                            <!-- <li>
+                                <span>类型:</span>
+                                <div class="chooseAll">
+                                    <span><a href="javascript:void(0)" class="allchoose">请选择</a><img
+                                            src="./img/icon_select01.png" alt="" style="margin-top:8px"
+                                            class="upPic"></span>
+                                    <ul>
+                                        <li><a id="1" href="javascript:void(0)">总承包单位</a></li>
+                                        <li><a id="2" href="javascript:void(0)">代建单位</a></li>
+                                        <li><a id="3" href="javascript:void(0)">建设单位</a></li>
+                                        <li><a id="4" href="javascript:void(0)">监理单位</a></li>
+                                        <li><a id="5" href="javascript:void(0)">专业分包单位</a></li>
+                                        <li><a id="6" href="javascript:void(0)">劳务分包单位</a></li>
+                                        <li><a id="7" href="javascript:void(0)">施工单位</a></li>
+                                        <li><a id="8" href="javascript:void(0)">设计单位</a></li>
+                                        <li><a id="9" href="javascript:void(0)">其他</a></li>
+                                    </ul>
+                                </div>
+                            </li> -->
+                            <li>
+                                <button class="chax3">查询</button>
+                            </li>
+                            <!-- <button class="download">下载</button> -->
+                        </div>
+                        <div class="dyzt-lp">
+                            <!-- //往里面添加表格 -->
+                            <!-- <div class="form_table" id="dyzt03">        <table cellspacing="0">            <tr>                <td style="width:50px">序</td>                <td style="width:150px">单位 </td>                <td style="width:50px">班组</td>                <td style="width:60px">人员类型</td>                <td style="width:50px">姓名</td>                <td style="width:100px">身份证</td>                <td style="width:100px" id="dyzt03-index">月份</td>                <td style="width:100px">月总时长统计</td>            </tr>        </table>    </div> -->
+                        </div>
+                        <!-- <div class="box" id="wrap3" style="margin-top: 20px"></div> -->
+                        <div id="page3" class="page_div" style="margin-top: 40px"></div>
+                    </div>
+                    <!------------------------ table_04 -------------------------->
+                    <div class="table_04">
+                        <div class="form_header">
+
+                            <li>
+                                <span>月份:</span>
+                                <input class="yfen4 layData" type="text" id="demo3">
+                            </li>
+
+                            <li>
+                                <span>类型:</span>
+                                <div class="chooseAll">
+                                    <span><a href="javascript:void(0)" class="allChoose">全部</a><img
+                                            src="./img/icon_select01.png" alt="" style="margin-top:8px"
+                                            class="upPic"></span>
+                                    <ul id="shebchax">
+                                        <!-- <li><a href="javascript:void(0)">全部</a></li> -->
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <button class="chax4">查询</button>
+                            </li>
+                            <!-- <button class="download">下载</button> -->
+                        </div>
+                        <div class="dyzt04-top">
+                            <!-- <div class="form_table" id="dyzt04">
+                                        <table cellspacing="0">
+                                            <tr class="dyige">
+                                                <td style="width:100px" id="dyzt04-index">日期</td>
+            
+                                                <td style="width:90px">月最大值</td>
+            
+                                            </tr>
+            
+                                        </table>
+                                    </div> -->
+                        </div>
+
+                        <!-- <div class="box" id="wrap4" style="margin-top: 20px"></div> -->
+                        <div id="page4" class="page_div" style="margin-top: 40px"></div>
+                    </div>
+                    <!------------------------ table_05 -------------------------->
+                    <div class="table_05">
+                        <div class="form_header">
+                            <li>
+                                <span>单位:</span>
+                                <input class="danw5" type="text">
+                            </li>
+                            <li>
+                                <span>姓名:</span>
+                                <input class="xmin5" type="text">
+                            </li>
+                            <li>
+                                <span>工种:</span>
+                                <input class="gzhong5" type="text">
+                            </li>
+                            <li>
+                                <span>班组:</span>
+                                <input class="bzhu5" type="text">
+                            </li>
+                            <li>
+                                <span>月份:</span>
+                                <input class="yfen5 layData" type="text" id="demo4">
+                            </li>
+
+                            <!-- <li>
+                                <span>类型:</span>
+                                <div class="chooseAll">
+                                    <span><a href="javascript:void(0)" class="allChoose">请选择</a>
+                                        <img src="./img/icon_select01.png" alt="" style="margin-top:8px"
+                                            class="upPic"></span>
+                                    <ul>
+                                        <li><a id="1" href="javascript:void(0)">总承包单位</a></li>
+                                        <li><a id="2" href="javascript:void(0)">代建单位</a></li>
+                                        <li><a id="3" href="javascript:void(0)">建设单位</a></li>
+                                        <li><a id="4" href="javascript:void(0)">监理单位</a></li>
+                                        <li><a id="5" href="javascript:void(0)">专业分包单位</a></li>
+                                        <li><a id="6" href="javascript:void(0)">劳务分包单位</a></li>
+                                        <li><a id="7" href="javascript:void(0)">施工单位</a></li>
+                                        <li><a id="8" href="javascript:void(0)">设计单位</a></li>
+                                        <li><a id="9" href="javascript:void(0)">其他</a></li>
+                                    </ul>
+                                </div>
+                            </li> -->
+                            <li>
+                                <button class="chax5">查询</button>
+                            </li>
+                            <!-- <button class="download">下载</button> -->
+                        </div>
+                        <div class="table_05-bott">
+
+
+                            <!-- <div class="form_table" id="dyzt05">        <table cellspacing="0">            <tr>                <td style="width:150px">单位</td>                <td style="width:150px">姓名 </td>                <td style="width:150px">工种</td>                <td style="width:60px">班组</td>                <td style="width:150px">入职日期</td>                <td style="width:100px" id="dyzt05-index">月份</td>                <td style="width:100px">实勤工时</td>            </tr>        </table>    </div> -->
+
+                        </div>
+                        <!-- <div class="box" id="wrap5" style="margin-top: 20px"></div> -->
+                        <div id="page5" class="page_div" style="margin-top: 40px"></div>
+                    </div>
+                    <!------------------------ table_05 -------------------------->
+                    <div class="table_06 " style="">
+                        <div class="form_header">
+                            <li>
+                                <span>统计月份:</span>
+                                <input class="yfen6 layData" type="text" id="demo5">
+                                <!-- 日期：<input class="laydate-icon" id="demo" value="2014-6-25更新">  -->
+                            </li>
+                            <li>
+                                <button class="chax6">查询</button>
+                            </li>
+                            <!-- <button class="download">下载</button> -->
+                        </div>
+                        <div class="form_table">
+                            <div class="table_mark">
+                                <span class="dhsq" id='dhsq'></span>
+                                <span class="dhsq2" id='dhsq2'></span>
+                                <span class="dhsq3" id="dhsq3"></span>
+                                <span class="dhsq4" id="dhsq4"></span>
+                            </div>
+                            <!-- <div style=" " > -->
+
+                            <div class="donhsq">
+                                <!-- <table cellspacing="0" style="" id="dyzt06">
+                                    <tr>
+                                        <td>序号</td>
+                                        <td>总包</td>
+                                        <td>上传人</td>
+                                        <td>安全员</td>
+                                        <td>上传人</td>
+                                        <td>监理</td>
+                                        <td>上传人</td>
+                                    </tr>
+                                </table> -->
+                            </div>
+
+                            <!-- </div> -->
+                            <!-- <table cellspacing="0" id="dyzt06" style=" overflow-x: auto;
+                            overflow-y: hidden;  overflow: hidden;   height: 500px; background-color: red ">
+                                <tr>
+                                    <td>序号</td>
+                                    <td>总包</td>
+                                    <td>上传人</td>
+                                    <td>安全员</td>
+                                    <td>上传人</td>
+                                    <td>监理</td>
+                                    <td>上传人</td>
+                                </tr>
+                               
+                            </table> -->
+
+
+                        </div>
+                        <!-- <div class="box" id="wrap6" style="margin-top: 20px"></div> -->
+                        <div id="page6" class="page_div" style="margin-top: 40px"></div>
+                    </div>
+                    <!-- ---------------------table_07 -->
+                    <!-- <div class="table_07">
+                        <div class="form_header">
+                            <li>
+                                <span>单位:</span>
+                                <input class="danw7" type="text">
+                            </li>
+                            <li>
+                                <span>月份:</span>
+                                <input class="yfen7" type="text" id="demo7">
+
+                            </li>
+                            <li>
+                                <span>类型:</span>
+                                <div class="chooseAll">
+                                    <span><a href="javascript:void(0)" class="allchoose">监理单位</a>
+                                        <img src="./img/icon_select01.png" alt="" style="margin-top:8px" class="upPic">
+                                    </span>
+                                    <ul>
+                                        <li><a id="1" href="javascript:void(0)">总承包单位</a></li>
+                                        <li><a id="2" href="javascript:void(0)">代建单位</a></li>
+                                        <li><a id="3" href="javascript:void(0)">建设单位</a></li>
+                                        <li><a id="4" href="javascript:void(0)">监理单位</a></li>
+                                        <li><a id="5" href="javascript:void(0)">专业分包单位</a></li>
+                                        <li><a id="6" href="javascript:void(0)">劳务分包单位</a></li>
+                                        <li><a id="7" href="javascript:void(0)">施工单位</a></li>
+                                        <li><a id="8" href="javascript:void(0)">设计单位</a></li>
+                                        <li><a id="9" href="javascript:void(0)">其他</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <button class="chax7">查询</button>
+                            </li>
+                            <button class="download">下载</button>
+                        </div>
+                        <div class="form_table astwsf">
+                      
+                        <table cellspacing="0" id="dyzt01">    <tr>        <td style="width:50px">序</td>        <td style="width:200px">单位 </td>        <td style="width:100px">职务</td>        <td style="width:100px">姓名</td>        <td style="width:100px" id="dyzt01-index">月份</td>               <td style="width:100px">总出勤天数</td>    </tr></table>
+
+
+                        </div>
+                        <div class="box" id="wrap7" style="margin-top: 20px"></div>
+                    </div> -->
+                    <!-- table_08 -->
+                    <!-- <div class="table_08">
+                        <div class="form_header">
+                            <li>
+                                <span>单位:</span>
+                                <input class="danw8" type="text">
+                            </li>
+                            <li>
+                                <span>姓名:</span>
+                                <input class="xmin8" type="text">
+                            </li>
+                            <li>
+                                <span>月份:</span>
+                                <input class="yfen8" type="text" id="demo8">
+                            </li>
+                            <li>
+                                <span>类型:</span>
+                                <div class="chooseAll">
+                                    <span>
+                                        <a href="javascript:void(0)" class="allchoose">监理单位</a>
+                                    </span>
+
+                                </div>
+                            </li>
+                            <li>
+                                <button class="chax8">查询</button>
+                            </li>
+                            <button class="download">下载</button>
+                        </div>
+                        <div class="table_bott">
+                       
+                        <div class="form_table" id="dyzt02">        <table cellspacing="0">            <tr>                <td style="width:50px">序</td>                <td style="width:150px">单位 </td>                <td style="width:100px">职务</td>                <td style="width:50px">姓名</td>                <td style="width:100px">身份证</td>                <td style="width:100px" id="dyzt02-index">月份</td>                <td style="width:100px">月总时长统计</td>            </tr>        </table>    </div>
+                        </div>
+                        <div class="box" id="wrap8" style="margin-top: 20px"></div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="./js/report.js"></script>
+<script src="../../js/request.js"></script>
+<!-- 日历 -->
+<script src="../../js/plugins/fyq/1.js"></script>
+<!-- 分页 -->
+<script src="/js/plugins/paging/js/pageMe.js"></script>
+<script src="/js/plugins/laydate/laydate.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        // $("#page").paging({
+        //     pageNum: 5, // 当前页面
+        //     totalNum: 14, // 总页码
+        //     totalList: 300, // 记录总数量
+        //     callback: function (num) { //回调函数
+        //         console.log(num);
+        //     }
+        // });
+        // 遍历初始化日历插件
+        $('.wrap_form').find('.layData').each(function () {
+            var id = '#' + $(this).attr('id')
+            laydate.render({
+                elem: id,
+                theme: '#393D49',
+                value: new Date().getFullYear() + "-0" + (new Date().getMonth() + 1),
+                // format:'yyyy年M月',
+                type: 'month',//指定元素
+                change: function (value, date, endDate) {
+                    this.elem.val(value);
+                    $('#layui-laydate'+this.elem.attr('lay-key')).remove()
+                }
+
+            });
+        })
+        // $('.wrap_form').find('.layData').each(function () {
+        //     var id = '#' + $(this).attr('id')
+        //     laydate.render({
+        //         elem: id,
+        //         theme: '#393D49',
+        //         format: 'yyyy年MM月',
+        //         // type: 'month' //指定元素
+
+        //     });
+        // })
+
+
+
+
+        $('.wrap-menu').find('li').each(function () {
+            $(this).on("click", function () {
+                $('.wrap_form>div').css('display', 'none')
+                var name = $(this).attr('name')
+                $(this).addClass('menu_active').siblings().removeClass('menu_active')
+                $('.' + name).css('display', 'block')
+                // $('.chooseAll .allChoose').text('请选择');
+                $('.chooseAll').find('ul').hide()
+            })
+        });
+        // 选择类型
+        $('.table_01 .allchoose').on("click", function (e) {
+            e.stopPropagation(e);
+            $('.chooseAll').find('ul').show()
+        })
+
+        $('.allchoose').on("click", function (e) {
+            e.stopPropagation(e);
+            $('.chooseAll').find('ul').show()
+        })
+        $('.table_02 .chooseAll').on("click", function (e) {
+            // e.stopPropagation(e);
+            $('.chooseAll').find('ul').show()
+        })
+        $('.table_04 .chooseAll .allChoose').on("click", function (e) {
+            e.stopPropagation(e);
+            $('.table_04 .chooseAll').find('ul').show()
+        })
+        $('.table_03 .chooseAll .allChoose').on("click", function (e) {
+            e.stopPropagation(e);
+            $('.table_03 .chooseAll').find('ul').show()
+        })
+        $('.table_05 .chooseAll .allChoose').on("click", function (e) {
+            e.stopPropagation(e);
+            $('.table_05 .chooseAll').find('ul').show()
+        })
+        $(".upPic").on("click", function (e) {
+            e.stopPropagation(e);
+            $('.chooseAll').find('ul').show()
+        })
+
+        // $('.allChoose').on("mouseover", function () {
+        //     $('.chooseAll').find('ul').hide()
+        // })
+
+        document.onclick = function (e) {
+            e.stopPropagation(e);
+            $('.chooseAll').find('ul').hide()
+        }
+        // 阻止事件冒泡
+        function stopproPagation(e) {
+
+            window.event ? window.event.cancelBubble = true : e.stopPropagation();
+        }
+        // 点击获取阶段分类
+
+        // djhuoq()
+
+        // function djhuoq() {
+        //     //  console.log(etgid);
+
+        //     $('.chooseAll ul li').find("a").each(function () {
+        //         $(this).on("click", function () {
+        //             $('.onechoose').text($(this).text())
+        //             $('.chooseAll').find('ul').hide()
+        //             //  console.log(etg);
+        //         })
+        //     })
+        // }
+
+        kaoqj()
+        function kaoqj() { //考勤机的查询
+            var etgid //设备id
+            $('.table_01 .chooseAll ul li').find("a").each(function () {
+                $(this).on("click", function () {
+                    etgid = $(this).attr('id')
+
+                    $('.table_01 .allchoose').text($(this).text())
+                    $('.chooseAll').find('ul').hide()
+                    //  console.log(etg);
+                })
+            })
+            //console.log(etgid);
+            $(".chax1").click(function () {
+                // console.log(etgid);
+                dw = $(".danw1").val().trim()
+                xm = $('.renm1').val().trim();
+                zw = $('.zhiw1').val().trim();
+                console.log(xm, zw)
+                if ($(".yfen1").val().split("-")[0] + "-" + $(".yfen1").val().split("-")[1] == "-undefined") {
+                    yf = ""
+                } else {
+                    yf = $(".yfen1").val().split("-")[0] + "-" + $(".yfen1").val().split("-")[1]
+                }
+
+                //console.log(yf);
+                global.ajax.workerTotalTime(function (res) {
+
+                    // ttt = res.data
+                    if (res.data.personAttenceList.length == 0) {
+                        $(".astwsf").empty()
+                        $('#page1').empty();
+                        return;
+                    }
+                    if (res.data.personAttenceList.length < 9) {
+                        $('#page1').empty();
+                    }
+                    if (res.data.personAttenceList.length > 9) {
+                        $("#page1").paging({
+                            pageNum: 1, // 当前页面
+                            totalNum: Math.ceil(res.data.totalSize / 10), // 总页码
+                            totalList: res.data.totalSize, // 记录总数量
+                            callback: function (num) { //回调函数
+                                global.ajax.workerTotalTime(function (RES) {
+                                    Security.statisticsList(RES.data)
+                                }, dw, yf, num, etgid, xm, zw)
+                            }
+                        });
+                        // // 分页功能
+                        // var onPagechange = function (page) {
+                        //     //console.log('当前点击页码', page);
+                        //     global.ajax.workerTotalTime(function (RES) {
+
+                        //         Security.statisticsList(RES.data)
+                        //     }, dw, yf, page, etgid)
+                        // }
+
+                        // var obj = {
+                        //     wrapid: 'wrap1', //页面显示分页器容器id
+                        //     total: res.data.totalSize, //总条数
+                        //     pagesize: 10, //每页显示10条
+                        //     currentPage: 1, //当前页
+                        //     onPagechange: onPagechange,
+                        //     //btnCount:7 页数过多时，显示省略号的边界页码按钮数量，可省略，且值是大于5的奇数
+                        // }
+
+
+                        // pagination.init(obj);
+
+
+                    }
+
+                    Security.statisticsList(res.data)
+                }, dw, yf, 1, etgid, xm, zw)
+            })
+
+
+        }
+        // 劳务人员、劳务管理人员在岗时长统计报表考勤机
+        global.ajax.workerTotalTime(function (res) {
+            // ttt = res.data
+            if (res.data.personAttenceList.length == 0) {
+                $(".astwsf").empty()
+                $('#page1').empty();
+                return;
+            }
+            if (res.data.personAttenceList.length < 9) {
+                $('#page1').empty();
+            }
+            if (res.data.personAttenceList.length > 9) {
+                // 分页功能
+                // var onPagechange = function (page) {
+                //     dw = $(".danw1").val().trim()
+                //     if ($(".yfen1").val().split("-")[0] + "-" + $(".yfen1").val().split("-")[1] == "-undefined") {
+                //         yf = ""
+                //     } else {
+                //         yf = $(".yfen1").val().split("-")[0] + "-" + $(".yfen1").val().split("-")[1]
+                //     }
+
+
+                //     //console.log('当前点击页码', page, yf);
+                //     global.ajax.workerTotalTime(function (RES) {
+
+                //         Security.statisticsList(RES.data)
+                //     }, dw, yf, page)
+                // }
+
+                // var obj = {
+                //     wrapid: 'wrap1', //页面显示分页器容器id
+                //     total: res.data.totalSize, //总条数
+                //     pagesize: 10, //每页显示10条
+                //     currentPage: 1, //当前页
+                //     onPagechange: onPagechange,
+                //     //btnCount:7 页数过多时，显示省略号的边界页码按钮数量，可省略，且值是大于5的奇数
+                // }
+                // pagination.init(obj);
+
+                dw = $(".danw1").val().trim();
+
+
+                if ($(".yfen1").val().split("-")[0] + "-" + $(".yfen1").val().split("-")[1] == "-undefined") {
+                    yf = ""
+                } else {
+                    yf = $(".yfen1").val().split("-")[0] + "-" + $(".yfen1").val().split("-")[1]
+                }
+                $("#page1").paging({
+                    pageNum: 1, // 当前页面
+                    totalNum: Math.ceil(res.data.totalSize / 10), // 总页码
+                    totalList: res.data.totalSize, // 记录总数量
+                    callback: function (num) { //回调函数
+                        global.ajax.workerTotalTime(function (RES) {
+                            Security.statisticsList(RES.data)
+                        }, dw, yf, num)
+                    }
+                });
+            }
+            Security.statisticsList(res.data)
+        })
+
+
+        mjin()
+        function mjin() { //门禁的查询
+            // $('#demo0').val('')
+            // selectType('.table_02')
+            $('.table_02 .chooseAll ul li').find("a").each(function () {
+                $(this).on("click", function () {
+                    etgid = $(this).attr('id')
+
+                    $('.table_02 .allchoose').text($(this).text());
+                    $('.chooseAll').find('ul').hide()
+                    //  console.log(etg);
+                })
+            })
+            $(".chax2").click(function () {
+                dw = $(".danw2").val().trim()
+                xm = $(".xmin2").val().trim()
+                zw = $('.zhiw2').val().trim()
+                // console.log($(".yfen2").val().split("-")[0]);
+
+                if ($(".yfen2").val().split("-")[0] + "-" + $(".yfen2").val().split("-")[1] == "-undefined") {
+                    yf = ""
+                } else {
+                    yf = $(".yfen2").val().split("-")[0] + "-" + $(".yfen2").val().split("-")[1]
+                }
+                // console.log(yf);
+
+                global.ajax.entrancguard(function (res) {
+                    if (res.data.personelInJobList.length === 0) {
+
+                        $('#page2').empty();
+                        $('.table_bott').empty()
+                        return;
+                    }
+                    if (res.data.personelInJobList.length < 9) {
+                        $('#page2').empty();
+                    }
+                    if (res.data.personelInJobList.length > 9) {
+                        // 分页功能
+                        $("#page2").paging({
+                            pageNum: 1, // 当前页面
+                            totalNum: Math.ceil(res.data.totalSize / 10), // 总页码
+                            totalList: res.data.totalSize, // 记录总数量
+                            callback: function (num) { //回调函数
+                                global.ajax.entrancguard(function (RES) {
+
+                                    Security.minjin(RES.data)
+
+                                }, dw, xm, yf, num, zw)
+                            }
+                        });
+                        // var onPagechange = function (page) {
+                        //     // console.log('当前点击页码', page);
+                        //     global.ajax.entrancguard(function (RES) {
+
+                        //         Security.minjin(RES.data)
+
+                        //     }, dw, xm, yf, page)
+                        // }
+
+                        // var obj = {
+                        //     wrapid: 'wrap2', //页面显示分页器容器id
+                        //     total: res.data.totalSize, //总条数
+                        //     pagesize: 10, //每页显示10条
+                        //     currentPage: 1, //当前页
+                        //     onPagechange: onPagechange,
+                        //     //btnCount:7 页数过多时，显示省略号的边界页码按钮数量，可省略，且值是大于5的奇数
+                        // }
+                        // pagination.init(obj);
+                    }
+                    Security.minjin(res.data)
+                }, dw, xm, yf, 1, zw)
+            })
+        }
+        // 门禁
+        global.ajax.entrancguard(function (res) {
+            // console.log("门禁");
+            //         console.log(res.data);
+            // ttt = res.data
+            if (res.data.personelInJobList.length === 0) {
+                $('#page2').empty();
+                $('.table_bott').empty()
+                return;
+            }
+            if (res.data.personelInJobList.length > 9) {
+                dw = $(".danw2").val().trim()
+                xm = $(".xmin2").val().trim()
+                if ($(".yfen2").val().split("-")[0] + "-" + $(".yfen1").val().split("-")[1] == "-undefined") {
+                    yf = ""
+                } else {
+                    yf = $(".yfen2").val().split("-")[0] + "-" + $(".yfen1").val().split("-")[1]
+                }
+                // 分页功能
+                $("#page2").paging({
+                    pageNum: 1, // 当前页面
+                    totalNum: Math.ceil(res.data.totalSize / 10), // 总页码
+                    totalList: res.data.totalSize, // 记录总数量
+                    callback: function (num) { //回调函数
+                        global.ajax.entrancguard(function (RES) {
+
+                            Security.minjin(RES.data)
+
+                        }, dw, xm, yf, num)
+                    }
+                });
+                // var onPagechange = function (page) {
+                //     dw = $(".danw2").val().trim()
+                //     xm = $(".xmin2").val().trim()
+                //     if ($(".yfen2").val().split("-")[0] + "-" + $(".yfen1").val().split("-")[1] == "-undefined") {
+                //         yf = ""
+                //     } else {
+                //         yf = $(".yfen2").val().split("-")[0] + "-" + $(".yfen1").val().split("-")[1]
+                //     }
+
+
+
+                //     global.ajax.entrancguard(function (RES) {
+
+                //         Security.minjin(RES.data)
+                //     }, dw, xm, yf, page)
+                // }
+
+                // var obj = {
+                //     wrapid: 'wrap2', //页面显示分页器容器id
+                //     total: res.data.totalSize, //总条数
+                //     pagesize: 10, //每页显示10条
+                //     currentPage: 1, //当前页
+                //     onPagechange: onPagechange,
+                //     //btnCount:7 页数过多时，显示省略号的边界页码按钮数量，可省略，且值是大于5的奇数
+                // }
+                // pagination.init(obj);
+            }
+            Security.minjin(res.data)
+        })
+
+
+
+        tjbb()  // 劳务人员在岗时长统计报表查询
+        function tjbb() {
+            var etgid //类型id
+            // selectType('.table_03')
+            // $('#demo3').val('')
+            $('.table_03 .chooseAll ul li').find("a").each(function () {
+                $(this).on("click", function () {
+                    etgid = $(this).attr('id')
+
+                    $('.table_03 .allchoose').text($(this).text())
+                    $('.table_03 .chooseAll').find('ul').hide()
+                    //  console.log(etg);
+                })
+            })
+            //console.log(etgid);
+
+            $(".chax3").click(function () {
+                // console.log(etgid); //公司类型id
+                dw = $(".danw3").val().trim()
+                xm = $(".xmin3").val().trim()
+                if ($(".yfen3").val().split("-")[0] + "-" + $(".yfen3").val().split("-")[1] == "-undefined") {
+                    yf = ""
+                } else {
+                    yf = $(".yfen3").val().split("-")[0] + "-" + $(".yfen3").val().split("-")[1]
+                }
+                //console.log(dw, xm, yf);
+                global.ajax.Theorkingtime(function (res) {
+
+                    if (res.data.personelInJobList.length === 0) {
+                        $(".dyzt-lp").empty()
+                        $('#page3').empty();
+                        return;
+                    }
+                    if (res.data.personelInJobList.length < 9) {
+                        $('#page3').empty();
+                    }
+                    // 调用分页功能
+                    if (res.data.personelInJobList.length > 9) {
+                        // var onPagechange = function (page) {
+                        //     // console.log('当前点击页码', page);
+                        //     global.ajax.Theorkingtime(function (RES) {
+                        //         Security.laowryzgsc(RES.data)
+
+                        //     }, dw, xm, yf, page, etgid)
+                        // }
+
+                        // var obj = {
+                        //     wrapid: 'wrap3', //页面显示分页器容器id
+                        //     total: res.data.totalSize, //总条数
+                        //     pagesize: 10, //每页显示10条
+                        //     currentPage: 1, //当前页
+                        //     onPagechange: onPagechange,
+                        //     //btnCount:7 页数过多时，显示省略号的边界页码按钮数量，可省略，且值是大于5的奇数
+                        // }
+                        // pagination.init(obj);
+                        $("#page3").paging({
+                            pageNum: 1, // 当前页面
+                            totalNum: Math.ceil(res.data.totalSize / 10), // 总页码
+                            totalList: res.data.totalSize, // 记录总数量
+                            callback: function (num) { //回调函数
+                                console.log(num);
+                                global.ajax.Theorkingtime(function (RES) {
+                                    Security.laowryzgsc(RES.data)
+
+                                }, dw, xm, yf, num, etgid)
+                            }
+                        });
+                    }
+
+                    Security.laowryzgsc(res.data)
+                }, dw, xm, yf, 1, etgid)
+            })
+
+        }
+        // 劳务人员在岗时长统计报表
+        global.ajax.Theorkingtime(function (res) {
+            //console.log("劳务人员在岗时长");
+            //console.log(res.data);
+            if (res.data.personelInJobList.length === 0) {
+                $(".dyzt-lp").empty()
+                $('#page3').empty();
+                return;
+            }
+            dw = $(".danw3").val().trim()
+            xm = $(".xmin3").val()
+            if ($(".yfen3").val().split("-")[0] + "-" + $(".yfen3").val().split("-")[1] == "-undefined") {
+                yf = ""
+            } else {
+                yf = $(".yfen3").val().split("-")[0] + "-" + $(".yfen3").val().split("-")[1]
+            }
+            if (res.data.personelInJobList.length > 9) {
+                // 调用分页功能
+                // var onPagechange = function (page) {
+                //     // console.log('当前点击页码', page);
+                //     global.ajax.Theorkingtime(function (RES) {
+                //         Security.laowryzgsc(RES.data)
+
+                //     }, dw, xm, yf, page)
+                // }
+
+                // var obj = {
+                //     wrapid: 'wrap3', //页面显示分页器容器id
+                //     total: res.data.totalSize, //总条数
+                //     pagesize: 10, //每页显示10条
+                //     currentPage: 1, //当前页
+                //     onPagechange: onPagechange,
+                //     //btnCount:7 页数过多时，显示省略号的边界页码按钮数量，可省略，且值是大于5的奇数
+                // }
+                // pagination.init(obj);
+                $("#page3").paging({
+                    pageNum: 1, // 当前页面
+                    totalNum: Math.ceil(res.data.totalSize / 10), // 总页码
+                    totalList: res.data.totalSize, // 记录总数量
+                    callback: function (num) { //回调函数
+                        console.log(num);
+                        global.ajax.Theorkingtime(function (RES) {
+                            Security.laowryzgsc(RES.data)
+
+                        }, dw, xm, yf, num)
+                    }
+                });
+            }
+            Security.laowryzgsc(res.data)
+        })
+
+
+        zhujj() //住建局
+        function zhujj() {
+            var etgid //类型id
+            $('.table_05 .chooseAll ul li').find("a").each(function () {
+                $(this).on("click", function () {
+                    etgid = $(this).attr('id')
+
+                    $('.table_05 .chooseAll .allChoose').text($(this).text())
+                    $('.table_05 .chooseAll').find('ul').hide()
+                    //  console.log(etg);
+                })
+            })
+            // console.log(etgid);
+
+            $(".chax5").click(function () {
+                // console.log(etgid); //公司类型id
+
+                dw = $(".danw5").val().trim()
+                xm = $(".xmin5").val().trim()
+                gz = $(".gzhong5").val().trim()
+                bz = $(".bzhu5").val().trim()
+                if ($(".yfen5").val().split("-")[0] + "-" + $(".yfen5").val().split("-")[1] == "-undefined") {
+                    yf = ""
+                } else {
+                    yf = $(".yfen5").val().split("-")[0] + "-" + $(".yfen5").val().split("-")[1]
+                }
+                //  console.log(dw, xm, yf);
+                global.ajax.housinguthority(function (res) {
+
+                    if (res.data.personelInJobList.length === 0) {
+                        $("#page5").empty()
+                        $('#dyzt05').empty();
+                        return;
+                    }
+                    if (res.data.personelInJobList.length < 9) {
+                        $('#dyzt05').empty();
+                        $("#page5").empty();
+                    }
+                    if (res.data.personelInJobList.length > 9) {
+                        // 分页调用功能
+                        $("#page5").paging({
+                            pageNum: 1, // 当前页面
+                            totalNum: Math.ceil(res.data.totalSize / 10), // 总页码
+                            totalList: res.data.totalSize, // 记录总数量
+                            callback: function (num) { //回调函数
+                                console.log(num);
+                                global.ajax.housinguthority(function (RES) {
+
+
+                                    Security.kaoqji(RES.data)
+                                }, dw, xm, yf, num, etgid, gz, bz)
+                            }
+                        });
+                        // var onPagechange = function (page) {
+                        //     // console.log('当前点击页码', page, yf);
+                        //     // console.log(etgid, dw, xm, yf)
+
+                        //     global.ajax.housinguthority(function (RES) {
+
+
+                        //         Security.kaoqji(RES.data)
+                        //     }, dw, xm, yf, page, etgid)
+                        // }
+
+                        // // console.log('条数', res.data.totalSize)
+                        // var obj = {
+                        //     wrapid: 'wrap5', //页面显示分页器容器id
+                        //     total: res.data.totalSize, //总条数
+                        //     pagesize: 9, //每页显示10条
+                        //     currentPage: 1, //当前页
+                        //     onPagechange: onPagechange,
+                        //     //btnCount:7 页数过多时，显示省略号的边界页码按钮数量，可省略，且值是大于5的奇数
+                        // }
+                        // pagination.init(obj);
+
+                    }
+
+
+                    ttt = res.data
+
+                    Security.kaoqji(ttt)
+
+
+
+                }, dw, xm, yf, 1, etgid, gz, bz)
+            })
+
+
+
+        }
+        // （住建局）
+        global.ajax.housinguthority(function (res) {
+            //console.log("劳务人员在岗时长");
+            //console.log(res.data);
+            // ttt = res.data
+            if (res.data.personelInJobList.length === 0) {
+                $(".table_05-bott").empty()
+                $('#page5').empty();
+                return;
+            }
+            var etgid //类型id
+            $('.table_05 .chooseAll ul li').find("a").each(function () {
+                $(this).on("click", function () {
+                    etgid = $(this).attr('id')
+
+                    $('.table_05 .chooseAll .allChoose').text($(this).text())
+                    $('.table_05 .chooseAll').find('ul').hide()
+                    //  console.log(etg);
+                })
+            })
+            dw = $(".danw5").val().trim()
+            xm = $(".xmin5").val()
+            if ($(".yfen5").val().split("-")[0] + "-" + $(".yfen5").val().split("-")[1] == "-undefined") {
+                yf = ""
+            } else {
+                yf = $(".yfen5").val().split("-")[0] + "-" + $(".yfen5").val().split("-")[1]
+            }
+            // 分页调用功能
+
+
+            if (res.data.personelInJobList.length > 9) {
+                $("#page5").paging({
+                    pageNum: 1, // 当前页面
+                    totalNum: Math.ceil(res.data.totalSize / 10), // 总页码
+                    totalList: res.data.totalSize, // 记录总数量
+                    callback: function (num) { //回调函数
+                        console.log(num);
+                        global.ajax.housinguthority(function (RES) {
+
+
+                            Security.kaoqji(RES.data)
+                        }, dw, xm, yf, num, etgid)
+                    }
+                });
+                // var onPagechange = function (page) {
+                //     //   console.log('当前点击页码', page, yf);
+
+
+                //     global.ajax.housinguthority(function (RES) {
+
+
+                //         Security.kaoqji(RES.data)
+                //     }, dw, xm, yf, page, etgid)
+                // }
+
+
+                // var obj = {
+                //     wrapid: 'wrap5', //页面显示分页器容器id
+                //     total: res.data.totalSize, //总条数
+                //     pagesize: 9, //每页显示10条
+                //     currentPage: 1, //当前页
+                //     onPagechange: onPagechange,
+                //     //btnCount:7 页数过多时，显示省略号的边界页码按钮数量，可省略，且值是大于5的奇数
+                // }
+                // pagination.init(obj);
+
+            }
+
+            Security.kaoqji(res.data)
+        })
+
+
+
+        //动火申请查询功能
+        donhuo()
+        function donhuo() {
+            // $('#demo6').val('')
+            $(".chax6").click(function () {
+
+
+                if ($(".yfen6").val().split("-")[0] + "-" + $(".yfen6").val().split("-")[1] == "-undefined") {
+                    yf = ""
+                } else {
+                    yf = $(".yfen6").val().split("-")[0] + "-" + $(".yfen6").val().split("-")[1]
+                }
+                //   console.log(yf);
+                global.ajax.Hotapplicationform(function (res) {
+                    // ttt = res.data
+                    if (res.data.fireApplyStatistics.fireApplyList.length === 0) {
+                        $("#dhsq").empty()
+                        $("#dhsq2").empty()
+                        $("#dhsq3").empty()
+                        $("#dhsq4").empty()
+                        $(".donhsq").empty();
+                        $('#page6').empty();
+                        return;
+                    }
+
+
+                    if (res.data.fireApplyStatistics.fireApplyList.length < 9) {
+                       
+                        $('#page6').empty()
+                    }
+                    if (res.data.fireApplyStatistics.fireApplyList.length > 9) {
+                        $("#page6").paging({
+                            pageNum: 1, // 当前页面
+                            totalNum: Math.ceil(res.data.totalSize / 10), // 总页码
+                            totalList: res.data.totalSize, // 记录总数量
+                            callback: function (num) { //回调函数
+                                console.log(num);
+                                global.ajax.Hotapplicationform(function (RES) {
+                                    Security.donhuosq(RES.data)
+                                }, yf, num)
+                            }
+                        });
+
+                        // var onPagechange = function (page) {
+                        //     // console.log('当前点击页码', page);
+                        //     global.ajax.Hotapplicationform(function (RES) {
+                        //         Security.donhuosq(RES.data)
+                        //     }, yf, page)
+                        // }
+
+                        // var obj = {
+                        //     wrapid: 'wrap6', //页面显示分页器容器id
+                        //     total: res.data.totalSize, //总条数
+                        //     pagesize: 9, //每页显示10条
+                        //     currentPage: 1, //当前页
+                        //     onPagechange: onPagechange,
+                        //     //btnCount:7 页数过多时，显示省略号的边界页码按钮数量，可省略，且值是大于5的奇数
+                        // }
+                        // pagination.init(obj);
+                    }
+
+
+                    Security.donhuosq(res.data)
+                }, yf)
+            })
+        }
+
+        //动火申请
+        global.ajax.Hotapplicationform(function (res) {
+            //console.log("动火申请");
+            //console.log(res.data);
+            // ttt = res.data
+            if (res.data.fireApplyStatistics.fireApplyList.length === 0) {
+                $(".donhsq").empty()
+                $('#wrap6').empty();
+                return;
+            }
+            Security.donhuosq(res.data)
+        })
+
+
+
+        //设备列表
+        global.ajax.Theequipmentlist(function (res) {
+            // console.log("设备列表");
+            //console.log(res.data);
+            // ttt = res.data
+            Security.sheblb(res.data)
+            var etgid = $('.table_04 .allChoose').attr('id');
+
+            if ($(".yfen4").val().split("-")[0] + "-" + $(".yfen4").val().split("-")[1] == "-undefined") {
+                yf = ""
+            } else {
+                yf = $(".yfen4").val().split("-")[0] + "-" + $(".yfen4").val().split("-")[1]
+            }
+            global.ajax.asdgfsgsd(yf, etgid, function (res) {
+                // console.log(res);
+                // ttt = res.data
+                if (res.data.daysStatistics.length == 0) {
+                    $(".dyzt04-top").empty();
+                    // $('#wrap4').empty();
+                    return;
+                }
+                Security.shebxq(res.data)
+            })
+
+            // djhuoq()
+            segdf()
+        })
+
+        function segdf() { //设备的查询
+
+            var etgid = $('.table_04 .allChoose').attr('id');
+            // $('#demo4').val('')
+            $('.table_04 .chooseAll ul li').find("a").each(function () {
+                $(this).on("click", function () {
+                    etgid = $(this).attr('id')
+
+                    $('.table_04 .chooseAll .allChoose').text($(this).text())
+                    $('.table_04 .chooseAll').find('ul').hide()
+                    //  console.log(etg);
+                })
+            })
+
+            $(".chax4").click(function () {
+                // console.log($(".yfen4").val());
+
+                //  console.log(etg);
+                var yf = $(".yfen4").val().split("-")[0] + "-" + $(".yfen4").val().split("-")[1] //月份的输入
+                if (etgid == undefined || $(".yfen4").val() == "") {
+                    alert("请选择月份和类型");
+                    return
+                }
+
+                global.ajax.asdgfsgsd(yf, etgid, function (res) {
+                    // console.log(res);
+                    // ttt = res.data
+                    if (res.data.daysStatistics.length == 0) {
+                        $(".dyzt04-top").empty();
+                        // $('#wrap4').empty();
+                        return;
+                    }
+                    Security.shebxq(res.data)
+                })
+            })
+        }
+
+
+        //设备详情
+        // global.ajax.asdgfsgsd(yf, etgid, function (res) {
+        //             // console.log(res);
+        //             // ttt = res.data
+        //             if (res.data.daysStatistics.length == 0) {
+        //                 $(".dyzt04-top").empty();
+        //                 // $('#wrap4').empty();
+        //                 return;
+        //             }
+        //             Security.shebxq(res.data)
+        //         })
+
+
+    })
+
+
+</script>

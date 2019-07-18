@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="pragma" content="no-cache">
+    <title>天鹅堡项目(进度管理)</title>
+    <script src="/js/plugins/jquery.min.js"></script>
+    <script src="/js/plugins/echarts.min.js" type="text/javascript"></script>
+    <script src="/js/plugins/swiper/swiper.min.js"></script>
+    <link rel="stylesheet" href="/js/plugins/swiper/swiper.min.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+
+<body>
+    <div class="page">
+        <div class="content">
+            <div class="box1 box">
+                <div style="padding-right:10px">
+                    <!-- 材料进场 -->
+                    <div class="cljc" style="height:390px">
+                        <img class="module_ys" src="/images/pic_ys.png" alt="">
+                        <img class="module_yx" src="/images/pic_yx.png" alt="">
+                        <img class="module_zs" src="/images/pic_zs.png" alt="">
+                        <img class="module_zx" src="/images/pic_zx.png" alt="">
+                        <div class="wrap-title">
+                            <span>材料进场</span>
+                        </div>
+                        <div class="wrap-nav tab_nav1" style="color:#fff">
+                            <div class="box cljc_item_list">
+
+                            </div>
+                        </div>
+                        <div>
+                            <div class="chart" id="chart01" style="height:180px;width: 100%;"></div>
+
+                            <div class="chartList">
+                                <div class="chart" id="chart02" style="height:200px;width: 100%;"></div>
+                                <div class="chart" id="chart03" style="height:200px;width: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 实测实量 scsl-->
+                    <div class="scsl" style="height:370px">
+                        <img class="module_ys" src="/images/pic_ys.png" alt="">
+                        <img class="module_yx" src="/images/pic_yx.png" alt="">
+                        <img class="module_zs" src="/images/pic_zs.png" alt="">
+                        <img class="module_zx" src="/images/pic_zx.png" alt="">
+                        <div class="wrap-title">
+                            <span>实测实量</span>
+                        </div>
+                        <div class="wrap-nav tab_nav">
+                            <div class="box">
+                                <li><span class="nav_active">巡查进度</span></li>
+                                <li><span>巡查进度</span></li>
+                            </div>
+                        </div>
+                        <div class="wrap-nav1 cfix">
+                            <div class="box">
+                                当前楼栋：<li class="house houseName scslHouseName"><span><a href="javascript:void(0)"
+                                            class="thirdName">楼栋1</a><img src="./img/icon_select01.png" alt=""></span>
+                                    <ul style="display:none">
+                                        <li>楼栋1</li>
+                                        <li>楼栋2</li>
+                                        <li>楼栋3</li>
+                                    </ul>
+                                </li>
+                                工序：<li class="bottom scslItem"><span><a href="javascript:void(0)"
+                                            class="infoItem scslItemName">混凝土工程</a><img style="margin-bottom: 7px"
+                                            src="./img/icon_select01.png" alt=""></span>
+                                    <div class="navBox">
+
+                                    </div>
+                                </li>
+                            </div>
+                        </div>
+                        <div class="scslEchart" style="width:100%">
+                            <div class="chart" id="scslLeft" style="height:350px;width:30%;"></div>
+                            <div class="chart" id="scslRight" style="height:350px;width:70%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <!-- 工序验收 -->
+                    <div class="gxys" style="height:450px">
+                        <img class="module_ys" src="/images/pic_ys.png" alt="">
+                        <img class="module_yx" src="/images/pic_yx.png" alt="">
+                        <img class="module_zs" src="/images/pic_zs.png" alt="">
+                        <img class="module_zx" src="/images/pic_zx.png" alt="">
+                        <div class="wrap-title">
+                            <span>工序验收</span>
+                        </div>
+                        <div class="wrap-nav tab_nav2">
+                            <div class="box itemName">
+                                <!-- <li><span class="nav_active">四海时代</span></li>
+                                <li><span>四海云创</span></li> -->
+                            </div>
+                        </div>
+                        <div class="wrap-nav1 cfix">
+                            <div class="box">
+                                当前楼栋：<li class="house houseName gxysHouseName"><span style="margin-right:30px" ;><a
+                                            href="javascript:void(0)" class="firstName">楼栋1</a><img
+                                            src="./img/icon_select01.png" alt=""></span>
+                                    <ul style="display:none">
+                                        <li>楼栋1</li>
+                                        <li>楼栋2</li>
+                                        <li>楼栋3</li>
+                                    </ul>
+                                </li>
+                                工序：<div class="gxysItemName"><span><a href="javascript:void(0)"
+                                            class="infoItem gxysInfoItem">混凝土工程</a><img src="./img/icon_select01.png"
+                                            alt=""></span>
+                                    <div class="navBox">
+                                        <!-- <ul class="parent-item">
+                                            <li><span>主体结构-混凝土结构（2016）</span></li>
+                                            <ul class="child-item">
+                                                <li><span>混凝土</span></li>
+                                                <ul class="child-item">
+                                                    <li><span>混凝土拌合物</span></li>
+                                                </ul>
+                                                <ul class="child-item">
+                                                    <li><span>混凝土施工</span></li>
+                                                </ul>
+                                                <ul class="child-item">
+                                                    <li><span>混凝土原材料</span></li>
+                                                </ul>
+                                            </ul>
+                                            <ul class="child-item">
+                                                <li><span>钢筋</span></li>
+                                                <ul class="child-item">
+                                                    <li><span>钢筋原材料</span></li>
+                                                </ul>
+                                                <ul class="child-item">
+                                                    <li><span>钢筋连接</span></li>
+                                                </ul>
+                                                <ul class="child-item">
+                                                    <li><span>钢筋加工</span></li>
+                                                </ul>
+                                                <ul class="child-item">
+                                                    <li><span>钢筋安装</span></li>
+                                                </ul>
+                                            </ul>
+                                            <ul class="child-item">
+                                                <li><span>现浇结构</span></li>
+                                                <ul class="child-item">
+                                                    <li><span>混凝土设备基础外观及尺寸偏差</span></li>
+                                                </ul>
+                                                <ul class="child-item">
+                                                    <li><span>现浇结构外观及尺寸偏差</span></li>
+                                                </ul>
+                                            </ul>
+                                            <ul class="child-item">
+                                                <li><span>预应力</span></li>
+                                                <ul class="child-item">
+                                                    <li><span>预应力原材料</span></li>
+                                                </ul>
+                                                <ul class="child-item">
+                                                    <li><span>预应力张拉与放张</span></li>
+                                                </ul>
+                                                <ul class="child-item">
+                                                    <li><span>预应力制作与安装</span></li>
+                                                </ul>
+                                                <ul class="child-item">
+                                                    <li><span>预应力灌浆与封锚</span></li>
+                                                </ul>
+                                            </ul>
+                                            <ul class="child-item">
+                                                <li><span>装配式结构</span></li>
+                                                <ul class="child-item">
+                                                    <li><span>装配式结构施工</span></li>
+                                                </ul>
+                                                <ul class="child-item">
+                                                    <li><span>装配式结构预制构件</span></li>
+                                                </ul>
+                                            </ul>
+                                            <ul class="child-item">
+                                                <li><span>模板</span></li>
+                                                <ul class="child-item">
+                                                    <li><span>模板安装</span></li>
+                                                </ul>
+                                                <ul class="child-item">
+                                                    <li><span>模板拆除</span></li>
+                                                </ul>
+                                            </ul>
+                                        </ul>
+                                        <ul class="parent-item">
+                                            <li><span>主体结构-混凝土结构（2016）</span></li>
+                                            <ul class="child-item">
+                                                <li><span>混凝土</span></li>
+                                                <ul class="child-item">
+                                                    <li><span>混凝土拌合物</span></li>
+                                                </ul>
+                                                <ul class="child-item">
+                                                    <li><span>混凝土施工</span></li>
+                                                </ul>
+                                                <ul class="child-item">
+                                                    <li><span>混凝土原材料</span></li>
+                                                </ul>
+                                            </ul>
+                                            <ul class="child-item">
+                                                <li><span>钢筋</span></li>
+                                                <ul class="child-item">
+                                                    <li><span>钢筋原材料</span></li>
+                                                </ul>
+                                                <ul class="child-item">
+                                                    <li><span>钢筋连接</span></li>
+                                                </ul>
+                                                <ul class="child-item">
+                                                    <li><span>钢筋加工</span></li>
+                                                </ul>
+                                                <ul class="child-item">
+                                                    <li><span>钢筋安装</span></li>
+                                                </ul>
+                                            </ul>
+                                            <ul class="child-item">
+                                                <li><span>现浇结构</span></li>
+                                                <ul class="child-item">
+                                                    <li><span>混凝土设备基础外观及尺寸偏差</span></li>
+                                                </ul>
+                                                <ul class="child-item">
+                                                    <li><span>现浇结构外观及尺寸偏差</span></li>
+                                                </ul>
+                                            </ul>
+                                            <ul class="child-item">
+                                                <li><span>预应力</span></li>
+                                                <ul class="child-item">
+                                                    <li><span>预应力原材料</span></li>
+                                                </ul>
+                                                <ul class="child-item">
+                                                    <li><span>预应力张拉与放张</span></li>
+                                                </ul>
+                                                <ul class="child-item">
+                                                    <li><span>预应力制作与安装</span></li>
+                                                </ul>
+                                                <ul class="child-item">
+                                                    <li><span>预应力灌浆与封锚</span></li>
+                                                </ul>
+                                            </ul>
+                                            <ul class="child-item">
+                                                <li><span>装配式结构</span></li>
+                                                <ul class="child-item">
+                                                    <li><span>装配式结构施工</span></li>
+                                                </ul>
+                                                <ul class="child-item">
+                                                    <li><span>装配式结构预制构件</span></li>
+                                                </ul>
+                                            </ul>
+                                            <ul class="child-item">
+                                                <li><span>模板</span></li>
+                                                <ul class="child-item">
+                                                    <li><span>模板安装</span></li>
+                                                </ul>
+                                                <ul class="child-item">
+                                                    <li><span>模板拆除</span></li>
+                                                </ul>
+                                            </ul>
+                                        </ul> -->
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="count">
+                            <!--  style="color:rgba(168, 171, 226, 1)" -->
+                            <span>监理验收统计</span>
+                            <li></li>
+                        </div>
+                        <div>
+                            <div class="chart" id="JLYS" style="height:100px"></div>
+                        </div>
+                        <div class="unfail">
+                            <span>检查项统计</span>
+                            <li></li>
+                        </div>
+                        <div class="jctjTitle">
+                            <div>(次数)</div>
+                            <div><span class="jlcjx">监理检查项</span><span class="sgcjx">施工检查项</span></div>
+                        </div>
+                        <div>
+                            <div class="chart" id="JCTJ" style="height:250px"></div>
+                        </div>
+                    </div>
+                    <!-- 样板验收ybys -->
+                    <div class="ybys">
+                        <img class="module_ys" src="/images/pic_ys.png" alt="">
+                        <img class="module_yx" src="/images/pic_yx.png" alt="">
+                        <img class="module_zs" src="/images/pic_zs.png" alt="">
+                        <img class="module_zx" src="/images/pic_zx.png" alt="">
+                        <div class="wrap-title">
+                            <span>样板验收</span>
+                        </div>
+                        <div class="wrap-nav tab_nav3">
+                            <div class="box itemName">
+                                <!-- <li><span class="nav_active">四海时代</span></li>
+                                <li><span>四海云创</span></li> -->
+                            </div>
+                        </div>
+                        <div class="wrap-nav1 cfix">
+                            <div class="box">
+                                <li class="bottom houseName"><span><a href="javascript:void(0)"
+                                            class="infoName ybysItemName">地下室防水</a><img src="./img/icon_select01.png"
+                                            alt=""></span>
+                            </div>
+                        </div>
+                        <div class="swiperList">
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper   pic_view">
+                                    <div class="swiper-slide" style="text-align:center">
+                                        <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery"
+                                            data-group="g6" data-src="/pages/quality/img/Bitmap Copy 3.png">
+                                            <img src="/pages/quality/img/Bitmap Copy 3.png" alt="" width="70%">
+                                        </a>
+                                    </div>
+                                    <div class="swiper-slide" style="text-align:center">
+                                        <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery"
+                                            data-group="g6" data-src="/pages/quality/img/Bitmap Copy 3.png">
+                                            <img src="/pages/quality/img/Bitmap Copy 3.png" alt="" width="70%">
+                                        </a>
+                                    </div>
+                                    <div class="swiper-slide" style="text-align:center">
+                                        <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery"
+                                            data-group="g6" data-src="/pages/quality/img/Bitmap Copy 3.png">
+                                            <img src="/pages/quality/img/Bitmap Copy 3.png" alt="" width="70%">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="swiper-button-prev swiper-button-white"></div>
+                                <!--左箭头-->
+                                <div class="swiper-button-next swiper-button-white"></div>
+                                <!--右箭头-->
+                                <!-- 分页器 -->
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+                        <div class="more">
+                            <button>查看更多</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <!-- 质量巡查 -->
+                    <div class="xcjd">
+                        <img class="module_ys" src="/images/pic_ys.png" alt="">
+                        <img class="module_yx" src="/images/pic_yx.png" alt="">
+                        <img class="module_zs" src="/images/pic_zs.png" alt="">
+                        <img class="module_zx" src="/images/pic_zx.png" alt="">
+                        <div class="wrap-title">
+                            <span>质量巡查</span>
+                        </div>
+                        <div class="wrap-nav tab_nav4">
+                            <div class="box itemName xcjdName">
+                                <!-- <li><span class="nav_active">四海时代</span></li>
+                                <li><span>四海云创</span></li> -->
+                            </div>
+                        </div>
+                        <div class="allHouse">
+                            <li class="house houseName xcjdHouseName">当前楼栋:<span style="color:rgba(168, 171, 226, 1)"
+                                    ;><a href="javascript:void(0)" class="firstName">楼栋1</a><img
+                                        src="./img/icon_select01.png" alt=""></span>
+                                <ul style="display:none">
+                                    <li>楼栋1</li>
+                                    <li>楼栋2</li>
+                                    <li>楼栋3</li>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="zlcxEacharts"
+                            style="height:457px;border-bottom: 1px dashed rgba(145, 147, 191, 0.2);">
+                            <div id="zlcxEacharts">
+                                <!-- <div class="chart" id="XJJD" style="height:80px;"></div> -->
+                            </div>
+                            <!-- <div class="chart" id="ZLXC" style="height:200px;"></div> -->
+                            <div class="itemList">
+                                <li><span>待处理</span></li>
+                                <li><span>已逾期</span></li>
+                                <li><span>未验收</span></li>
+                                <li><span>已关闭</span></li>
+                            </div>
+                        </div>
+                        <div class="problem">
+                            <!-- <div class="chart" id="pie01" style="height:100px"></div> -->
+                            <li><span class="square">监理宋子一共检查出问题50个</span><span class="square">监理檀祖渊共检查出问题50个</span>
+                            </li>
+                            <li><span class="square">监理宋子一共检查出问题50个</span><span class="square">监理檀祖渊共检查出问题50个</span>
+                            </li>
+                            <li><span class="square">监理宋子一共检查出问题50个</span><span class="square">监理檀祖渊共检查出问题50个</span>
+                            </li>
+                            <li><span class="square">监理宋子一共检查出问题50个</span><span class="square">监理檀祖渊共检查出问题50个</span>
+                            </li>
+
+                        </div>
+                    </div>
+                    <!-- 任务统计 -->
+                    <div class="rwtj" style="height:160px">
+                        <img class="module_ys" src="/images/pic_ys.png" alt="">
+                        <img class="module_yx" src="/images/pic_yx.png" alt="">
+                        <img class="module_zs" src="/images/pic_zs.png" alt="">
+                        <img class="module_zx" src="/images/pic_zx.png" alt="">
+                        <div class="wrap-title">
+                            <span>任务统计</span>
+                        </div>
+                        <div class="wrap-nav tab_nav5">
+                            <div class="box projectName">
+                                <!-- <li><span class="nav_active">四海时代</span></li>
+                                <li><span>四海云创</span></li> -->
+                            </div>
+                        </div>
+                        <div class="chart" id="LWTJ" style="height:180px;"></div>
+                        <ul>
+                            <li><span>整改中</span></li>
+                            <li><span>已逾期</span></li>
+                            <li><span>整改完成</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
+<script src="./js/quality.js"></script>
+<script src="/js/request.js"></script>
+
+<script src="./js/chart.js"></script>
+
+<script src="/js/ocx.js"></script>
+
+<script type="text/javascript">
+
+    var enterpriseId;
+    var workId;
+    var valueEx;
+    var itemEnterpriseId;
+    var houseEnterpriseId;
+    // 材料进场-专业
+    global.ajax.searchItem(function (res) {
+        // console.log(res)
+        var list = res.data.items;
+        var html = '';
+        // var enterpriseId;
+        // var majorid;
+        list.forEach(function (item, i) {
+            var active = ''
+            if (i == 0) {
+                active = 'nav_active';
+                enterpriseId = item.enterpriseId;//项目id
+                majorid = item.id;//专业id
+            }
+            html += '<li enterpriseId="' + item.enterpriseId + '" majorid="' + item.id + '"><span class="' + active + '">' + item.name + '</span></li>';
+
+        })
+        $('.cljc_item_list').html(html);
+        renderCLJC()
+        global.page.tabNav1('.tab_nav1', function (_this) {
+            enterpriseId = _this.attr('enterpriseId');
+            majorid = _this.attr('majorid');
+            // console.log(enterpriseId,majorid)
+            renderCLJC()
+        })
+
+    })
+
+    //材料进场数据渲染
+    function renderCLJC() {
+        if (!enterpriseId && !majorid) return;
+        global.ajax.getIntoData(enterpriseId, majorid, function (res) {
+            var materialDataList = res.data.items;
+            Quality.formatCLJCData(materialDataList)
+        })
+    }
+
+    // 任务统计数据渲染
+    global.ajax.searchTask(function (res) {
+        // console.log(res, '任务统计数据渲染')
+        Quality.formatTaskData(res)
+    })
+    // 查询任务统计 工程名字 
+    // global.ajax.getEngineeringList(function(res){
+    //     var dataList=res.data.engineeringList;
+    //     var html='';
+    //     console.log(dataList,'查询任务统计')
+    //     dataList.forEach(function(item,i){
+    //         var active = '';
+    //         if (i == 0) {
+    //             active = 'nav_active';
+    //             workId = item.engineeringId;//项目id
+    //         }
+    //         html+='<li enterpriseId="' + item.engineeringId + '"><span class="' + active + '">' +item.engineeringName + '</span></li>';
+    //     })
+    //     $('.projectName').html(html);
+
+    //     // 任务统计数据渲染
+    //     global.ajax.searchTask(workId, function (res) {
+    //         console.log(res,'任务统计数据渲染')
+    //          Quality.formatTaskData(res)
+    //     })
+    // })
+
+
+
+    //查询项目名称信息  四海云创 四海时代
+    global.ajax.searchArea('OCT01', 1, function (res) {
+        var nameList = res.data.items;
+        var html = '';
+        nameList.forEach(function (item, i) {
+            var active = '';
+            // var enterpriseId;
+            // var valueEx;
+            if (i == 0) {
+                active = 'nav_active';
+                enterpriseId = item.enterpriseId;
+                valueEx = item.typeValueEx;
+            }
+            if (item.enterpriseId == 'OCT010100100004' || item.enterpriseId == 'OCT010100100005') {
+                html += '<li enterpriseId="' + item.enterpriseId + '"><span class="' + active + '">' + item.typeValueEx + '</span></li>'
+            }
+
+        })
+        //console.log(enterpriseId, '222');
+        $('.itemName').html(html);
+        // 首次渲染
+        //楼栋  分项
+        renderHouseInfo();
+        renderHouseInfo1();
+        renderHouseInfo2();
+        renderItemInfo();
+
+
+        // 质量巡查饼状图
+        // global.ajax.searchQuality(enterpriseId, function (res) {
+
+        //     Quality.formatZLXJPieDate(res)
+        // })
+
+
+
+
+        global.page.tabNav1('.tab_nav2', function (_this) {
+            $('.myDivList').hide()
+            $('.gxysHouseName').find('ul').hide();
+            $('.navBox').hide();
+            // $('.navBox').empty();
+            enterpriseId = _this.attr('enterpriseId');
+            //console.log(enterpriseId)
+            renderHouseInfo();
+            renderItemInfo();
+        })
+
+        global.page.tabNav1('.tab_nav4', function (_this) {
+            enterpriseId = _this.attr('enterpriseId');
+            renderHouseInfo1();
+            // global.ajax.searchQuality(enterpriseId, function (res) {
+            //     Quality.formatZLXJPieDate(res);
+            // })
+
+        })
+
+        // global.page.tabNav1('.tab_nav5', function (_this) {
+        //     workId = _this.attr('enterpriseId');
+        //     global.ajax.searchTask(workId, function (res) {
+        //         console.log(workId,'qiehuan')
+        //         Quality.formatTaskData(res)
+        //     })
+        // })
+    })
+    //  工序验收  楼栋信息
+    function renderHouseInfo() {
+        // var enterpriseId;
+        // var valueEx;
+        // if(!enterpriseId && !valueEx) return;
+        global.ajax.searchArea(enterpriseId, 4, function (res) {
+            var nameList = res.data.items;
+            // console.log(nameList)
+            var html = '';
+            // var enterpriseId;
+            // var valueEx;
+            $('.gxys .firstName').html(nameList[0].typeValueEx);
+            $('.gxys .firstName').attr('valueEx', nameList[0].valueEx);
+            $('.gxys .firstName').attr('enterpriseId', nameList[0].enterpriseId);
+            nameList.forEach(function (item, i) {
+                if (i == 0) {
+                    enterpriseId = item.enterpriseId;
+                    valueEx = item.valueEx;
+                }
+                html += '<li enterpriseId="' + item.enterpriseId + '" valueEx="' + item.valueEx + '">' + item.typeValueEx + '</li>'
+            })
+            $('.gxysHouseName ul').html(html);
+
+            global.page.chooseSelect('.gxysHouseName', function (_this) {
+                houseEnterpriseId = _this.attr('enterpriseId');
+                $('.firstName').attr('enterpriseId', houseEnterpriseId);
+                itemEnterpriseId = $('.gxysInfoItem').attr('enterpriseId');
+                //console.log(houseEnterpriseId, itemEnterpriseId)
+            })
+        })
+    }
+    // 质量巡查 工序验收楼栋信息
+    function renderHouseInfo1() {
+        global.ajax.searchArea(enterpriseId, 4, function (res) {
+            var nameList = res.data.items;
+            // console.log(nameList)
+            var html = '';
+            $('.xcjd .firstName').html(nameList[0].typeValueEx);
+            $('.xcjd .firstName').attr('valueEx', nameList[0].valueEx);
+            $('.xcjd .firstName').attr('enterpriseId', nameList[0].enterpriseId);
+            nameList.forEach(function (item, i) {
+                if (i == 0) {
+                    enterpriseId = item.enterpriseId;
+                    valueEx = item.valueEx;
+                }
+                html += '<li enterpriseId="' + item.enterpriseId + '" valueEx="' + item.valueEx + '">' + item.typeValueEx + '</li>'
+            })
+            $('.xcjdHouseName ul').html(html);
+
+            enterpriseId = $('.xcjd .firstName').attr('enterpriseid');
+            // console.log("质量巡检", enterpriseId);
+            // 质量巡查树状图
+            global.ajax.searchQuality(enterpriseId, function (res) {
+                var arrList = [];
+                res.data.items.forEach(function (items) {
+                    if (items.type == 2) {
+                        arrList.push(items)
+                    }
+                })
+                if (arrList.length === 1) {
+                    $('#zlcxEacharts').html('<div class="chart" id="XJJD" style="height:80px;"></div>');
+
+                } else if (arrList.length >= 2) {
+                    $('#zlcxEacharts').html('<div class="chart" id="XJJD" style="height:120px;"></div>');
+                }
+                // console.log(res, '树状图',arrList)
+                Quality.formatCheckData(res)
+            })
+            global.page.chooseSelect('.xcjdHouseName', function (_this) {
+                enterpriseId = _this.attr('enterpriseId');
+                if (!enterpriseId) return;
+                // $('.firstName').attr('enterpriseId',houseEnterpriseId);
+                global.ajax.searchQuality(enterpriseId, function (res) {
+                    // console.log(res, '树状图')
+                    var arrList = [];
+                    res.data.items.forEach(function (items) {
+                        if (items.type == 2) {
+                            arrList.push(items)
+                        }
+                    })
+                    if (arrList.length === 1) {
+                        $('#zlcxEacharts').html('<div class="chart" id="XJJD" style="height:80px;"></div>');
+
+                    } else if (arrList.length >= 2) {
+                        $('#zlcxEacharts').html('<div class="chart" id="XJJD" style="height:120px;"></div>');
+                    }
+                    // console.log(res, '树状图',arrList)
+                    Quality.formatCheckData(res)
+                })
+            })
+        })
+    }
+
+    // 实测实量 工序验收楼栋信息
+    function renderHouseInfo2() {
+        global.ajax.searchArea(enterpriseId, 4, function (res) {
+            var nameList = res.data.items;
+            // console.log(nameList)
+            var html = '';
+            $('.thirdName').html(nameList[0].typeValueEx);
+            $('.thirdName').attr('valueEx', nameList[0].valueEx);
+            $('.thirdName').attr('enterpriseId', nameList[0].enterpriseId);
+            nameList.forEach(function (item, i) {
+                if (i == 0) {
+                    enterpriseId = item.enterpriseId;
+                    valueEx = item.valueEx;
+                }
+                html += '<li enterpriseId="' + item.enterpriseId + '" valueEx="' + item.valueEx + '">' + item.typeValueEx + '</li>'
+            })
+            $('.houseName ul').html(html);
+            global.page.chooseSelect('.houseName', function (_this) {
+                houseEnterpriseId = _this.attr('enterpriseId');
+                $('.firstName').attr('enterpriseId', houseEnterpriseId);
+                //console.log(houseEnterpriseId);
+            })
+        })
+    }
+
+    //工序验收 分部分项信息
+    function renderItemInfo() {
+        if (!enterpriseId && !valueEx) return;
+        global.ajax.itemName(enterpriseId, 16384, function (res) {
+            var arr = res.data.items;
+            var html = '';
+            var enterpriseId;
+            var valueEx;
+            var gxysNameId;
+            var gxysItemId;
+            //console.log(arr, '111');
+            var dataList = test(arr);
+            // console.log(dataList,'工序验收');
+            var html1 = ''
+            var upPic = './img/up.png'
+            function callback(dataList, className) {
+                dataList.forEach(function (item, i) {
+                    $('.gxys .gxysInfoItem').html(dataList[0].obj.typeValueEx);
+                    $('.gxys .gxysInfoItem').attr('enterpriseId', dataList[0].obj.enterpriseId);
+                    if (i < 5) {
+                        var pitTure = item.childs && item.childs.length > 0 ? upPic : ''
+                        var pic = item.childs && item.childs.length > 0 ? '<img src="' + pitTure + '">' : ''
+                        html1 += '<ul class="' + className + '"><li><span class="Select">' + pic + '</span><span class="typeName" enterpriseId="' + item.obj.enterpriseId + '">' + item.obj.typeValueEx + '</span></li>'
+                        if (item.childs && item.childs.length > 0) {
+                            callback(item.childs, 'child-item')
+                        }
+                        html1 += '</ul>'
+                    }
+                })
+                return html1
+            }
+            var a = callback(dataList, 'parent-item');
+            $('.navBox').html(html1)
+            $('.parent-item>li').on('click', function (e) {
+                stopproPagation(e);
+                if ($(this).find('img').attr('src') == './img/up.png') {
+                    $(this).find('img').attr('src', './img/down.png')
+                } else {
+                    $(this).find('img').attr('src', './img/up.png')
+                }
+                $(this).parents().siblings().find('li>img').attr('src', './img/up.png')
+                $('.parent-item>.child-item').slideToggle();
+                $(this).nextAll().find('.child-item').hide();
+                $(this).parents().siblings().find('.child-item').hide();
+            })
+            $('.parent-item>.child-item>li').on("click", function (e) {
+                stopproPagation(e)
+                //console.log('111', $(this).find('img').attr('src'));
+                if ($(this).find('img').attr('src') == './img/up.png') {
+                    $(this).find('img').attr('src', './img/down.png')
+                } else {
+                    $(this).find('img').attr('src', './img/up.png')
+                }
+                $(this).nextAll().slideToggle();
+
+                //    $(this).parent().siblings().find('.child-item').hide()
+            })
+
+            // 工序下拉选择框
+            $('.gxys .parent-item>.child-item>.child-item>li>.typeName').each(function () {
+                $(this).click(function () {
+                    $('.gxysInfoItem').html($(this).html());
+                    var itemEnterpriseId = $(this).attr('enterpriseId');
+                    console.log(itemEnterpriseId, '工序下拉选择框');
+                    $('.gxysInfoItem').attr('enterpriseId', itemEnterpriseId)
+                    global.ajax.itemCheck('OCT01', gxysNameId, itemEnterpriseId, function (res) {
+
+                        rendJLTJYS(res)
+                    })
+                })
+            })
+
+            // 实测实量选择框
+            $('.scsl .parent-item>.child-item>.child-item>li>.typeName').each(function () {
+                $(this).click(function () {
+                    $('.scslItemName').html($(this).html());
+                    var itemEnterpriseId = $(this).attr('enterpriseId');
+                    // console.log(itemEnterpriseId);
+                    $('.scslItemName').attr('enterpriseId', itemEnterpriseId)
+
+                })
+            })
+
+
+
+
+
+            //页面第一次渲染   
+            gxysNameId = $('.firstName').attr('enterpriseId')
+            gxysItemId = $('.gxysInfoItem').attr('enterpriseId')
+            //查询质量管理-工序验收
+            console.log(gxysNameId, gxysItemId, "第一次渲染")
+            global.ajax.itemCheck('OCT01', gxysNameId, gxysItemId, function (res) {
+                //console.log(res,'获取质量管理-工序验收')
+                rendJLTJYS(res)
+            })
+            // global.page.chooseSelect('.bottom',function(_this){
+            //     houseEnterpriseId=_this.attr('enterpriseId');
+            //     $('.infoItem').attr('enterpriseId',houseEnterpriseId);
+            //     itemEnterpriseId=$('.firstName').attr('enterpriseId')
+            //     console.log(houseEnterpriseId,itemEnterpriseId)
+
+
+            // })
+        })
+    }
+
+
+    //  查询质量管理-质量巡检
+    //  global.ajax.searchQuality('OCT010100100004',function(res){
+    //     rendZLXJ(res)
+    //  })
+
+    //查询质量管理-工序验收
+    // global.ajax.itemCheck('OCT01','OCT0101001000050000100001','OCT01163840000500004',function(res){
+    //     console.log(res)
+    //     rendJLTJYS(res)
+    // })
+    // 监理统计验收数据渲染
+    function rendJLTJYS(res) {
+        Quality.formatJLTJData(res);
+        Quality.formatJCXData(res);
+    }
+
+
+
+
+    // 工序验收 楼栋下拉框
+    $('.gxysHouseName').click(function (e) {
+        stopproPagation(e)
+        $('.gxysHouseName').find('ul').slideToggle();
+        $('.xcjdHouseName').find('ul').hide();
+        $('.gxys .navBox').hide();
+        $('.scsl .navBox').hide();
+        $('.scslHouseName').find('ul').hide();
+    })
+    // 工序验收  分项下拉框
+    $('.gxysItemName').click(function (e) {
+        stopproPagation(e)
+        $('.gxys .navBox').slideToggle();
+        $('.scsl .navBox').hide();
+        $('.gxysHouseName').find('ul').hide();
+        $('.xcjdHouseName').find('ul').hide();
+        $('.scslHouseName').find('ul').hide();
+    })
+
+    // 质量巡检 楼栋下拉框 
+    $('.xcjdHouseName').find('span').click(function (e) {
+        stopproPagation(e)
+        $('.xcjdHouseName').find('ul').slideToggle();
+        $('.gxysHouseName').find('ul').hide();
+        $('.gxys .navBox').hide();
+        $('.scsl .navBox').hide();
+        $('.scslHouseName').find('ul').hide();
+        $('.scsl .navBox').hide();
+    });
+
+    //实测实量 楼栋下拉框
+    $('.scslHouseName').find('span').click(function (e) {
+        stopproPagation(e)
+        $('.scslHouseName').find('ul').slideToggle();
+        $('.scsl .navBox').hide();
+        $('.gxysHouseName').find('ul').hide();
+        $('.gxys .navBox').hide();
+        $('.xcjdHouseName').find('ul').hide();
+
+    })
+
+    //实测实量 分项下拉框
+    $('.scslItem').find('span').click(function (e) {
+        stopproPagation(e)
+        $('.scsl .navBox').slideToggle();
+        $('.scslHouseName').find('ul').hide();
+        $('.gxysHouseName').find('ul').hide();
+        $('.gxys .navBox').hide();
+        $('.scslHouseName').find('ul').hide();
+    })
+
+
+    document.onclick = function (e) {
+        e.stopPropagation(e);
+        $('.gxysHouseName').find('ul').hide();
+        $('.gxys .navBox').hide();
+        $('.scsl .navBox').hide();
+        $('.xcjdHouseName').find('ul').hide();
+        $('.scslHouseName').find('ul').hide()
+    }
+    // 阻止事件冒泡
+    function stopproPagation(e) {
+
+        window.event ? window.event.cancelBubble = true : e.stopPropagation();
+    }
+    // 处理后台数据      
+    function test(arr) {
+        var tops = new Array();
+        var els = new Array();
+        for (var a in arr) {
+            var obj = arr[a];
+            (!obj['valueEx']) && tops.push(obj['enterpriseId']);
+            if (!els[obj['enterpriseId']]) {
+                els[obj['enterpriseId']] = {};
+                els[obj['enterpriseId']]["childs"] = new Array();
+            }
+            els[obj['enterpriseId']]["obj"] = obj;
+            if (!els[obj['valueEx']]) {
+                els[obj['valueEx']] = {};
+                els[obj['valueEx']]["childs"] = new Array();
+            }
+            els[obj['valueEx']]["childs"].push(els[obj['enterpriseId']]);
+
+        }
+
+        var ret = new Array();
+        for (var a in tops) {
+            ret.push(els[tops[a]]);
+        }
+
+        return ret;
+    }
+</script>

@@ -1,0 +1,252 @@
+.header{
+    position: relative;
+    padding-top: 4px;
+    background: url(./img/pic_title.png) no-repeat center center;
+    background-size: 60% 100%
+}
+.header .time{
+    position: absolute;
+    top: 58px;
+    left:0;
+    right: 0;
+    text-align: center;
+    font-size: 13px;
+    color: #D4D4E3
+}
+.header .time span{
+    display: inline-block;
+    padding-right: 20px
+}
+.header .time span:first-child{
+    width: 140px
+}
+.wrap_pic img{
+    width: 100%;
+    height: auto;
+}
+.header .box>div{
+    flex: 1;
+}
+
+.header img{
+    vertical-align: middle
+}
+
+.header .left{
+    /* padding-left: 20px; */
+    color: #A8ABE2
+}
+.header .left span{
+    margin-right:10px
+}
+.header .left .logo{
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    width: 260px;
+
+}
+.header .center{
+    text-align: center;
+}
+.header .center h2{
+    font-size: 25px;
+    color: #D4D4E3;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+    padding: 15px 0 24px 0;
+    cursor: pointer;
+}
+.header .center span{
+    color: #9FA0C8;
+}
+.header .right{
+    text-align: right;
+}
+.header .right>div{
+    display: inline-block;
+}
+.header .message{
+    margin-left: 20px;
+    text-align: left;
+    position: relative;
+    cursor: pointer;
+}
+
+.header .message img{
+    width: 22px;
+    vertical-align: bottom;
+}
+
+.header .message span{
+    position: absolute;
+    top: -4px;
+    right: -10px;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 100%;
+    background: red ;
+    line-height: 16px;
+    text-align: center;
+    font-size: 12px;
+    /* color: #333333 */
+}
+
+.header .menu{
+    text-align: left;
+    color: #A8ABE2;
+    cursor: pointer;
+    position: relative;
+    padding-bottom: 10px;
+    font-size: 14px;
+}
+/*原来顶部导航栏样式  */
+/* .iframe>.header .menu>div{
+    display: inline-block;
+    margin-left: 20px;
+} */
+/* 目前顶部导航栏位置 */
+.header .menu>div{
+    margin-left: 20px;
+}
+.header .menu img{
+    width: 22px;
+    margin-right: 4px
+}
+
+/* 原来顶部导航栏样式 */
+/* .iframe>.header .icon_active{
+    display: none
+}
+.iframe>.header .menu>div:hover .icon_active{
+    display: inline-block
+}
+.iframe>.header .menu>div:hover .icon_default{
+    display: none
+}
+.iframe>.header .menu>div:hover{
+    color: #00FFF9
+} */
+.header .userInfo{
+    display: inline-block;
+    margin: 0 30px 0 40px;
+    cursor: pointer;
+    color: #9193BF
+}
+/* 目前顶部导航栏位置 */
+.header .nav_list{
+    position: absolute;
+    top: 20px;
+    display: none;
+    z-index:2;
+    background-color:#051253;
+    width: 80px;
+    padding: 5px 20px;
+}
+.header .nav_list p{
+    height: 40px;
+    line-height: 40px;
+}
+.header .icon_active{
+    display: none
+}
+.header .menu .nav_name:hover .icon_active{
+    display: inline-block
+}
+.header .menu .nav_name:hover .icon_default{
+    display: none
+}
+.header .menu .nav_name:hover{
+    color: #00FFF9
+}
+.header .menu .nav_list>p:hover .icon_default{
+    display: none
+}
+.header .menu .nav_list>p:hover .icon_active{
+    display: inline-block
+}
+.header .menu .nav_list>p .icon_default{
+    display: inline-block
+}
+.header .menu .nav_list>p:hover{
+    color: #00FFF9
+}
+
+
+/* 导航 */
+.iframe>.nav {
+    position: relative;
+    padding:24px 0 20px 0
+}
+.iframe>.nav .back{
+    position: absolute;
+    top: 26px;
+    left: 20px;
+    cursor: pointer;
+}
+.iframe>.nav .back img{
+    vertical-align: bottom;
+    margin-right: 1px;
+    width: 20px
+}
+.iframe>.nav .back a{
+    color: #A8ABE2
+}
+
+.iframe>.nav .box{
+    justify-content: center
+}
+.iframe>.nav .box li {
+    padding-right:2.4%;
+    width: 70px
+}
+.iframe>.nav .box li a {
+    padding: 4px 0;
+    font-size: 15px;
+    letter-spacing: 1px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.nav_active {
+    border-bottom: 1px solid #00FFF9;
+    color: #00FFF9
+}
+.iframe>.nav .notice{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 15px;
+    color: #9FA0C8
+}
+.iframe>.nav .notice img{
+    vertical-align: middle;
+    margin-right: 8px
+}
+.current_project{
+    position: relative;
+    color: #A8ABE2;
+    cursor: pointer;
+}
+.project_list{
+    position: absolute;
+    top: 20px;
+    right: -6px;
+    width: 110px;
+    z-index: 9999;
+    background: #051253;
+    display: none;
+    text-align: center;
+}
+
+.current_project:hover .project_list{
+    display:block
+}
+.project_list li{
+    padding: 5px 16px
+}
+.project_list li:hover,#current_project:hover,.userInfo span:hover{
+    /* background: #24379E */
+    color: #00FFF9
+}

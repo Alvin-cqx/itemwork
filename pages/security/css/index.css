@@ -1,0 +1,336 @@
+
+
+
+
+
+.security .work-container .title {
+    position: relative;
+    float: right;
+}
+
+.security .work-container .title .active a {
+    color: #00FFF9;
+    position: relative;
+}
+
+.security .work-container .title .active a::after {
+    content: "";
+    width: 76px;
+    height: 1px;
+    background: #00FFF9;
+    position: absolute;
+    left: 5%;
+    top: 134%;
+}
+
+.table-header {
+    margin-top: 44px;
+    display: flex;
+    justify-content: space-between;
+    color: #A8ABE2;
+    font-size: 16px;
+}
+
+/* 工种模态框 */
+
+.work-container .content {
+    margin-top: 12px;
+    color: #A8ABE2;
+}
+
+.work-container .content .siteName {
+    display: flex;
+    text-align: center;
+    border-bottom: 1px solid #A8ABE2;
+    padding: 14px;
+    color: #A8ABE2;
+}
+
+.company {
+    margin-top: 37px;
+    display: flex;
+    text-align: center;
+    padding: 14px;
+    color: #A8ABE2;
+}
+
+.plan,
+.fact {
+    border-bottom: 1px solid #A8ABE2;
+    padding: 14px;
+    color: #A8ABE2;
+    margin-top: 61px;
+}
+
+.name ul {
+    padding: 0 14px;
+    margin-top: 39px;
+}
+
+.name ul li {
+    float: left;
+    width: 10%;
+    margin-top: 16px;
+}
+
+.work-container .content .siteName span,
+.work-container .content .company span {
+    width: 33.33%;
+    color: #A8ABE2;
+}
+
+/* 建设单位 */
+.work-container .content table {
+    text-align: center;
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    color: #A8ABE2;
+}
+
+.work-container table,
+.work-container table tr th,
+.work-container table tr td {
+    border: 1px solid #535C9C;
+    padding: 14px;
+}
+
+/* 圆圈 */
+.square::before {
+    content: '';
+    display: inline-block;
+    height: 12px;
+    width: 12px;
+    margin-right: 10px;
+    border-radius: 100%;
+    background-color: #00FFF9;
+}
+
+/* 人员考察明细 */
+.work-container table {
+    text-align: center;
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    color: #A8ABE2;
+}
+
+/* 管理人员遮罩层 */
+.work-container .content .top-title {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: bold;
+    color: #A8ABE2;
+    border-bottom: 1px solid #A8ABE2;
+    padding-bottom: 12px;
+}
+
+.work-container .container .content {
+    height: 700px;
+    overflow: hidden;
+    position: relative;
+    display: block;
+    overflow-y: auto;
+}
+
+.work-container .container .content::-webkit-scrollbar {
+    display: none;
+}
+
+.construct {
+    margin-top: 35px;
+}
+
+.contract {
+    margin-top: 35px;
+}
+
+.contract table {
+    margin-top: 10px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.security .work-container .title,
+.security .work-container .title2 {
+    position: relative;
+    float: right;
+}
+
+.security .work-container .title .active a,
+.security .work-container .title2 .active a{
+    color: #00FFF9;
+    position: relative;
+}
+
+.security .work-container .title .active a::after,
+.security .work-container .title2 .active a::after {
+    content: "";
+    width: 76px;
+    height: 1px;
+    background: #00FFF9;
+    position: absolute;
+    left: 5%;
+    top: 134%;
+}
+
+.table-header {
+    margin-top: 44px;
+    display: flex;
+    justify-content: space-between;
+    color: #A8ABE2;
+    font-size: 16px;
+}
+
+/* 工种模态框 */
+
+.work-container .content {
+    margin-top: 12px;
+    color: #A8ABE2;
+}
+
+.work-container .content .siteName {
+    display: flex;
+    text-align: center;
+    border-bottom: 1px solid #A8ABE2;
+    padding: 14px;
+    color: #A8ABE2;
+}
+
+.company {
+    margin-top: 37px;
+    display: flex;
+    text-align: center;
+    padding: 14px;
+    color: #A8ABE2;
+}
+
+.plan,
+.fact {
+    border-bottom: 1px solid #A8ABE2;
+    padding: 14px;
+    color: #A8ABE2;
+    margin-top: 61px;
+}
+
+.name ul {
+    padding: 0 14px;
+    margin-top: 39px;
+}
+
+.name ul li {
+    float: left;
+    width: 10%;
+    margin-top: 16px;
+}
+
+.work-container .content .siteName span,
+.work-container .content .company span {
+    width: 33.33%;
+    color: #A8ABE2;
+}
+
+/* 建设单位 */
+.work-container .content table {
+    text-align: center;
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    color: #A8ABE2;
+}
+
+.work-container table,
+.work-container table tr th,
+.work-container table tr td {
+    border: 1px solid #535C9C;
+    padding: 14px;
+}
+
+/* 圆圈 */
+.square::before {
+    content: '';
+    display: inline-block;
+    height: 12px;
+    width: 12px;
+    margin-right: 10px;
+    border-radius: 100%;
+    background-color: #00FFF9;
+}
+/* 圈圈2 */
+.square2{
+    position: relative;
+}
+.square2::after{
+    content: '';
+    display: inline-block;
+    height: 8px;
+    width: 8px;
+    background-color: #67F25F;
+    position: absolute;
+    border-radius: 100%;
+    left: 90%;
+    top: 10px;
+}
+/* 圈圈3 */
+.square3{
+    position: relative;
+}
+.square3::after{
+    content: '';
+    display: inline-block;
+    height: 8px;
+    width: 8px;
+    background-color: #FF0402;
+    position: absolute;
+    border-radius: 100%;
+    left: 90%;
+    top: 15px;
+}
+
+/* 人员考察明细 */
+.work-container table {
+    text-align: center;
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    color: #A8ABE2;
+}
+
+/* 管理人员遮罩层 */
+.work-container .content .top-title {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: bold;
+    color: #A8ABE2;
+    border-bottom:1px solid rgba(168,171,226,0.5);
+    padding-bottom: 12px;
+}
+
+.work-container .container .content {
+    height: 700px;
+    overflow: hidden;
+    position: relative;
+    display: block;
+    overflow-y: auto;
+}
+
+.work-container .container .content::-webkit-scrollbar {
+    display: none;
+}
+
+.construct {
+    margin-top: 35px;
+}
+
+.contract {
+    margin-top: 35px;
+}
+
+.contract table {
+    margin-top: 10px;
+    width: 100%;
+    border-collapse: collapse;
+}
+

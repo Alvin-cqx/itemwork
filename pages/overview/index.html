@@ -1,0 +1,1978 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="pragma" content="no-cache">
+    <title>天鹅堡项目(工地概览)</title>
+    <script src="/js/plugins/jquery.min.js"></script>
+    <script src="/js/plugins/swiper/swiper.min.js"></script>
+    <script src="/js/plugins/jbox/jBox.min.js"></script>
+    <link rel="stylesheet" href="/js/plugins/jbox/jBox.css">
+    <link rel="stylesheet" href="/js/plugins/swiper/swiper.min.css">
+
+    <link rel="stylesheet" href="/css/common.css">
+
+    <style>
+        .page {
+            padding: 0 10px
+        }
+
+        .page>.box {
+            justify-content: space-between;
+        }
+
+        .wrap_before_dot::before {
+            content: '';
+            display: inline-block;
+            height: 8px;
+            width: 8px;
+            margin-right: 10px;
+            border-radius: 100%;
+            background: #00FFF9
+        }
+
+        .dwzzjg,
+        .gcld,
+        .xmtd,
+        .tdqk,
+        .gcjc {
+            padding: 60px 20px 15px 20px;
+            background: rgba(5, 12, 39, 0.3);
+            box-shadow: 0px 1px 13px 0px rgba(70, 90, 201, 0.48) inset;
+            border: 1px solid rgba(85, 143, 255, 0.2);
+            margin-bottom: 5px;
+            width: calc(100% - 40px);
+            position: relative;
+        }
+
+        /* 组织架构 */
+
+        .zzjj {
+            height: 652px;
+            background: rgba(5, 12, 39, 0.3);
+            margin-bottom: 5px;
+            width: calc(100% - 30px);
+            position: relative;
+            padding: 0 15px 15px 15px;
+            box-shadow: 0px 1px 13px 0px rgba(70, 90, 201, 0.48);
+            border: 1px solid rgba(85, 143, 255, 0.2);
+        }
+
+        .zzjj .wrap-img {
+            height: 300px;
+            position: relative;
+        }
+
+        .zzjj .wrap-img .bg-img {
+            height: 100%;
+            width: 100%;
+        }
+
+        .zzjj .wrap-img .icon_camera {
+            position: absolute;
+            z-index: 4;
+            height: 32px;
+            width: 32px
+        }
+
+        .zzjj .zzjg {
+            position: relative;
+            padding: 60px 10px 0 30px;
+        }
+
+        .zzjj .jjjs {
+            position: relative;
+            padding: 60px 20px 0 10px;
+        }
+
+        .tdqk .list {
+            font-size: 14px
+        }
+
+        .tdqk .list p {
+            margin: 30px 0 10px 0
+        }
+
+        .tdqk .list li {
+            width: 20%;
+            padding: 4px 0;
+            color: #A8ABE2
+        }
+
+
+
+        /* 工程亮点 */
+
+        .gcld {
+            height: 250px;
+        }
+
+        .gcld .box {
+            justify-content: space-between;
+            margin-top: 10px
+        }
+
+        .gcld .box li {
+            height: 120px;
+            width: 18%;
+        }
+
+        /* 项目特点 */
+
+        .xmtd {
+            height: 250px;
+        }
+
+        .xmtd p {
+            margin-bottom: 14px;
+            color: #00FFF9;
+
+        }
+
+        .xmtd .describle span {
+            line-height: 22px;
+            word-break: break-all;
+            /* color: #A8ABE2; */
+            font-size: 14px;
+        }
+
+        .xmtd .describle {
+            /* color: #A8ABE2 */
+        }
+
+        .xmtd .describle::-webkit-scrollbar {
+            display: none;
+        }
+
+        .xmtd .describle {
+            -ms-overflow-style: none;
+        }
+
+        /* .xmtd .describle>div {
+            margin-bottom: 24px
+        } */
+
+        /* 各单位组织 */
+
+        .dwzzjg {
+            height: 260px;
+        }
+
+        .dwzzjg .wrap-nav {
+            position: absolute;
+            top: 20px;
+            right: 34px;
+            /* color: #A8ABE2 */
+        }
+
+        .dwzzjg li {
+            padding: 0 4px;
+        }
+
+        .dwzzjg li span {
+            padding: 4px 0;
+            cursor: pointer;
+        }
+
+        .dwzzjg .wrap-img {
+            height: 220px;
+            text-align: center;
+            position: relative;
+        }
+
+        .dwzzjg .wrap-img img {
+            height: 260px;
+            width: 100%
+        }
+
+        .dwzzjg .wrap-content {
+            color: #A8ABE2;
+            /* margin-top: 20px; */
+            width: 92%;
+        }
+
+        .dwzzjg .wrap-content .list {
+            margin-top: 56px;
+            padding-left: 7%;
+            height: 230px;
+            overflow-y: auto;
+
+        }
+
+        .dwzzjg .wrap-content .box {
+            justify-content: space-between;
+        }
+
+        .dwzzjg .wrap-content li {
+            flex: 1;
+            line-height: 24px;
+            padding: 2px 0;
+            text-align: left
+        }
+
+        /* 工程检测 */
+
+        .gcjc {
+            height: 170px;
+            overflow: hidden;
+        }
+
+        .gcjc .box {
+            justify-content: center;
+        }
+
+        .gcjc>.box>div {
+            flex: 1;
+        }
+
+        .gcjc>.box>div .box {
+            height: 170px;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            /* color: #A8ABE2; */
+            font-size: 12px;
+            /* font-size: 14px; */
+
+        }
+
+        .gcjc>.box li {
+            height: 10px;
+            width: 10px;
+            border-radius: 100%;
+            position: absolute;
+            top: 106px;
+            right: 50%;
+            margin-right: -5px;
+            z-index: 2;
+
+        }
+
+        .gcjc .line_bottom {
+            position: absolute;
+            top: 72%;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+
+        .gcjc .line_top {
+            position: absolute;
+            bottom: 40%;
+            left: 0;
+            right: 0;
+            text-align: center;
+
+        }
+
+        .gcjc .line_top .wrap-img,
+        .gcjc .line_bottom .wrap-img {
+            display: inline-block;
+            width: 113px;
+            height: 64px;
+            margin-bottom: 8px;
+        }
+
+        .gcjc .line_top .wrap-img img,
+        .gcjc .line_bottom .wrap-img img {
+            width: 130px;
+            height: 95px;
+        }
+
+        .gcjc .line {
+            position: absolute;
+            top: 170px;
+            left: 40px;
+            right: 30px;
+
+        }
+
+        .gcjc .line .box span {
+            display: block;
+            width: 100%;
+            height: 1px;
+            background: #fff
+        }
+
+        .wrap-title {
+            z-index: 0;
+        }
+
+        body::-webkit-scrollbar {
+            width: 0px;
+        }
+
+        .describle {
+            height: 100%;
+            overflow: auto;
+            /* font-size: 15px */
+            font-size: 14px;
+        }
+
+        .swiper-slide {
+            position: relative;
+        }
+
+
+        .add_wrap {
+            position: absolute;
+            border: #D3D3D3 solid 1px;
+            background-color: #ffffff;
+            color: #353535;
+            /* font-size: 12px; */
+            font-size: 14px;
+            min-width: 84px;
+            z-index: 999;
+        }
+
+        .add_wrap li {
+            padding: 8px 20px;
+            cursor: pointer;
+        }
+
+        .add_wrap li:hover {
+            background: #C0C0C0
+        }
+
+        #swiper03 {
+            height: 480px;
+        }
+
+        .zzjj .list p {
+            margin-top: 10px
+        }
+
+
+        .screen {
+            position: fixed;
+            display: flex;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+        }
+
+        .screen-top {
+            width: 350px;
+            height: 260px;
+            background-color: #DCDCDC
+        }
+
+        .option {
+            padding: 0 10px;
+            height: 70%;
+            background-color: #DCDCDC
+        }
+
+        .option p {
+            border-bottom: #ffffff solid 1px;
+            padding-bottom: 3px;
+            margin-top: 3px;
+            margin-bottom: 6px
+        }
+
+        .option li {
+            height: 20px;
+            text-align: center;
+            color: #000000;
+        }
+
+        .choose {
+            /* height: 50%;  */
+            display: flex;
+            padding-top: 45px;
+            justify-content: space-around;
+        }
+
+        .choose div {
+            color: #000000;
+        }
+
+        .additive {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            top: 0;
+            background-image: url(./img/icon_qiangji.png);
+            /* background-image: url(./img/icon_qiuji.png); */
+        }
+
+        .overView_modal {
+            display: none
+        }
+
+        .chaxgn {
+            position: absolute;
+            top: 26%;
+            left: 50.5%;
+            width: 242px;
+            overflow: hidden;
+            background-color: #051253;
+            overflow-y: scroll;
+
+            z-index: 2;
+        }
+
+
+        .chaxgn li,
+        .chaxgn2 li {
+            /* width: 200%; */
+            /* padding: 4px 4px; */
+            height: 30px;
+            line-height: 30px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #A8ABE2;
+            /* padding-bottom: 12px; */
+        }
+
+        .chaxgn li:hover {
+            color: #00FFF9;
+        }
+
+        .chaxgn2 li:hover {
+            color: #00FFF9;
+        }
+
+        .chaxgn2 {
+            position: absolute;
+            top: 26%;
+            left: 65.5%;
+            width: 242px;
+            overflow: hidden;
+            background-color: #051253;
+            /* padding-left: 30px;
+            padding-top: 30px;
+            height: 50px; */
+            overflow-y: scroll;
+
+            z-index: 2;
+        }
+
+        #djsij1 {
+            width: 94px !important;
+        }
+
+        #djsij1 img,
+        #djsij2 img {
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+
+        #swiper07 .arrow_left,
+        #swiper06 .arrow_left,
+        #swiper02 .arrow_left,
+        #swiper123 .arrow_left,
+        #swiper01 .arrow_left {
+            background-image: url('./img/left1.png');
+            background-size: contain;
+            width: 26px;
+            height: 70px;
+            opacity: 0.6;
+        }
+
+        #swiper07 .arrow_right,
+        #swiper06 .arrow_right,
+        #swiper02 .arrow_right,
+        #swiper123 .arrow_right,
+        #swiper01 .arrow_right {
+            background-image: url('./img/right1.png');
+            background-size: contain;
+            width: 26px;
+            height: 70px;
+            opacity: 0.6;
+        }
+
+        .swiper-pagination-bullet {
+            width: 10px;
+            height: 10px;
+            margin-right: 5px;
+            margin-bottom: 8px;
+        }
+
+        #dwzzjg_list .table,
+        #gtdqkTable {
+            width: 100%;
+            font-size: 12px;
+        }
+
+        #dwzzjg_list .table th {
+            text-align: center;
+            width: 25%;
+            cursor: pointer;
+        }
+
+        #dwzzjg_list .table th img {
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+
+        #dwzzjg_list .table tr,
+        #gtdqk_list .table tr {
+            vertical-align: top;
+            text-align: center;
+
+        }
+
+        #dwzzjg_list .table thead tr,
+        #dwzzjg_list table tbody tr,
+        #gtdqk_list .table thead tr,
+        #gtdqk_list table tbody tr {
+            display: table;
+            table-layout: fixed;
+            width: 100%;
+            /* color: #A8ABE2; */
+        }
+
+        #dwzzjg_list .table thead tr,
+        #dwzzjg_list table tbody tr {
+            width: 98%;
+        }
+
+        #dwzzjg_list table tbody,
+        #gtdqk_list table tbody {
+            display: block;
+            height: 226px;
+            overflow-y: auto;
+
+        }
+
+        #gtdqk_list table tbody {
+            height: 64px;
+        }
+
+        .wrap-title1 {
+            left: 10px;
+        }
+
+        .item-title {
+            left: 20px;
+        }
+
+        .gtdqk {
+            position: relative;
+        }
+
+        .gtdqk-title {
+            top: 5px;
+            left: 0px;
+
+        }
+
+        #gtdqk_list {
+            margin-top: 30px;
+
+        }
+
+        #swiper01 .swiper-lightspot {
+            position: absolute;
+            z-index: 1;
+            left: 42%;
+            bottom: 4%;
+        }
+
+        .line_bottom p {
+            height: 16px;
+        }
+
+        /* .zzjgimg .swiper-slide{
+            width: 100% !important;
+        } */
+        .zzjgimg .example2 {
+            width: 100% !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+
+        <div class="box">
+            <div style="width:60%">
+                <div class="zzjj">
+                    <img class="module_ys" src="/images/pic_ys.png" alt="">
+                    <img class="module_yx" src="/images/pic_yx.png" alt="">
+                    <img class="module_zs" src="/images/pic_zs.png" alt="">
+                    <img class="module_zx" src="/images/pic_zx.png" alt="">
+                    <div class="box">
+                        <div style="width:67%;height:100%" class="zzjg">
+                            <div class="wrap-title">
+                                <span class="wrap_before_dot">项目平面布置图</span>
+                                <img src="../../images/pic_title.png" alt="">
+                            </div>
+                            <div class="swiper-container">
+                                <div class="swiper-container  image-list " id="swiper07">
+                                    <div class="swiper-wrapper  point pic_view">
+
+                                        <!-- <div class="swiper-slide operation" oncontextmenu="return false"><img
+                                                style="width:100%; height: 328px;"
+                                                src="/pages/overview/img/pic_sgbjt.png" alt=""></div>
+                                        <div class="swiper-slide  ">
+                                            <img style="width:100%; height: 328px ;"
+                                                src="/pages/overview/img/pic_sgbjt.png" alt="">
+                                        </div>
+                                        <div class="swiper-slide  ">
+                                            <img style="width:100%;height:328px" src="/pages/overview/img/pic_sgbjt.png"
+                                                alt="">
+                                        </div> -->
+
+                                    </div>
+                                    <div class="swiper-button-prev swiper-button-white arrow_left "></div>
+                                    <!--左箭头-->
+                                    <div class="swiper-button-next swiper-button-white arrow_right"></div>
+                                    <!--右箭头-->
+                                </div>
+
+                                <div class="swiper-pagination" style="bottom: 0; left: 50%; "></div>
+                                <!--右箭头-->
+                            </div>
+                        </div>
+                        <div style="width:30%;height:100%" class="jjjs">
+                            <div>
+                                <div class="wrap-title  example2 wrap-title1" href="../../images/pic_title.png">
+                                    <span class="wrap_before_dot">经济技术指标</span>
+                                    <img src="../../images/pic_title.png" alt="">
+                                </div>
+                                <div class="example2 pic_view">
+
+                                    <div class="swiper-container" id="swiper06">
+                                        <div class="swiper-wrapper flop ">
+
+                                        </div>
+                                        <div class="swiper-button-prev swiper-button-white arrow_left "></div>
+                                        <!--左箭头-->
+                                        <div class="swiper-button-next swiper-button-white arrow_right"></div>
+                                        <!--右箭头-->
+                                        <div class="swiper-yukio" style="bottom: 8px;left:50%;z-index: 99;
+                                            position: absolute; "></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div>
+                                <div class="gtdqk" style="overflow: hidden;">
+                                    <div class="wrap-title gtdqk-title">
+                                        <span class="wrap_before_dot">各塔楼情况</span>
+                                        <img src="../../images/pic_title.png" alt="">
+                                    </div>
+                                    <div id="gtdqk_list" class="list"
+                                        style="height: 92px; overflow:scroll;text-align: center">
+                                        <div class="box list_header">
+                                            <table class="table" id='gtdqkTable'>
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:70px">楼栋</th>
+                                                        <th>建筑高度</th>
+                                                        <th>楼层</th>
+                                                        <th>功能</th>
+                                                        <th>交楼标准</th>
+                                                    </tr>
+                                                </thead>
+                                                <!-- <tbody>
+                                                    <tr class="applyList">
+                                                        <td>#天鹅堡三期</td>
+                                                        <td>77M</td>
+                                                        <td>25层</td>
+                                                        <td>办公还迁</td>
+                                                        <td>毛坯</td>
+                                                    </tr>
+                                                    
+                                                </tbody> -->
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="xmtd" style="overflow: hidden;">
+                    <img class="module_ys" src="/images/pic_ys.png" alt="">
+                    <img class="module_yx" src="/images/pic_yx.png" alt="">
+                    <img class="module_zs" src="/images/pic_zs.png" alt="">
+                    <img class="module_zx" src="/images/pic_zx.png" alt="">
+                    <div class="wrap-title ">
+                        <span class="wrap_before_dot">项目特点</span>
+                        <img src="../../images/pic_title.png" alt="">
+                    </div>
+                    <div class="describle">
+                        <div>
+                            <p>1、建筑设计特点</p>
+                            <span style="display:inline-block;width:100%;word-wrap: break-word;"
+                                id="archDesignFeatures"></span>
+                        </div>
+                        <div>
+                            <p>2、结构设计特点</p>
+                            <span id="designFeatures"></span>
+                        </div>
+                        <div>
+                            <p>3、施工重难点</p>
+                            <span id="desi"></span>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+            <div style="width:39%">
+                <div class="box">
+                    <div class="xmtd" style="overflow: hidden;margin-right: 10px;">
+                        <img class="module_ys" src="/images/pic_ys.png" alt="">
+                        <img class="module_yx" src="/images/pic_yx.png" alt="">
+                        <img class="module_zs" src="/images/pic_zs.png" alt="">
+                        <img class="module_zx" src="/images/pic_zx.png" alt="">
+                        <div class="wrap-title item-title">
+                            <span class="wrap_before_dot">项目特点</span>
+                            <img src="../../images/pic_title.png" alt="">
+                        </div>
+                        <div class="describle" id="describle">
+                            <div>
+                                <p>1、建筑设计特点</p>
+                                <span style="display:inline-block;width:100%;word-wrap: break-word;"
+                                    id="archDesignFeatures"></span>
+                            </div>
+                            <div>
+                                <p>2、结构设计特点</p>
+                                <span id="designFeatures"></span>
+                            </div>
+                            <div>
+                                <p>3、施工重难点</p>
+                                <span id="desi"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gcld" style="overflow: hidden;">
+                        <img class="module_ys" src="/images/pic_ys.png" alt="">
+                        <img class="module_yx" src="/images/pic_yx.png" alt="">
+                        <img class="module_zs" src="/images/pic_zs.png" alt="">
+                        <img class="module_zx" src="/images/pic_zx.png" alt="">
+                        <div class="wrap-title ">
+                            <span class="wrap_before_dot">工程亮点</span>
+                            <img src="../../images/pic_title.png" alt="">
+                        </div>
+                        <div style="padding: 0 20px">
+                            <div class="swiper-container" id="swiper01">
+                                <div class="swiper-wrapper image-list pic_view lightspot">
+                                    <!-- <div class="swiper-slide  example2">
+                                        <img style="width:100%;height: 120px;" src="/pages/overview/img/gcld.jpg" alt="">
+                                    </div>
+                                    <div class="swiper-slide  example2">
+                                        <img style="width:100%;height: 120px;" src="/pages/overview/img/gcld.jpg" alt="">
+                                    </div>
+                                    <div class="swiper-slide  example2">
+                                        <img style="width:100%;height: 120px;" src="/pages/overview/img/gcld.jpg" alt="">
+                                    </div>
+                                    <div class="swiper-slide  example2">
+                                        <img style="width:100%;height: 120px;" src="/pages/overview/img/gcld.jpg" alt="">
+                                    </div>
+                                    <div class="swiper-slide  example2">
+                                        <img style="width:100%;height: 120px;" src="/pages/overview/img/gcld.jpg" alt="">
+                                    </div>
+                                    <div class="swiper-slide  example2">
+                                        <img style="width:100%; height: 120px;" src="/pages/overview/img/gcld.jpg" alt="">
+                                    </div> -->
+                                </div>
+                                <div class="swiper-button-prev swiper-button-white arrow_left"></div>
+
+                                <div class="swiper-button-next swiper-button-white arrow_right"></div>
+                                <div class="swiper-lightspot"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="dwzzjg">
+                    <img class="module_ys" src="/images/pic_ys.png" alt="">
+                    <img class="module_yx" src="/images/pic_yx.png" alt="">
+                    <img class="module_zs" src="/images/pic_zs.png" alt="">
+                    <img class="module_zx" src="/images/pic_zx.png" alt="">
+                    <div class="wrap-title">
+                        <span class="wrap_before_dot">各单位组织架构</span>
+                    </div>
+                    <div class="wrap-nav tab_nav">
+                        <div class="box vtu">
+                            <li>
+                                <span class="nav_active">建设单位</span>
+                            </li>
+                            <li>
+                                <span>监理单位</span>
+                            </li>
+                            <li>
+                                <span>设计单位</span>
+                            </li>
+                            <li>
+                                <span>施工单位</span>
+                            </li>
+
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div style="width:50%">
+                            <div class="wrap-content" style=" ">
+                                <div class="wrap-img">
+                                    <div class="swiper-container" id="swiper02">
+                                        <div class="swiper-wrapper zzjgimg pic_view">
+                                            <!-- <div class="swiper-slide  example2">
+                                                <img style="width:100%;height: 120px;"
+                                                    src="/pages/overview/img/gcld.jpg" alt="">
+                                            </div>
+                                            <div class="swiper-slide  example2">
+                                                <img style="width:100%;height: 120px;"
+                                                    src="/pages/overview/img/gcld.jpg" alt="">
+                                            </div>
+                                            <div class="swiper-slide  example2">
+                                                <img style="width:100%;height: 120px;"
+                                                    src="/pages/overview/img/gcld.jpg" alt="">
+                                            </div>
+                                            <div class="swiper-slide  example2">
+                                                <img style="width:100%;height: 120px;"
+                                                    src="/pages/overview/img/gcld.jpg" alt="">
+                                            </div>
+                                            <div class="swiper-slide  example2">
+                                                <img style="width:100%;height: 120px;"
+                                                    src="/pages/overview/img/gcld.jpg" alt="">
+                                            </div>
+                                            <div class="swiper-slide  example2">
+                                                <img style="width:100%; height: 120px;"
+                                                    src="/pages/overview/img/gcld.jpg" alt="">
+                                            </div> -->
+
+                                        </div>
+
+
+
+                                        <div class="swiper-button-prev swiper-button-white arrow_left "></div>
+                                        <!--左箭头-->
+                                        <div class="swiper-button-next swiper-button-white arrow_right"></div>
+                                        <!--右箭头-->
+                                        <div class="swiper-sfafad" style="bottom:5px;z-index:99;position: absolute; ">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                        <div style="width:50%">
+                            <div id="dwzzjg_list">
+                                <table class="table" id='tableList'>
+                                    <!-- <thead>
+                                        <tr>
+                                            <th>单位名称<img src="./img/icon_select01.png" alt=" "></th>
+                                            <th>职务<img src="./img/icon_select01.png" alt=" "></th>
+                                            <th>姓名</th>
+                                            <th>电话</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="applyList">
+                                            <td>深圳市和冠房地产开发有限公司</td>
+                                            <td>电气工程师</td>
+                                            <td>王俨</td>
+                                            <td>18565860090</td>
+                                        </tr>
+
+                                    </tbody> -->
+                                </table>
+                            </div>
+
+                        </div>
+
+                        <ul class="chaxgn">
+                            <li>电风扇的发热发个人</li>
+                            <li>沃尔夫同仁堂</li>
+                            <li>斯特让他</li>
+                            <li>斯特让他</li>
+                            <li>斯特让他</li>
+                            <li>斯特让他</li>
+                            <li>斯特让他</li>
+                        </ul>
+                        <ul class="chaxgn2">
+                            <li style="">电风扇的发热发个人</li>
+                            <li>沃尔夫同仁堂</li>
+                            <li>斯特让他</li>
+                        </ul>
+                    </div>
+
+
+                    <!-- <div class="list" id="dwzzjg_list" scroll="no" style="height: 130px;overflow:scroll; ">
+                            <div class="box ">
+                                <li> <span>单位名称</span></li>
+                                <li> <span>职务</span></li>
+                                <li> <span>姓名</span></li>
+                                <li> <span>电话</span></li>
+                            </div>
+                            <div class="box">
+                                <li>
+                                    <span>技术部</span>
+                                </li>
+                                <li>
+                                    <span>电气工程师</span>
+                                </li>
+                                <li>
+                                    <span>王俨</span>
+                                </li>
+                                <li>
+                                    <span>18565860090</span>
+                                </li>
+                            </div>
+                            <div class="box">
+                                <li>
+                                    <span>技术部</span>
+                                </li>
+                                <li>
+                                    <span>电气工程师</span>
+                                </li>
+                                <li>
+                                    <span>王俨</span>
+                                </li>
+                                <li>
+                                    <span>18565860090</span>
+                                </li>
+                            </div> -->
+                    <!-- <table class="table" id='tableList'>
+                                <thead>
+                                    <tr>
+                                        <th>单位名称<img src="./img/icon_select01.png" alt=" "></th>
+                                        <th>职务<img src="./img/icon_select01.png" alt=" "></th>
+                                        <th>姓名</th>
+                                        <th>电话</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="applyList">
+                                        <td>深圳市和冠房地产开发有限公司</td>
+                                        <td>电气工程师</td>
+                                        <td>王俨</td>
+                                        <td>18565860090</td>
+                                    </tr>
+
+                                </tbody>
+                            </table> -->
+
+
+
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <div style="width:100%">
+                <!-- //里程碑节点 -->
+                <div class="gcjc ">
+                    <img class="module_ys" src="/images/pic_ys.png" alt="">
+                    <img class="module_yx" src="/images/pic_yx.png" alt="">
+                    <img class="module_zs" src="/images/pic_zs.png" alt="">
+                    <img class="module_zx" src="/images/pic_zx.png" alt="">
+                    <div class="wrap-title">
+                        <span class="wrap_before_dot">里程碑节点</span>
+                    </div>
+                    <div class="box  image-list project pic_view" id="swiper123">
+                        <!-- 轮播图 -->
+                        <div class="swiper-wrapper itemPicList">
+                            <!-- <div class="swiper-slide">
+                                <div>
+                                    <div class="box">
+                                        <li style="background:rgba(255, 209, 78, 1)"></li>
+                                        <div class="line_top">
+                                            <div class="wrap-img example2">
+                                                <img src="/pages/overview/img/zzjc.png" alt="">
+                                            </div>
+                                            <p>桩基检测完成</p>
+                                        </div>
+                                        <div class="line_bottom">
+                                            <p>2018-09-04</p>
+                                            <p>2019-01-15</p>
+                                            <p style=" color: red ">滞后133天</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                    <div>
+                                        <div class="box">
+                                            <li style="background:rgba(255, 209, 78, 1)"></li>
+                                            <div class="line_top">
+                                                <div class="wrap-img example2">
+                                                    <img src="/pages/overview/img/zzjc.png" alt="">
+                                                </div>
+                                                <p>桩基检测完成</p>
+                                            </div>
+                                            <div class="line_bottom">
+                                                <p>2018-09-04</p>
+                                                <p>2019-01-15</p>
+                                                <p style=" color: red ">滞后133天</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="swiper-slide">
+                                    <div>
+                                        <div class="box">
+                                            <li style="background:rgba(255, 209, 78, 1)"></li>
+                                            <div class="line_top">
+                                                <div class="wrap-img example2">
+                                                    <img src="/pages/overview/img/zzjc.png" alt="">
+                                                </div>
+                                                <p>桩基检测完成</p>
+                                            </div>
+                                            <div class="line_bottom">
+                                                <p>2018-09-04</p>
+                                                <p>2019-01-15</p>
+                                                <p style=" color: red ">滞后133天</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="swiper-slide">
+                                    <div>
+                                        <div class="box">
+                                            <li style="background:rgba(255, 209, 78, 1)"></li>
+                                            <div class="line_top">
+                                                <div class="wrap-img example2">
+                                                    <img src="/pages/overview/img/zzjc.png" alt="">
+                                                </div>
+                                                <p>桩基检测完成</p>
+                                            </div>
+                                            <div class="line_bottom">
+                                                <p>2018-09-04</p>
+                                                <p>2019-01-15</p>
+                                                <p style=" color: red ">滞后133天</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="swiper-slide">
+                                        <div>
+                                            <div class="box">
+                                                <li style="background:rgba(255, 209, 78, 1)"></li>
+                                                <div class="line_top">
+                                                    <div class="wrap-img example2">
+                                                        <img src="/pages/overview/img/zzjc.png" alt="">
+                                                    </div>
+                                                    <p>桩基检测完成</p>
+                                                </div>
+                                                <div class="line_bottom">
+                                                    <p>2018-09-04</p>
+                                                    <p>2019-01-15</p>
+                                                    <p style=" color: red ">滞后133天</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                            </div>
+                            <div class="swiper-slide">
+                                        <div>
+                                            <div class="box">
+                                                <li style="background:rgba(255, 209, 78, 1)"></li>
+                                                <div class="line_top">
+                                                    <div class="wrap-img example2">
+                                                        <img src="/pages/overview/img/zzjc.png" alt="">
+                                                    </div>
+                                                    <p>桩基检测完成</p>
+                                                </div>
+                                                <div class="line_bottom">
+                                                    <p>2018-09-04</p>
+                                                    <p>2019-01-15</p>
+                                                    <p style=" color: red ">滞后133天</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                            </div>
+                            <div class="swiper-slide">
+                                        <div>
+                                            <div class="box">
+                                                <li style="background:rgba(255, 209, 78, 1)"></li>
+                                                <div class="line_top">
+                                                    <div class="wrap-img example2">
+                                                        <img src="/pages/overview/img/zzjc.png" alt="">
+                                                    </div>
+                                                    <p>桩基检测完成</p>
+                                                </div>
+                                                <div class="line_bottom">
+                                                    <p>2018-09-04</p>
+                                                    <p>2019-01-15</p>
+                                                    <p style=" color: red ">滞后133天</p>
+                                                </div>
+                                            </div>
+                                      </div>
+                            </div> -->
+                        </div>
+                        <div class="swiper-button-prev swiper-button-white arrow_left"></div>
+
+                        <div class="swiper-button-next swiper-button-white arrow_right"></div>
+                        <!-- 静态数据 -->
+                        <!-- <div>
+                            <div class="box">
+                                <li style="background:rgba(255, 209, 78, 1)"></li>
+                                <div class="line_top ">
+                                    <div class="wrap-img example2">
+                                        <img src="/pages/overview/img/gcz.jpg" alt="">
+                                    </div>
+                                    <p>工程桩施工结束</p>
+                                </div>
+                                <div class="line_bottom">
+                                    <p>2018-07-01</p>
+                                    <p>2018-07-13</p>
+                                    <p style=" color: red ">滞后12天</p>
+                                </div>
+                            </div>
+                        </div> 
+                         <div>
+                            <div class="box">
+                                <li style="background:rgba(255, 209, 78, 1)"></li>
+                                <div class="line_top">
+                                    <div class="wrap-img example2">
+                                        <img src="/pages/overview/img/tfkw.jpg" alt="">
+                                    </div>
+                                    <p>土方开挖结束</p>
+                                </div>
+                                <div class="line_bottom">
+                                    <p>2018-08-20</p>
+                                    <p>22018-11-16</p>
+                                    <p style=" color: red ">滞后88天</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="box">
+                                <li style="background:rgba(255, 209, 78, 1)"></li>
+                                <div class="line_top">
+                                    <div class="wrap-img example2">
+                                        <img src="/pages/overview/img/zzjc.png" alt="">
+                                    </div>
+                                    <p>桩基检测完成</p>
+                                </div>
+                                <div class="line_bottom">
+                                    <p>2018-09-04</p>
+                                    <p>2019-01-15</p>
+                                    <p style=" color: red ">滞后133天</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="box">
+                                <li style="background:#00FFF9"></li>
+                                <div class="line_top">
+                                    <div class="wrap-img example2">
+                                        <img src="/pages/overview/img/gczsg.jpg" alt="">
+                                    </div>
+                                    <p>工程桩施工结束</p>
+                                </div>
+                                <div class="line_bottom">
+                                    <p>2018.09.08</p>
+                                    <p>2018.09.10</p>
+                                    <p style=" color: red ">滞后126天</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="box">
+                                <li style="background:#00FFF9"></li>
+                                <div class="line_top image-list">
+                                    <div class="wrap-img example2">
+                                        <img src="/pages/overview/img/zzjc.png" alt="">
+                                    </div>
+                                    <p>底板混凝土浇筑</p>
+                                </div>
+                                <div class="line_bottom">
+                                    <p>2018-09-18</p>
+                                    <p>2019-01-22</p>
+                                    <p style=" color: red ">滞后126天</p>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="line">
+                        <div class="box">
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div style="width:39%">
+                <div class="gcld ">
+                    <img class="module_ys" src="/images/pic_ys.png" alt="">
+                    <img class="module_yx" src="/images/pic_yx.png" alt="">
+                    <img class="module_zs" src="/images/pic_zs.png" alt="">
+                    <img class="module_zx" src="/images/pic_zx.png" alt="">
+                    <div class="wrap-title">
+                        <span class="wrap_before_dot">工程亮点</span>
+                    </div>
+                    <div style="padding: 0 20px">
+                        <div class="swiper-container" id="swiper01">
+                            <div class="swiper-wrapper image-list pic_view lightspot">
+                                <div class="swiper-slide  example2">
+                                    <img style="width:85%;height: 120px;" src="/pages/overview/img/gcld.jpg" alt="">
+                                </div>
+                                <div class="swiper-slide  example2">
+                                    <img style="width:85%;height: 120px;" src="/pages/overview/img/gcld.jpg" alt="">
+                                </div>
+                                <div class="swiper-slide  example2">
+                                    <img style="width:85%;height: 120px;" src="/pages/overview/img/gcld.jpg" alt="">
+                                </div>
+                                <div class="swiper-slide  example2">
+                                    <img style="width:85%;height: 120px;" src="/pages/overview/img/gcld.jpg" alt="">
+                                </div>
+                                <div class="swiper-slide  example2">
+                                    <img style="width:85%;height: 120px;" src="/pages/overview/img/gcld.jpg" alt="">
+                                </div>
+                                <div class="swiper-slide  example2">
+                                    <img style="width:85%; height: 120px;" src="/pages/overview/img/gcld.jpg" alt="">
+                                </div>
+                            </div>
+
+                           
+                        </div>
+                        <div class="swiper-button-prev swiper-button-white arrow_left"></div>
+                      
+                        <div class="swiper-button-next swiper-button-white arrow_right"></div>
+                    </div>
+
+                </div>
+            </div> -->
+        </div>
+
+
+    </div>
+    <!-- 关联设备 modal -->
+    <div id="overView_modal" class="overView_modal">
+        <div class="device_list" id="device_list"></div>
+        <div class="box">
+            <div>
+                <button id="cancle" class="cancle">取消</button>
+            </div>
+            <div>
+                <button id="save" class="save">保存</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="/js/request.js"></script>
+<script type="text/javascript">
+    //解决区域滚动bug
+    document.getElementById('describle').addEventListener('mousewheel', function (e) {
+        e.stopPropagation()
+        if (this.scrollTop <= 0 && e.wheelDelta > 0 || this.scrollTop >= this.scrollHeight - this.offsetHeight && e.wheelDelta < 0) {
+            e.preventDefault()
+        }
+
+    }, false)
+
+
+    //工地概览
+    var modal;
+    //查询项目设备关联图片坐标列表
+    zuobsz()
+    $(".chaxgn").css("display", "none")
+    $(".chaxgn2").css("display", "none")
+    function zuobsz() {
+        global.ajax.getDeviceImgList(function (res) {
+            try {
+                // 摄像头权限cookie
+                var movieList = global.unit.getCookie('admin_rules')
+                // 转换cookie格式
+                var change = decodeURIComponent(movieList)
+                var movieId = JSON.parse(change);
+                // 机枪摄像头
+                var QJ = movieId[51];
+                // 塔吊摄像头
+                var DT = movieId[52];
+            } catch (e) {
+
+            }
+            // console.log(movieId,'摄像头权限')
+            var devImgList = res.data.devImgList
+            devImgList.forEach(function (item) {
+                $(".operation").append('<div id="' + item.devImageId + '"class="additive" style="top:' +
+                    item.coordinateX + 'px;left:' + item.CoordinateY +
+                    'px; background-image: url(./img/icon_qiangji.png)"></div>');
+            })
+            // 删除
+            $(".additive").on('dblclick', function () {
+
+                var devImageId = $(this).attr('id')
+                global.ajax.removeDeviceImg(devImageId);
+                $('#' + devImageId).remove();
+
+            })
+            //其他区域点击，面板消失
+            $(document).on('click', function () {
+                $(".add_wrap").remove();
+            })
+            //关联设备
+            $(".operation").mousedown(function (event) {
+                //右键
+                if (event.which == 3) {
+                    $(".add_wrap").remove();
+                    var H = $(this).height()
+                    var W = $(this).width()
+                    // console.log(event.offsetX,event.offsetY)
+                    // console.log($(this).width())
+                    var event = event || window.event;
+                    var x = event.offsetX
+                    var y = event.offsetY
+                    //console.log(x, y);
+
+                    var deviceId = null
+                    var list = ''
+                    var html = ''
+                    //右键添加面板的位置
+                    var position = 'style=';
+                    //当右边区域小于面板宽度时，面板在鼠标左边显示
+                    if (W - x < 124) {
+                        position += 'right:' + (W - x) + 'px;';
+                    } else {
+                        position += 'left:' + x + 'px;';
+                    }
+                    //当底部区域小于面板高度时，面板在鼠标上方显示
+                    if (H - y < 98) {
+                        position += 'bottom:' + (H - y) + 'px'
+                    } else {
+                        position += 'top:' + y + 'px'
+                    }
+                    html += '<div  class="add_wrap" ' + position + '><div class=""  ><li class="ttrt" type="1" id="5c">新增球机摄像头</li>'
+                    if (QJ) {
+                        html += '<li id="5b" type="2">新增枪机摄像头</li>'
+                    }
+                    if (DT) {
+                        html += '<li  id="5e" type="3"> 新增吊塔摄像头</li>'
+                    }
+                    html += '</div></div>'
+                    // $(".operation").append('<div  class="add_wrap" ' + position +
+                    //     '><div class=""  ><li class="ttrt" type="1" id="5c">新增球机摄像头</li><li id="5b" type="2">新增枪机摄像头</li><li  id="5e" type="3"> 新增吊塔摄像头</li></div></div>'
+                    // )
+                    $('.operation').append(html)
+                    //点击新增摄像头类型
+                    $('.add_wrap').find('li').each(function () {
+                        $(this).on('click', function () {
+
+
+                            $(".add_wrap").remove();
+                            var deviceType = $(this).attr('type')
+                            addMoive(deviceId, x, y, deviceType)
+
+                        })
+                    })
+
+                }
+            })
+        })
+
+    }
+    //工地概览
+
+
+    function xmzzjg(cmzzjg) { //给项目组织架构的
+        if (!cmzzjg) {
+            return
+        }
+        if(cmzzjg.fileUrls.length===0){
+            $("#swiper02").empty()
+            $("#tableList").empty()
+            return
+        }
+        var dwmc = [] //单位名称
+        var zwu = [] //职务
+        var imageUrl = IMGURL;
+        //console.log(imageUrl,'给项目组织架构的')
+        var jsdw = [] //建设单位的数据
+        var jsdwimg = []//建设单位的图片
+        // cmzzjg.forEach(function (currentValue, index) {
+        //     //console.log(currentValue.companyTypeId);
+        //     if (currentValue.companyTypeId == po) {
+        //         jsdw.push(currentValue)
+
+        //     }
+        // })
+        var IMGS=[];
+        
+        IMGS.push(cmzzjg.fileUrls)
+        jsdw.push(cmzzjg.itemList)
+
+        // console.log(jsdw,'jsdwjsdwjsdwjsdw')
+        // jsdw.forEach(function (jsdwData, i) {
+        //     jsdwData.fileUrls.forEach(function (items) {
+
+
+        //         jsdwimg.push(items)
+        //     })
+
+
+      
+        // })
+        // 把重发的照片去掉
+        // var IMGS = uniq(jsdwimg);
+        // console.log(IMGS,'去重后的图片')
+        $(".zzjgimg").empty();
+        // // console.log(jsdwimg,'图片')
+        $("#swiper02").empty();
+        var picHtml = "";
+        $("#swiper02").append('<div class="swiper-wrapper zzjgimg pic_view">   </div>')
+        $("#swiper02").append(
+            '<div class="swiper-button-prev swiper-button-white arrow_left "></div><div class="swiper-button-next swiper-button-white arrow_right"></div>'
+        )
+        $("#swiper02").append('<div class="swiper-sfafad" style="bottom:5px;  z-index: 99;position: absolute; "></div>')
+        IMGS.forEach(function (currentValue, index) { //渲染图片
+            // picHtml += ' <div class="swiper-slide example2" style="width:100px"><a href="javascript:void(0)" data-magnify="gallery" data-caption="查看照片" data-group="g1" data-src="' + (imageUrl + currentValue) + '"><img src="' + (imageUrl + currentValue) +
+            //     '" alt=""></a></div>'
+            // console.log(currentValue,'imageUrlimageUrlimageUrl')
+            currentValue.forEach(function(v){
+                // console.log(v,'vvvvvvvvvv')
+                $(".zzjgimg").append(
+                ' <div class="swiper-slide example2" style="width:100px"><a href="javascript:void(0)" data-magnify="gallery" data-caption="查看照片" data-group="g1"   data-src="' + (imageUrl + v.fileUrl) + '"><img src="' + (imageUrl + v.fileUrl) +
+                '" alt="" class="companyId" companyId="'+v.companyId+'"></a></div>'
+            )
+            })
+           
+        })
+        // $(".zzjgimg").append(picHtml);
+        // global.page.pic_view()
+        $("#tableList").empty()
+        $("#tableList").append('<thead><tr><th id="djsij1" style="width:94px">单位名称</th><th id="djsij2">职务</th><th class="name">姓名</th><th lass="phone">电话</th></tr></thead>')
+        // jsdwimg = jsdw[0].fileUrls //建设单位的图片的数据
+        // $(".zzjgimg").empty()
+        // jsdwimg.forEach(function (currentValue, index) { //渲染图片
+
+        //     $(".zzjgimg").append(
+        //         ' <div class="swiper-slide example2"><img src="' + (imageUrl + currentValue) +
+        //         '" alt=""></div>'
+        //     )
+        // })
+        // $("#dwzzjg_list").empty()
+        // $("#dwzzjg_list").append(
+        //     '<div class="box"><li><span id="djsij1">单位名称<img src="./img/icon_select01.png" alt=" "></span></li><li>    <span id="djsij2"> 职务<img src="./img/icon_select01.png" alt=" "></span></li><li>    <span>姓名</span></li><li>    <span>电话</span></li> </div>'
+        // )
+
+
+        var tableHtml = '<tbody>';
+        // console.log(jsdw,'jsdwjsdwjsdwjsdw');
+        jsdw[0].forEach(function (currentValue, index) {
+            // console.log(currentValue.companyName,'currentValuecurrentValuecurrentValue');
+            dwmc.push(currentValue.companyName);
+            zwu.push(currentValue.position);
+            tableHtml += '<tr class="applyList"><td style="width:94px">' + currentValue.companyName + '</td><td>' + currentValue.position + '</td><td lass="name">' + currentValue.userName + '</td><td lass="phone">' + currentValue.userPhone + '</td></tr>'
+        })
+        tableHtml += '</tbody>'
+        $("#tableList").append(tableHtml)
+
+        $(".chaxgn").empty()
+        // 去重公司名字
+        var sortCompany = uniq(dwmc);
+        var sortWork = uniq(zwu);
+        sortCompany.forEach(function (currentValue, index) { //渲染公司名称
+            $(".chaxgn").append('<li>' + currentValue + '</li>')
+        })
+
+
+
+        $(".chaxgn").find('li').each(function () {
+            $(this).on("click", function () { //单位名称搜索框的点击事件
+                $(".chaxgn").toggle()
+                var efasf = $(this).text()
+                $("#tableList").empty()
+                $("#tableList").append('<thead><tr><th id="djsij1" tyle="width:94px">单位名称</th><th id="djsij2">职务</th><th>姓名</th><th>电话</th></tr></thead>')
+                var tableHtlm1 = '<tbody>';
+                jsdw.forEach(function (currentValue, index) {
+                    // console.log(current,currentValue);
+                    if (efasf == currentValue.companyName) {
+                        tableHtlm1 += '<tr class="applyList"><td style="width:94px">' + currentValue.companyName + '</td><td>' + currentValue.position + '</td><td>' + currentValue.userName + '</td><td>' + currentValue.userPhone + '</td></tr>'
+                    }
+                })
+                tableHtlm1 += '</tbody>';
+                $("#tableList").append(tableHtml)
+            })
+        })
+
+        $(".chaxgn2").empty()
+        sortWork.forEach(function (currentValue, index) { //渲染职务
+            // console.log(zwu, '渲染职务');
+            $(".chaxgn2").append('<li>' + currentValue + '</li>')
+        })
+
+        $(".chaxgn2").find('li').each(function () {
+            $(this).on("click", function () { //职务名称搜索框的点击事件
+                $(".chaxgn2").toggle()
+                //console.log(zwu);
+                var efasf = $(this).text()
+                $("#tableList").empty()
+                $("#tableList").append('<thead><tr><th id="djsij1" tyle="width:94px">单位名称</th><th id="djsij2">职务</th><th>姓名</th><th>电话</th></tr></thead>')
+
+                var tableHtlm2 = '<tbody>';
+                jsdw.forEach(function (currentValue, index) {
+
+                    if (efasf == currentValue.position) {
+                        tableHtlm2 += '<tr class="applyList"><td style="width:94px">' + currentValue.companyName + '</td><td>' + currentValue.position + '</td><td>' + currentValue.userName + '</td><td>' + currentValue.userPhone + '</td></tr>'
+                    }
+                })
+                tableHtlm2 += '</tbody>';
+                $("#tableList").append(tableHtlm2)
+            })
+        })
+        // 阻止事件冒泡
+        document.onclick = function (e) {
+            e.stopPropagation(e);
+            $(".chaxgn").hide();
+            $(".chaxgn2").hide(); 
+        }
+
+        function stopproPagation(e) {
+
+            window.event ? window.event.cancelBubble = true : e.stopPropagation();
+        }
+        var mySwiper = ""
+        var mySwiper = new Swiper('#swiper02', { //dwzzjg
+            autoplay: false, //可选选项，自动滑动
+            navigation: {
+                nextEl: '.dwzzjg .swiper-button-next',
+                prevEl: '.dwzzjg .swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-sfafad',
+            },
+            // 触发事件
+            on:{
+            slideChange: function(index){
+                    // 获取切换的索引
+                    var activeIndex=$(this)[0].activeIndex;
+                    // 获取照片对应公司的id
+                    var companyId=$('.companyId').eq(activeIndex).attr('companyId');
+                
+                    // 切换图片更换对应公司
+                    getImageRelateInfo(companyId)
+                   
+                },
+            },
+            observer: true,//修改swiper自己或子元素时，自动初始化swiper
+            observeParents: true//修改swiper的父元素时，自动初始化swiper
+
+
+        })  
+       
+
+        global.page.pic_view()
+
+      
+    }
+    //fef()
+    function fef() { //轮播图
+
+        var mySwiper = new Swiper('#swiper01', {
+            autoplay: false, //可选选项，自动滑动
+            // slidesPerView: 3,
+            // spaceBetween: 16,
+            pagination: {
+
+                el: '.swiper-lightspot',
+            },
+            navigation: {
+                nextEl: '.gcld .swiper-button-next',
+                prevEl: '.gcld .swiper-button-prev',
+            },
+        })
+        var mySwiper = new Swiper('#swiper07', { //项目平面布置图
+            autoplay: false, //可选选项，自动滑动
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+
+        })
+
+
+
+
+
+        var loylo = new Swiper('#swiper03', { //dwzzjg
+            autoplay: false, //可选选项，自动滑动
+        })
+        var loylo = new Swiper('#swiper06', { //dwzzjg
+            autoplay: false, //可选选项，自动滑动
+            pagination: {
+                el: '.swiper-yukio'
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        })
+
+
+        var mySwiper123 = new Swiper('#swiper123', {
+            autoplay: false, //可选选项，自动滑动
+            slidesPerView: 8,
+            spaceBetween: 16,
+            navigation: {
+                nextEl: '.gcjc  .swiper-button-next',
+                prevEl: '.gcjc  .swiper-button-prev',
+            },
+        })
+
+
+
+    }
+
+
+    global.ajax.getProjectInfo(function (res) {
+        //console.log(res.data.projectInfo)
+        global.ajax.getImg(function (success) {
+            IMGURL = success.data.pic_server
+            //console.log(IMGURL, '获取图片链接')
+            var imageUrl = IMGURL;
+            console.log(res, '工地概览详情', imageUrl);
+            if (!res.data.projectInfo.imageUrl) return;
+            res.data.projectInfo.imageUrl.forEach(function (currentValue, index) { //项目屏幕布置图
+                // console.log(index);
+                var xmbzt = imageUrl + currentValue;
+                //console.log(xmbzt);
+
+                if (index == 0) {
+                    // $(".point").empty()
+                    $(".point").append(
+                        '<div class="swiper-slide operation" oncontextmenu="return false"><a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery" data-group="g2" data-src="' + xmbzt + '"><img style="width:100%; height: 540px;" src=' +
+                        xmbzt + '    alt=""></a></div>')
+
+                } else {
+                    //  $(".point").empty()
+                    $(".point").append(
+                        '<div class="swiper-slide "><a href="javascript:void(0)"  data-caption="查看照片" data-magnify="gallery" data-group="g2" data-src="' + xmbzt + '"><img style="width:100%; height: 540px;" src=' +
+                        xmbzt + '    alt=""></a></div>')
+                }
+            })
+            zuobsz()
+            var hert = res.data.projectInfo.projectOverview; //项目特点
+            var archDesignFeatures = hert.archDesignFeatures ? hert.archDesignFeatures : '';//建筑设计特点
+            var designFeatures = hert.designFeatures ? hert.designFeatures : '';//结构设计特点
+            var constructDifficulties = hert.constructDifficulties ? hert.constructDifficulties : '';//施工重难点
+            // console.log(hert.archDesignFeatures );
+            $("#archDesignFeatures").empty()
+            $("#designFeatures").empty()
+            $("#desi").empty()
+            $("#archDesignFeatures").append('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + archDesignFeatures + '') //建筑设计特点
+            $("#designFeatures").append('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + designFeatures + '') //结构设计特点
+            //console.log("施工重难点");
+
+            //console.log(hert.constructDifficulties);
+            $("#desi").empty()
+            $("#desi").append('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + constructDifficulties + '') //施工重难点
+            var projectTower = res.data.projectInfo.projectTower; //塔楼塔楼数据
+            var tlqkHtml = '<tbody>'
+            for (var a = 0; a <= projectTower.length - 1; a++) { //塔楼数据
+                tlqkHtml += '<tr class="applyList"><td style="width:70px">' + projectTower[a].buildingName + '</td><td>' + projectTower[a].buildingHeight + '</td><td>' + projectTower[a].buildingFloor + '</td><td>' + projectTower[a].function + '</td><td>' + projectTower[a].deliveryStandard + '</td></tr>'
+            }
+            tlqkHtml += '</tbody>';
+            $("#gtdqkTable").append(tlqkHtml);
+            var cmzzjg = [] //项目组织的数据
+            var projectOrg = res.data.projectInfo.projectOrg; //项目组织架构
+            // 建设单位
+            var constructUnitMap=projectOrg.constructUnitMap
+            console.log('建设单位',constructUnitMap)
+            xmzzjg(constructUnitMap)
+            // projectOrg.forEach(function (currentValue, index) {
+            //     if (currentValue.companyTypeId == 3 || currentValue.companyTypeId == 4 || currentValue
+            //         .companyTypeId == 8 || currentValue.companyTypeId == 7) {
+            //         cmzzjg.push(currentValue)
+
+           
+            //         xmzzjg(3, cmzzjg) //第一次启动
+            //     }
+            //     // cmzzjg.push(currentValue)
+
+            // })
+            $(".tab_nav .box").find('span').each(function () { //项目组织架构的点击事件
+                $(this).click(function () {
+                    //console.log($(this).text());
+                    if ($(this).text() == '建设单位') {
+                        // xmzzjg(3, cmzzjg)
+                        console.log('建设单位',constructUnitMap)
+                        xmzzjg(constructUnitMap)
+                    
+                    } else if ($(this).text() == '施工单位') {
+                        // xmzzjg(7, cmzzjg)
+                        var bulidUnitMap=projectOrg.bulidUnitMap
+                        xmzzjg(bulidUnitMap)
+                    } else if ($(this).text() == '设计单位') {
+                        // xmzzjg(8, cmzzjg)
+                        var designerUnitMap=projectOrg.designerUnitMap
+                        xmzzjg(designerUnitMap)
+
+                    } else if ($(this).text() == '监理单位') {
+                        // xmzzjg(4, cmzzjg)
+                        var supervisorMap=projectOrg.supervisorMap
+                       
+                        xmzzjg(supervisorMap)
+                    }
+
+                })
+            })
+            var projectNodeInfo = res.data.projectInfo.projectNodeInfo //节点数据
+            sortData(projectNodeInfo);
+            //console.log(projectNodeInfo, '节点数据'); //节点
+            projectNodeInfo.forEach(function (currentValue, index) { //节点数据渲染
+                var image = imageUrl + currentValue.imageUrl;
+                //console.log(image,'节点数据渲染')
+                var image2 = './img/moren.png';
+                var html = ''
+                if (currentValue.delay < 0) {
+                    //  console.log("45454");
+                    var dela = -currentValue.delay ? -currentValue.delay : ''
+                    //   console.log(dela);
+                    html += '<div class="swiper-slide" ><div eid="' + currentValue.projectNodeId +
+                        '"> <div class="box">    <li style="background:#fff"></li> <div class="line_top ">  <div class="wrap-img example2" href="' +
+                        (currentValue.imageUrl ? image : image2) +
+                        '"><a href="javascript:void(0)"  data-caption="查看照片" data-magnify="gallery" data-group="g' + (index + 20) + '" data-src="' + (currentValue.imageUrl ? image : image2) + '"><img src="' +
+                        (currentValue.imageUrl ? image : image2) +
+                        '" alt=""></a></div><p>' +
+                        currentValue.nodeName + '</p> </div>  <div> <div class="line_bottom">';
+                    if (currentValue.planCompletionDate) {
+                        html += '<p>' + currentValue.planCompletionDate + '</p>'
+                    } else {
+                        html += '<p></p>'
+                    }
+                    if (currentValue.actualCompleteDate) {
+                        html += '<p>' + currentValue.actualCompleteDate + '</p>'
+                    } else {
+                        html += '<p></p>'
+                    }
+
+                    if (currentValue.delay) {
+                        html += '<p style=" color: red ">提前' + dela + '天</p> </div></div>'
+
+                    } else {
+                        html += '<p style="color:red"></p></div></div>'
+                    }
+
+                    $(".project  .itemPicList").append(html)
+
+                } else {
+                    html += '<div class="swiper-slide" ><div eid="' + currentValue.projectNodeId +
+                        '"> <div class="box">    <li style="background:#fff"></li> <div class="line_top ">  <div class="wrap-img example2" href="' +
+                        (currentValue.imageUrl ? image : image2) +
+                        '"><a href="javascript:void(0)"  data-caption="查看照片" data-magnify="gallery" data-group="g' + (index + 20) + '" data-src="' + (currentValue.imageUrl ? image : image2) + '"><img src="' +
+                        (currentValue.imageUrl ? image : image2) +
+                        '" alt=""></a></div><p>' +
+                        currentValue.nodeName + '</p> </div>  <div> <div class="line_bottom">';
+                    if (currentValue.planCompletionDate) {
+                        html += '<p>' + currentValue.planCompletionDate + '</p>'
+                    } else {
+                        html += '<p></p>'
+                    }
+                    if (currentValue.actualCompleteDate) {
+                        html += '<p>' + currentValue.actualCompleteDate + '</p>'
+                    } else {
+                        html += '<p></p>'
+                    }
+
+                    if (currentValue.delay) {
+                        html += '<p style=" color: red ">滞后' + currentValue.delay + '天</p> </div></div>'
+
+                    } else {
+                        html += '<p style="color:red"></p></div></div>'
+                    }
+
+                    $(".project  .itemPicList").append(html)
+                }
+
+            })
+            //工程亮点数据
+            var projectMaterial = res.data.projectInfo.projectMaterial;
+            $('.lightspot').empty()
+            // //console.log(projectMaterial, '亮点数据');
+            var itemHtml = '';
+            for (var x = 0; x <= projectMaterial.length - 1; x++) {
+
+                var picture = imageUrl + projectMaterial[x].fileUrl;
+                //console.log(picture,'工程亮点图片')
+                itemHtml += '<div class="swiper-slide  example2"> <a href="javascript:void(0)" data-caption="查看照片" data-magnify="gallery" data-group="g4" data-src="' + picture + '"><img style="width:100%; height: 230px;" src="' + picture + '" alt=""></a></div>'
+            }
+
+            $(".lightspot").append(itemHtml);
+
+            var jjjszbimg = res.data.projectInfo.projectOverview.fileUrls //经济技术指标数据
+            //console.log(jjjszbimg, '经济技术指标数据');
+            $(".flop").empty()
+            if (jjjszbimg) {
+                jjjszbimg.forEach(function (currentValue, index) {
+                    // console.log(currentValue, '轮播图');
+
+                    $(".flop").append('<div class="swiper-slide example2"><a href="javascript:void(0)"  data-caption="查看照片" data-magnify1="gallery" data-group="g5" data-src="' + (imageUrl + currentValue) + '"><img src="' + (imageUrl + currentValue) + '"    style="width:100%;height:417px;" alt=""></div>')
+                })
+            }
+            fef()
+
+
+            global.page.pic_view()
+
+        })
+
+    })
+
+    // 搜索事件
+    // function ssk() {
+    //     $("#djsij1").click(function (e) { //搜索事件
+    //         stopproPagation(e)
+    //         //console.log("djsij1");
+    //         $(".chaxgn").slideToggle();
+    //         $(".chaxgn2").hide();
+    //     })
+    //     $("#djsij2").click(function (e) { //搜索事件
+    //         stopproPagation(e)
+    //         $(".chaxgn2").slideToggle();
+    //         $(".chaxgn").hide();
+    //     })
+
+    // }
+    // 数组去重
+    function uniq(array) {
+        var temp = []; //一个新的临时数组
+        for (var i = 0; i < array.length; i++) {
+            if (temp.indexOf(array[i]) == -1) {
+                temp.push(array[i]);
+            }
+        }
+        return temp;
+    }
+
+    // 切换图片更换对应公司
+    function getImageRelateInfo(companyId){
+        global.ajax.getImageRelateInfo(companyId,function(res){
+            console.log(res,'切换')
+            $("#tableList").empty()
+            var appOrgRelation=res.data.appOrgRelation;
+            var html='<thead><tr><th id="djsij1" style="width:94px">单位名称</th><th id="djsij2">职务</th><th class="name">姓名</th><th lass="phone">电话</th></tr></thead><tbody>'
+            appOrgRelation.forEach(function(item){
+                html+='<tr class="applyList"><td style="width:94px">' + item.companyName + '</td><td>' + item.position + '</td><td>' + item.userName + '</td><td>' + item.userPhone + '</td></tr>'
+            })
+            html += '</tbody>';
+            $("#tableList").append(html)
+        })
+    }
+
+    // 把时间从低到高排列，冒泡排序
+    function sortData(projectNodeInfo) {
+        for (var n = 1; n < projectNodeInfo.length; n++) {
+            for (var k = 0; k < projectNodeInfo.length - 1; k++) {
+                var min = projectNodeInfo[k].planCompletionDate;
+                var nextCount = projectNodeInfo[k + 1].planCompletionDate;
+                if (min > nextCount) {
+                    var preData = projectNodeInfo[k];
+                    projectNodeInfo[k] = projectNodeInfo[k + 1];
+                    projectNodeInfo[k + 1] = preData;
+                }
+            }
+        }
+    }
+    // 点击新增摄像头类型
+    function addMoive(deviceId, x, y, deviceType) {
+
+        global.ajax.getDeviceList(function (res) {
+
+            var deviceList = []
+            var deviceInfoList = res.data.deviceInfoList
+            deviceInfoList.forEach(function (item) {
+                if (item.deviceType == deviceType) {
+                    deviceList.push(item)
+                }
+
+            })
+            if (deviceList.length == 0) {
+                switch (deviceType) {
+                    case '1':
+                        alert('暂无球机摄像头');
+                        break;
+                    case '2':
+                        alert('暂无枪机摄像头');
+                        break;
+                    case '3':
+                        alert('暂无吊塔摄像头');
+                        break;
+                }
+
+            } else {
+                var list = '';
+                $("#Modal").css("display", "inline")
+                deviceList.forEach(function (item) {
+                    list += '<li did="' + item.deviceId + '"><span>' + item.deviceName + '</span><i class="icon"></i></li>'
+                })
+                $('#device_list').html(list)
+                if (!modal) {
+                    modal = parent.window.Modal({
+                        title: '关联设备',
+                        content: $('#overView_modal').prop('outerHTML')
+                    })
+                }
+
+                $(".add_wrap").remove();
+                modal.open()
+                //select
+                parent.window.$('#device_list').find('li')
+                    .each(
+                        function () {
+                            $(this).removeClass('active_li')
+                            $(this).click(function () {
+                                deviceId = $(this).attr('did')
+                                $(this).addClass('active_li').siblings().removeClass('active_li')
+                            })
+                        })
+                //取消
+                parent.window.$('#cancle').on('click',
+                    function () {
+                        modal.close()
+                        $('#device_list').remove()
+
+                    })
+                //保存
+                parent.window.$('#save').on('click',
+                    function () {
+                        //console.log(deviceId, x, y,deviceType);
+                        saveMovie(deviceId, x, y, deviceType)
+                    })
+            }
+        })
+    }
+    // 保存摄像头
+    function saveMovie(deviceId, x, y, deviceType) {
+        global.ajax.saveDeviceImg({
+            deviceId: deviceId,
+            coordinateX: x,
+            coordinateY: y,
+            deviceType: deviceType,
+
+
+        }, function (res) {
+            $(".operation").append('<div id="' + res.data.devImageId + '" class="additive" style="top:' + y + 'px;left: ' + x + 'px; background-image: url(./img/icon_qiangji.png)"></div>')
+            modal.close();
+            $(".additive").on('dblclick', function () {
+                var devImageId = $(this).attr('id')
+                global.ajax.removeDeviceImg(devImageId);
+                $('#' + devImageId).remove();
+
+            })
+        })
+    }
+    // 阻止事件冒泡
+    function stopproPagation(e) {
+
+        window.event ? window.event.cancelBubble = true : e.stopPropagation();
+    }
+    function preventDefault(e) {
+        window.event ? window.event.returnValue = false : e.preventDefault();
+    }
+</script>

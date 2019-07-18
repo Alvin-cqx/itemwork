@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片预览</title>
+    <script src="/js/plugins/jquery.min.js"></script>
+    <style>
+        #hello{
+            display: flex;
+            justify-content: center
+        }
+    </style>
+</head>
+
+<body>
+    <div id="hello">
+      
+    </div>
+</body>
+
+<script>
+    (function () {
+        var picUrl=getUrlVal('showUrl')
+        $('#hello').append('<img src="'+picUrl+'" alt="" id="showImg">')
+        console.log(picUrl)
+        // 获取url参数
+        function getUrlVal(name) {
+            var url = decodeURI(window.location.search)
+            var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+            var r = url.substr(1).match(reg);
+            if (r != null) {
+                return unescape(r[2]);
+            }
+            return null;
+        }
+
+
+    })()
+
+
+</script>
+
+</html>

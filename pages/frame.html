@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="pragma" content="no-cache">
+    <title>首页</title>
+    <script src="/js/plugins/jquery.min.js"></script>
+    <script src="/js/plugins/jbox/jBox.min.js"></script>
+    <link rel="stylesheet" href="/js/plugins/jbox/jBox.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/frame_modal.css">
+    <link rel="stylesheet" href="/js/plugins/picView/css/picView.css">
+    <script src="/js/plugins/picView/js/picView.js"></script>
+    <script src="/js/plugins/picView/js/jquery.rotate.min.js"></script>
+    <script src="/js/plugins/paging/js/pageMe1.js"></script>
+    <style>
+        .iframe>.content {
+            position: absolute;
+            top: 154px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #eee
+        }
+
+        .iframe>.content iframe {
+            height: auto;
+            min-height: 100%;
+            width: 100%;
+            display: none;
+            -ms-overflow-style: none;
+        }
+
+        .iframe>.content iframe::-webkit-scrollbar {
+            display: none;
+        }
+
+        .iframe>.content #overView {
+            display: block
+        }
+
+
+        .jBox-closeButton-title .jBox-closeButton svg {
+            width: 16px;
+            height: 16px;
+            margin-top: -8px;
+            margin-right: -8px;
+        }
+
+        #Modal {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 99;
+            display: none
+        }
+
+        .monitor_modal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 600px;
+            height: 500px;
+            padding: 10px 20px;
+            margin: -250px 0 0 -300px;
+            background: #262c4f;
+            z-index: 100;
+            display: none;
+        }
+
+        .ryck_modal {
+            position: absolute;
+            top: 32%;
+            left: 716px;
+            width: 1090px;
+            height: 848px;
+            margin: -250px 0 0 -300px;
+            background: #262c4f;
+            z-index: 10001;
+            display: none;
+
+        }
+
+        #pic_view {
+            display: none
+        }
+
+        .closeBtn {
+            position: absolute;
+            right: 0px;
+            top: 5px;
+            cursor: pointer;
+        }
+
+        .magnify-btn-rotateLeft,
+        .magnify-btn-rotateRight,
+        .magnify-btn-zoomIn,
+        .magnify-btn-actualSize,
+        .magnify-btn-zoomOut {
+            display: none !important;
+        }
+
+        .magnify-stage {
+            position: absolute !important;
+            /* bottom: 66px !important; */
+            top: 40px !important;
+        }
+
+        .magnify-footer {
+            position: absolute !important;
+            bottom: 44% !important;
+            background-color: none !important;
+        }
+
+        .magnify-toolbar {
+            width: 100% !important;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .magnify-header {
+            background-color: #161b33 !important;
+        }
+
+        .magnify-stage {
+            background-color: #262c4f !important;
+        }
+
+        /* 提示框 */
+        #tip {
+            display: none;
+            position: fixed;
+            right: 0;
+            width: 290px;
+            top: 41px;
+            height: 100%;
+            z-index: 1000;
+            background-color: #051253;
+            border: 1px solid #1E328B;
+        }
+
+        #tip .title {
+            height: 56px;
+            line-height: 56px;
+            padding: 0 26px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #tip .title img {
+            vertical-align: middle;
+            cursor: pointer;
+        }
+
+        #tip .content {
+            height: 80px;
+            padding: 10px 19px;
+            border-top: 1px solid #1E328B;
+            border-bottom: 1px solid #1E328B;
+            cursor: pointer;
+        }
+
+        #tip .content p>span::after {
+            content: '';
+            display: inline-block;
+            height: 8px;
+            width: 8px;
+            border-radius: 100%;
+            background: #FF5B5B;
+            margin-right: 8px;
+        }
+
+        .tips {
+            margin-top: 10px;
+            padding: 0 4px;
+            /* 超出隐藏 */
+            overflow: hidden;
+            /* 文本超出显示... */
+            text-overflow: ellipsis;
+            /* CSS盒模型必须设置 */
+            display: -webkit-box;
+            /* 定义子元素的排列方向 垂直方向 */
+            -webkit-box-orient: vertical;
+            /* 垂直方向 定义子元素排列的函数 */
+            -webkit-line-clamp: 2;
+        }
+
+        /* 外面盒子样式---自己定义 */
+        .page_div {
+            margin: 40px 10px 20px 0;
+            color: #666;
+            display: flex;
+            justify-content: center;
+        }
+
+        .record_div {
+            margin: 40px 10px 20px 0;
+            color: #666;
+            display: flex;
+            /* display: block; */
+            justify-content: center;
+            position: absolute;
+            bottom: 40px;
+            left: 30%;
+
+        }
+
+        /* 页数按钮样式 */
+        .page_div button {
+            display: inline-block;
+            min-width: 30px;
+            height: 28px;
+            cursor: pointer;
+            color: #666;
+            font-size: 13px;
+            line-height: 28px;
+            background-color: #f9f9f9;
+            border: 1px solid #dce0e0;
+            text-align: center;
+            margin: 0 4px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        #firstPage,
+        #lastPage,
+        #nextPage,
+        #prePage {
+            width: 50px;
+            color: #0073A9;
+            border: 1px solid #ccc
+        }
+
+        #nextPage,
+        #prePage {
+            width: 70px
+        }
+
+        .page_div .current {
+            background-color: #2e4084;
+            border-color: #2e4084;
+            color: #FFF
+        }
+
+        /* 页面数量 */
+        .totalPages {
+            margin: 0 10px
+        }
+
+        .totalPages span,
+        .totalSize span {
+            color: #0073A9;
+            margin: 0 5px
+        }
+
+        /*button禁用*/
+        .page_div button:disabled {
+            opacity: .5;
+            cursor: no-drop
+        }
+
+        /* 人员考察明细弹窗 */
+        #ryck_modal .modal_title {
+            padding: 15px 32px;
+            background-color: #161b33;
+            font-size: 16px;
+        }
+
+        #ryck_modal.security_modal {
+            padding: 0;
+        }
+
+        #ryck_modal .work-container {
+            padding: 20px 30px;
+        }
+
+        .closebtn {
+            width: 16px;
+            position: absolute;
+            right: 25px;
+            top: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body class="body">
+
+    <div>
+        <div id="pic_view" class="pic_view"></div>
+    </div>
+    <div id="Modal"></div>
+    <div class="monitor_modal" id="monitor_modal">
+        <div class="modal_content">
+            <p class="modal_title">设备在线情况</p>
+            <img src="../images/icon_close.png" alt="" class="closeBtn">
+            <div class="video" id="video">
+                <object id="DPSDK_YDXJ" classid="CLSID:D3E383B6-765D-448D-9476-DFD8B499926D"
+                    style="width: 100%; height: 100%" codebase="DpsdkOcx.cab#version=1.0.0.0"></object>
+            </div>
+            <div class="control">
+                <div class="box" id="video_control">
+                    <li type='1' class="firstLi">
+                        <img class="control_default" src="../../images/icon_splj.png" alt="">
+                        <img class="control_active" src="../../images/icon_splj_active.png" alt="">
+                        <span>视频链接</span>
+                    </li>
+                    <li type='2' class="SecondLi">
+                        <img class="control_default" src="../../images/icon_yydj.png" alt="">
+                        <img class="control_active" src="../../images/icon_yydj_active.png" alt="">
+                        <span>语音对讲</span>
+                    </li>
+                    <li type='3' class="ThirdLi">
+                        <img class="control_default" src="../../images/icon_lx.png" alt="">
+                        <img class="control_active" src="../../images/icon_lx_active.png" alt="">
+                        <span>录像</span>
+                    </li>
+                    <li type='4' class="ForthLi">
+                        <img class="control_default" src="../../images/icon_jt.png" alt="">
+                        <img class="control_active" src="../../images/icon_jt_active.png" alt="">
+                        <span>截图</span>
+                    </li>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ryck_modal security_modal" id="ryck_modal">
+        <div class="modal_content">
+            <div class="modal_title">
+                <div>人员考察明细</div>
+                <div><img src="/images/closebtn.png" alt="" class="closebtn"></div>
+            </div>
+            <div class="security">
+                <div class="work-container">
+                    <table>
+                        <tr>
+                            <td>项目名称</td>
+                            <td>人员</td>
+                            <td>单位名称</td>
+                            <td>考勤时间</td>
+                            <td>进出类型</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="1">四海时代大厦</td>
+                            <td>张鹏鹏</td>
+                            <td>深圳市和冠房地产开发有限公司</td>
+                            <td>2019-03-13<br>10:01:16</td>
+                            <td>进入工地</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="1">四海时代大厦</td>
+                            <td>张鹏鹏</td>
+                            <td>深圳市和冠房地产开发有限公司</td>
+                            <td>2019-03-13<br>10:01:16</td>
+                            <td>进入工地</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="1">四海时代大厦</td>
+                            <td>张鹏鹏</td>
+                            <td>深圳市和冠房地产开发有限公司</td>
+                            <td>2019-03-13<br>10:01:16</td>
+                            <td>进入工地</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="1">四海时代大厦</td>
+                            <td>张鹏鹏</td>
+                            <td>深圳市和冠房地产开发有限公司</td>
+                            <td>2019-03-13<br>10:01:16</td>
+                            <td>进入工地</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=""></div>
+    <div class="iframe">
+        <div class="header">
+            <!-- <div class="wrap_pic">
+                <img class="header_bg" src="/images/pic_title.png" alt="">
+            </div> -->
+            <div class="box">
+                <div class="left">
+                    <img class="logo" src="/images/icon_logo.png" alt="" />
+
+                </div>
+                <div class="center">
+                    <div>
+                        <h2 id="fullScreen" class="Modal">智慧工地现场监管云平台</h2>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="notice">
+                        <div class="current_project">
+                            <p>
+                                <span id="current_project">当前项目</span>
+                                <img src="/images/icon_down.png" alt="">
+                            </p>
+                            <div class="project_list" id="project_list"></div>
+                        </div>
+                    </div>
+                    <div class="menu">
+                        <!-- <div onclick="window.location.href='/index.html'">
+                            <img class="icon_default" src="/images/icon_sjzhzx.png" alt="">
+                            <img class="icon_active" src="/images/icon_sjzhzx_active.png" alt="">
+                            <span>监控指挥中心</span>
+                        </div> -->
+                        <!-- <div onclick="window.location.href = 'http://test.qingning123.com/admin/index'">
+                            <img class="icon_default" src="/images/icon_xmview.png" alt="">
+                            <img class="icon_active" src="/images/icon_xmview_active.png" alt="">
+                            <span>项目预览</span>
+                        </div>
+                        <div
+                            onclick="window.location.href ='http://test.qingning123.com/admin/index/index?action=jump_choose_menu&pid=87'">
+                            <img class="icon_default" src="/images/icon_xmgl.png" alt="">
+                            <img class="icon_active" src="/images/icon_xmgl_active.png" alt="">
+                            <span>后台管理</span>
+                        </div> -->
+                        <div class="nav" id='Nav'>
+                            <div class="nav_name" onclick="window.location.href='/index.html'">
+                                <span>监控指挥中心</span>
+                                <img src="/images/icon_down.png" alt="" style="width:16px">
+                            </div>
+                            <div class="nav_list">
+                                <p
+                                    onclick="window.location.href = window.location.origin+'/admin/site_overview/index.html?ref=addtabs'">
+                                    <span>项目预览</span>
+                                </p>
+                                <p
+                                    onclick="window.location.href = window.location.origin+'/admin/areamanagement/index.html?ref=addtabs'">
+                                    <span>后台管理</span>
+                                </p>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="message">
+                        <img src="/images/icon_message.png" alt="">
+                        <!-- <span>3</span> -->
+                    </div>
+                    <div class="userInfo" onclick="global.page.logout()">
+                        <span>退出系统</span>
+                    </div>
+                </div>
+                <div class="time">
+                    <span id="date"></span>
+                    <span id='day'>星期二</span>
+                    <img style="width:24px" src="/images/icon_qing.png" />
+                    <span>28℃</span>
+                </div>
+            </div>
+
+        </div>
+        <div class="nav">
+            <div class="box">
+                <li><a iframeUrl='/pages/overview/index.html' name="overView" class="nav_active">工地概览</a></li>
+                <li><a iframeUrl='/pages/quality/index.html' name="quality">质量管理</a></li>
+                <li><a iframeUrl='/pages/security/index.html' name="security">安全管理</a></li>
+                <li><a iframeUrl='/pages/progress/index.html' name="progress">进度管理</a></li>
+                <li><a iframeUrl='/pages/monitor/index.html' name="monitor">视频监控</a></li>
+                <li><a iframeUrl='/pages/reportForm/index.html' name="reportForm">统计报表</a></li>
+                <li><a iframeUrl='/pages/projectFile/index.html' name="projectFile">工程档案</a></li>
+            </div>
+            <div class="back">
+                <a href="/index.html">
+                    <img src="/images/icon_back.png" alt="">
+                    <span>返回</span>
+                </a>
+            </div>
+            <!-- <div class="notice">
+                <div class="current_project">
+                    <p>
+                        <span id="current_project">当前项目</span>
+                        <img src="/images/icon_down.png" alt="">
+                    </p>
+                    <div class="project_list" id="project_list"></div>
+                </div>
+            </div> -->
+        </div>
+        <div class="content">
+            <iframe name="overView" id="overView" src="/pages/overview/index.html" frameborder="0"></iframe>
+            <iframe id="quality" frameborder="0"></iframe>
+            <iframe id="security" src="" frameborder="0"></iframe>
+            <iframe id="progress" frameborder="0"></iframe>
+            <iframe name="monitor" id="monitor" frameborder="0"></iframe>
+            <iframe id="reportForm" frameborder="0"></iframe>
+            <iframe id="projectFile" frameborder="0"></iframe>
+            <iframe id="personFace" frameborder="0"></iframe>
+        </div>
+    </div>
+
+
+    <!-- 提示框 -->
+    <!-- <div id="tip">
+            <div class="title">
+                <span>消息中心</span>
+                <span><img src="../images/close.png" alt=""></span>
+            </div>
+            <div class="content">
+                <p><span>【任务】</span></p>
+                <p class="tips">3月13日，住建部发布《关于深入开展建筑施工 安全专项治理行动的通知》，请项目部....</p>
+            </div>
+            <div class="content">
+                <p><span>【设备报警】</span></p>
+                <p class="tips">3月13日，住建部发布《关于深入开展建筑施工 安全专项治理行动的通知》，请项目部....</p>
+            </div>
+            <div class="content">
+                <p><span>【消息】</span></p>
+                <p class="tips">3月13日，住建部发布《关于深入开展建筑施工 安全专项治理行动的通知》，请项目部....</p>
+            </div>
+            <div class="content">
+                <p><span>【任务】</span></p>
+                <p class="tips">3月13日，住建部发布《关于深入开展建筑施工 安全专项治理行动的通知》，请项目部....</p>
+            </div>
+            <div class="content">
+                <p><span>【设备报警】</span></p>
+                <p class="tips">3月13日，住建部发布《关于深入开展建筑施工 安全专项治理行动的通知》，请项目部....</p>
+            </div>
+            <div class="content">
+                <p><span>【消息】</span></p>
+                <p class="tips">3月13日，住建部发布《关于深入开展建筑施工 安全专项治理行动的通知》，请项目部....</p>
+            </div>
+    </div> -->
+</body>
+
+</html>
+<script src="/js/request.js"></script>
+<script type="text/javascript">
+    var timer = null
+    var l = null
+    var w = 'pic_view'
+    var projectId = global.unit.getCookie('projectId')
+
+    $(function () {
+        $('.nav').find('a').each(function () {
+            $(this).on("click", function () {
+                $(this).addClass('nav_active').parent().siblings().find('a').removeClass(
+                    'nav_active')
+
+                //加载iframe
+                var iframePage = $(this).attr('name')
+                var iframeUrl = $(this).attr('iframeUrl')
+
+                $('#' + iframePage).css('display', 'block').siblings().css('display', 'none')
+                if (!!!$('#' + iframePage).attr('src')) {
+                    $('#' + iframePage).attr('src', iframeUrl)
+                }
+
+            })
+        })
+        $('#device_list').find('li').each(function () {
+            $(this).on('click', function () {
+                console.log($(this))
+            })
+        })
+
+        $('.closeBtn').on('click', function () {
+            $('#monitor_modal').css('display', 'none')
+            $('#Modal').css('display', 'none')
+        })
+
+       $('.closebtn').on('click',function(){
+            $('#ryck_modal').css('display', 'none')
+            $('#Modal').css('display', 'none')
+       })
+
+
+        // 顶部导航栏
+        $('#Nav').hover(function () {
+            $('.nav_list').show()
+        }, function () {
+            $('.nav_list').hide()
+        })
+    })
+
+    //模态层
+    var Modal = function (opts) {
+        return new jBox('Modal', {
+            height: opts.height || 400,
+            width: opts.width || 360,
+            title: opts.title,
+            content: opts.content,
+            closeButton: "title"
+        })
+    }
+
+    //图片预览
+    var viewPic = function (w, i) {
+        $('[data-magnify]').Magnify({
+            Toolbar: [
+                'prev',
+                'next',
+                'rotateLeft',
+                'rotateRight',
+                'zoomIn',
+                'actualSize',
+                'zoomOut'
+            ],
+            keyboard: true,
+            draggable: true,
+            movable: true,
+            modalSize: [1200, 800],
+            beforeOpen: function (obj, data) {
+                // console.log('beforeOpen')
+            },
+            opened: function (obj, data) {
+                // console.log('opened')
+            },
+            beforeClose: function (obj, data) {
+                // console.log('beforeClose')
+            },
+            closed: function (obj, data) {
+                // console.log('closed')
+            },
+            beforeChange: function (obj, data) {
+                // console.log('beforeChange')
+            },
+            changed: function (obj, data) {
+                console.log('changed')
+                if ($(this)[0].groupName === 'g1') {
+                    // 获取切换的索引
+                    var activeIndex = $(this)[0].groupIndex;
+                    // 获取照片对应公司的id
+                    var companyId = $('.companyId').eq(activeIndex).attr('companyId');
+                    getImageRelateInfo(companyId)
+
+                }
+
+
+            }
+        });
+        $('#' + w).find('img')[i].click()
+    }
+    //图片预览
+    var viewPic1 = function (w, i) {
+        $('[data-magnify1]').Magnify({
+            Toolbar: [
+                'prev',
+                'next',
+                'rotateLeft',
+                'rotateRight',
+                'zoomIn',
+                'actualSize',
+                'zoomOut'
+            ],
+            keyboard: true,
+            draggable: true,
+            movable: true,
+            modalSize: [800, 880],
+            beforeOpen: function (obj, data) {
+                // console.log('beforeOpen')
+            },
+            opened: function (obj, data) {
+                // console.log('opened')
+            },
+            beforeClose: function (obj, data) {
+                // console.log('beforeClose')
+            },
+            closed: function (obj, data) {
+                // console.log('closed')
+            },
+            beforeChange: function (obj, data) {
+                // console.log('beforeChange')
+            },
+            changed: function (obj, data) {
+                console.log('changed')
+            }
+        });
+        $('#' + w).find('img')[i].click()
+    }
+
+
+
+    var pic_view = function (h, i) {
+        $('#' + w).html(h)
+        parent.window.$('#' + w).html(h)
+        if (!l) {
+            l = $('#' + w).find('img').length;
+        }
+
+        // if ($('#' + w).find('img').length > l) {
+        //     l = $('#' + w).find('img').length       
+        //     $('body').append('<div><div id="pic_view' + l + '" class="pic_view"></div></div>')
+        //     w = 'pic_view' + l
+        //     $('#' + w).html(h)
+        // }
+        viewPic(w, i)
+        viewPic1(w, i)
+    }
+
+    // 切换图片更换对应公司
+    function getImageRelateInfo(companyId) {
+        global.ajax.getImageRelateInfo(companyId, function (res) {
+            console.log(res, '切换', $(window.frames["overView"].document).find("#tableList"))
+            $(window.frames["overView"].document).find("#tableList").empty()
+            var appOrgRelation = res.data.appOrgRelation;
+            var html = '<thead><tr><th id="djsij1" style="width:94px">单位名称</th><th id="djsij2">职务</th><th class="name">姓名</th><th lass="phone">电话</th></tr></thead><tbody>'
+            appOrgRelation.forEach(function (item) {
+                html += '<tr class="applyList"><td style="width:94px">' + item.companyName + '</td><td>' + item.position + '</td><td>' + item.userName + '</td><td>' + item.userPhone + '</td></tr>'
+            })
+            html += '</tbody>';
+            $(window.frames["overView"].document).find("#tableList").append(html)
+        })
+    }
+
+
+
+    global.ajax.getProjectList(function (res) {
+        var projectList = res.data.projectList
+        var list = ''
+        projectList.forEach(function (item) {
+
+            if (projectId == item.projectId) {
+                $('#current_project').html(item.projectName)
+            } else {
+                list += '<li pid="' + item.projectId + '"><span>' + item.projectName + '</span></li>'
+            }
+        })
+        $('#project_list').html(list)
+        $('#project_list').find('li').each(function (item) {
+            $(this).on('click', function () {
+                $('#current_project').html($(this).text())
+                $('#project_list').css('display', 'none')
+                global.unit.setCookie('projectId', $(this).attr('pid'))
+                window.location.reload()
+            })
+        })
+    })
+    // 退出清楚cookie
+
+
+    // 固定提示消息框
+    //获取第一部分的高度.
+    // var topHeight = $('#Nav').height();
+    // $(window).on('scroll', function () {
+    //     var scrollTop1 = $(this).scrollTop();
+    //     if (scrollTop1 >= topHeight) {
+    //         $('#tip').css({
+    //             position: 'fixed',
+    //             top: '0px',
+    //         });
+
+    //     } else {
+    //         //设置第二部分定位还原.
+    //         $('#tip').css({
+    //             position: 'fixed',
+    //             top: '41px',
+    //         });
+
+    //     }
+    // });
+
+    // $('.message').on('click',function(){
+    //     $('#tip').show()
+    // })
+    // $('.title img').on('click',function(){
+    //     $('#tip').hide()
+    // })
+</script>
