@@ -345,8 +345,8 @@ var Security = (function () {
 
         //管理人数--人员考察明细
         _$('#glrs_modal').find('a').click(function () {
-            // Security.showRYKCModal()
-            Security.showModal('rykcmx_modal', '人员考察明细')
+            Security.showRYKCModal()
+            // Security.showModal('rykcmx_modal', '人员考察明细')
             var nameid = $(this).attr('NameId')
             global.ajax.RecordPerson(nameid, function (res) {
                 var DATA = res.data.inOutLog;

@@ -14,7 +14,7 @@ var videoConfig = {
     //云控制
     nDirect: -1,
     nOper: -1,
-    nStreamType: '1', //码流 1：主码流  2：辅码流
+    nStreamType: '2', //码流 1：主码流  2：辅码流
     // 语音对讲
     nSampleType: '8000', //采样频率
     nBitType: '16', //采样位数

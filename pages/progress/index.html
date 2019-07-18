@@ -95,11 +95,15 @@
             margin-top: 3%;
             height: 100%;
         }
-
+        .leftData .Select{
+            display: inline-block;
+            width: 20px;
+           
+        }
         .leftData span {
             font-size: 16px;
             display: inline-block;
-            width: 100%;
+            /* width: 100%; */
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -257,7 +261,7 @@
                 </div>
                 <div class="box gsysBox">
                     <div class="left box">
-                        <div class="leftData" style="width:160px">
+                        <div class="leftData" style="width:160px;height: 72%;overflow: auto;">
 
                             <div class="navBox0" type='0' floolId='JDGL00' barId='JDGL0'>
 
@@ -271,7 +275,7 @@
                         </div>
                     </div>
                     <div class="box center">
-                        <div class="leftData" style="width:160px">
+                        <div class="leftData" style="width:160px;height: 72%;overflow: auto;">
 
                             <div class="navBox1" type='1' floolId='JDGL01' barId='JDGL1'>
 
@@ -285,7 +289,7 @@
                         </div>
                     </div>
                     <div class="box right">
-                        <div class="leftData" style="width:160px">
+                        <div class="leftData" style="width:160px;height: 72%;overflow: auto;">
 
                             <div class="navBox2" type='2' floolId='JDGL02' barId='JDGL2'>
 
@@ -780,7 +784,7 @@
                 if (i < 3) {
                     // var pitTure = item.childs && item.childs.length > 0 ? upPic : ''
                     // var pic = item.childs && item.childs.length > 0 ? '<img src="' + pitTure + '">' : ''
-                    html1 += '<ul class="' + className + '"><li><img src="' + upPic + '"><span class="typeName" enterpriseId="' + item.obj.enterpriseId + '">' + item.obj.typeValueEx + '</span></li>'
+                    html1 += '<ul class="' + className + '"><li><span class="Select"><img src="' + upPic + '"></span><span class="typeName" enterpriseId="' + item.obj.enterpriseId + '">' + item.obj.typeValueEx + '</span></li>'
                     // if (item.childs && item.childs.length >0) {
                     //     callback(item.childs, 'child-item')
                     // }

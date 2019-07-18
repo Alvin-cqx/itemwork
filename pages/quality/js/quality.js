@@ -16,7 +16,7 @@ var mySwiper = new Swiper('.swiper-container', {
 var Quality = (function () {
     var Qua = function () {
         this.init = function () {
-            this.formatCLJCData();
+            // this.formatCLJCData();
             // 监理统计验收
             this.formatJLTJData();
             // 检查项统计
@@ -37,7 +37,7 @@ var Quality = (function () {
         var chart1 = echarts.init(document.getElementById('chart01'));
         var chart2 = echarts.init(document.getElementById('chart02'));
         var chart3 = echarts.init(document.getElementById('chart03'))
-        var colorList = ['#EE1C19', '#FF9D47', '#F7F80A', '#006EFF', '#01CB01', '#835BFF', '#EE1C19'];
+        var colorList = ['#EE1C19', '#FF9D47', '#F7F80A', '#006EFF', '#01CB01', '#835BFF','#EE1C19', '#FF9D47', '#F7F80A', '#006EFF'];
         var option1 = {
             tooltip: {
                 trigger: 'item',
@@ -206,7 +206,7 @@ var Quality = (function () {
             grid: [{
                 left: '30%',
                 top: '9%',
-                bottom: '56%',
+                bottom: '36%',
             }],
             xAxis: [{
                 type: 'value',

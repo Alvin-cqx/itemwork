@@ -49,7 +49,7 @@ html{
 
 body::-webkit-scrollbar,#gtdqk_list::-webkit-scrollbar,#gtdqk_list table tbody::-webkit-scrollbar,#dwzzjg_list table tbody::-webkit-scrollbar,
 .dhsqlb table tbody::-webkit-scrollbar,.wrap_menu .menu::-webkit-scrollbar,.jBox-content::-webkit-scrollbar,.item_sbyj .content::-webkit-scrollbar
-,.ydjk .item_glrykq::-webkit-scrollbar{
+,.ydjk .item_glrykq::-webkit-scrollbar,.gxysPro .leftData::-webkit-scrollbar{
     display: none;
 }
 ::-webkit-scrollbar{
