@@ -569,9 +569,11 @@
                     ButtonStartRealRecordByWndNo_onclick(function () {
                         _that.css('background', 'rgb(44, 46, 156)')
                     })
+                    $('#record p').html('录像中')
                 } else {
                     ButtonStopRealRecordByWndNo_onclick()
                     _that.css('background', 'rgba(18, 20, 101, 0.5)')
+                    $('#record p').html('录像')
                 }
 
             })
