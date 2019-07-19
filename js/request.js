@@ -22,7 +22,7 @@ var global = (function () {
             init: function () {
                 this.tabNav('.tab_nav');
                 this.tabNav('.dhsqList');
-                this.tabNav('.workManger');
+                // this.tabNav('.workManger');
                 this.tabNav('.illegal')
                 this.pic_view();
                 this.tabNav1('.tab_nav1');
@@ -1085,7 +1085,7 @@ var global = (function () {
         },
 
         //工程档案列表
-        dsgsrgt: function (cb, idmon) {
+        dsgsrgt: function (cb,idmon,userId) {
 
 
             // var projectId = global.unit.getCookie('projectId')
@@ -1094,7 +1094,7 @@ var global = (function () {
                 url: '/recFolder/getRecFolderList.do',
                 data: {
                     engineeringId: idmon,
-                    userId:1,
+                    userId:6,
                 }
             }, function (res) {
                 if (res.code === '0') {
@@ -1178,7 +1178,7 @@ var global = (function () {
                 data: {
                     projectId: projectId,
                     yearMonth: yf,
-                    // companyName : dw ,
+                    companyName : dw ,
                     companyTypeId: etgid,
                     pageNum: pageNum,
                     pageCount: 10,

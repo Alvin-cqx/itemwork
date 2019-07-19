@@ -97,12 +97,14 @@ body::-webkit-scrollbar,#gtdqk_list::-webkit-scrollbar,#gtdqk_list table tbody::
 }
 
 .wrap-nav li {
-    padding: 0 18px;
+    /* padding: 0 18px; */
+    width: 18%;
 }
 
 .wrap-nav li span {
     padding: 4px 0;
     cursor: pointer;
+    width: 100%;
 }
 .nav_active,.nav_active1{
     border-bottom: 1px solid #00FFF9;

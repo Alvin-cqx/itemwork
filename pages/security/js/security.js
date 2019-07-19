@@ -15,11 +15,37 @@ var mySwiper = new Swiper('.swiper-container', {
 //     },
 // });
 var Security = (function () {
+    // 移动巡检
+    var DHConfig = {
+        szIp: '116.7.231.115', //ip
+        nPort: '9000', //端口号
+        szUsername: 'admin', //账号
+        szPassword: 'admin123'
+    }
+    //视频配置
+    var videoConfig = {
+        nMediaType: '1', // 1:视频  2：音频  3：视频+音频
+        nTransType: '1', // 0：UDP  1：TCP
+        bIVS: 1,
+        nStep: 3, //步长
+        //云控制
+        nDirect: -1,
+        nOper: -1,
+        nStreamType: '2', //码流 1：主码流  2：辅码流
+        // 语音对讲
+        nSampleType: '8000', //采样频率
+        nBitType: '16', //采样位数
+        nAudioType: '2', //音频格式
+        nDevType: '1' //对讲类型
+    }
+    var gWndId;
+    var DPSDK_OCX;
+
+
     var Sec = function () {
         this.init = function () {
             // this.getMoblieStatisticsInfo()
             // this.statisticsList()
-
             this.renderYDJKList()
             this.renderYSJGList()
         }
@@ -27,7 +53,7 @@ var Security = (function () {
     //人员统计
     Sec.prototype.statisticsList = function () {
         global.ajax.getLabourInputInfo(function (res) {
-            // console.log(res,'111111')
+            console.log(res,'111111')
             var myChart = echarts.init(document.getElementById('item_lwtj_chart'))
             var statisticsList = res.data.personStatistics.reverse();
             // var todayInfo = res.data
@@ -354,8 +380,8 @@ var Security = (function () {
                 DATA.forEach(function (item) {
                     HTML += '<tr><td>' + item.engineeringName + '</td><td>' + item.personnelName + '</td><td>' + item.companyName + '</td><td>' + item.inOutTime + '</td><td>' + item.inOutTypeName + '</td></tr>'
                 })
-                // _$('#ryck_modal table').html(HTML)
-                _$('.rykcmx_modal table').html(HTML)
+                _$('#ryck_modal table').html(HTML)
+                // _$('.rykcmx_modal table').html(HTML)
             })
         })
     }
@@ -369,7 +395,7 @@ var Security = (function () {
             var data = res.data;
             var html = ''
             data.forEach(function (item) {
-                html += '<div class="box equipment" playChanle="' + item.playChannel + '" Chanle="' + item.channel + '" name="' + item.name + '">'
+                html += '<div class="box equipment" status="' + item.status + '" playChanle="' + item.playChannel + '" Chanle="' + item.channel + '" name="' + item.name + '">'
                 if (item.status == 0) {
                     html += '<li><span class="state state-outline"></span></li><li><span>' + item.name + '' +
                         '</span></li><li><span>' + item.tel + '</span></li><li><span>' + (item.lastOnlineTime ? item.lastOnlineTime : '') + '</span></li></div>'
@@ -386,6 +412,11 @@ var Security = (function () {
                 $(this).on('click', function () {
                     var playChanle = $(this).attr('playChanle')
                     var Chanle = $(this).attr('Chanle')
+                    var status = $(this).attr('status')
+                    // if(status==0) {
+                    //     alert('操作失败,设备离线中,请开启设备!')
+                    //     return
+                    // };
                     console.log(playChanle, Chanle, 'playChanleplayChanleplayChanleplayChanle')
                     Security.showMonitorModal(playChanle, Chanle)
                 })
@@ -405,12 +436,12 @@ var Security = (function () {
 
     }
     // 人员考察明细弹窗
-    Sec.prototype.showRYKCModal=function(){
+    Sec.prototype.showRYKCModal = function () {
         var _$ = parent.window.$
         _$('#ryck_modal').show()
     }
 
-    
+
     Sec.prototype.showMonitorModal = function (playChanle, Chanle) {
         if (IsIe()) {
             var _$ = parent.window.$
@@ -422,15 +453,18 @@ var Security = (function () {
                 // var OCX = new Video(DPSDK_YDXJ)
                 // var DHSDK_Login_state = OCX.DPSDK_Login('1')
                 // 1.验证登陆
-                DPSDK_login(parent.document.getElementById('DPSDK_YDXJ'))
+                // DPSDK_login(parent.document.getElementById('DPSDK_YDXJ'))
+                Sec.prototype.DPSDK_login(parent.document.getElementById('DPSDK_YDXJ'))
                 //2.初始化窗口
-                YDXJinit()
+                // YDXJinit()
+                Sec.prototype.YDXJinit()
                 _$('#video_control').find('li').each(function () {
                     $(this).click(function () {
                         _$('#Modal').on('click', function () {
                             _$('#monitor_modal').css('display', 'none')
                             $(this).hide()
-                            stopPlay()
+                            // stopPlay()
+                            Sec.prototype.stopPlay()
                         })
                         var _that = $(this)
                         var type = _that.attr('type')
@@ -441,7 +475,14 @@ var Security = (function () {
                             case '1': //视频
                                 setTimeout(function () {
                                     if (state == 0) {
-                                        YDXJplay(playChanle,
+                                        // YDXJplay(playChanle,
+                                        //     function () {
+                                        //         _that.addClass(
+                                        //             'monitor_modal_active')
+                                        //             .find('.control_active').show()
+                                        //             .siblings('img').hide()
+                                        //     })
+                                        Sec.prototype.YDXJplay(playChanle,
                                             function () {
                                                 _that.addClass(
                                                     'monitor_modal_active')
@@ -449,7 +490,7 @@ var Security = (function () {
                                                     .siblings('img').hide()
                                             })
                                     } else {
-                                        stopPlay(function () {
+                                        Sec.prototype.stopPlay(function () {
                                             _that.removeClass(
                                                 'monitor_modal_active')
                                                 .find('.control_active').hide()
@@ -460,13 +501,13 @@ var Security = (function () {
                                 break;
                             case '2': //语音
                                 if (state == 0) {
-                                    ButtonStartTalk_onclick(Chanle, function () {
+                                    Sec.prototype.ButtonStartTalk_onclick(Chanle, function () {
                                         _that.addClass('monitor_modal_active').find(
                                             '.control_active').show().siblings(
                                                 'img').hide()
                                     })
                                 } else {
-                                    ButtonStopTalk_onclick(Chanle, function () {
+                                    Sec.prototype.ButtonStopTalk_onclick(Chanle, function () {
                                         _that.removeClass(
                                             'monitor_modal_active')
                                             .find('.control_active').hide()
@@ -477,14 +518,14 @@ var Security = (function () {
                                 break;
                             case '3': //录像
                                 if (state == 0) {
-                                    ButtonStartRealRecordByWndNo_onclick(
+                                    Sec.prototype.ButtonStartRealRecordByWndNo_onclick(
                                         function () {
                                             _that.addClass('monitor_modal_active').find(
                                                 '.control_active').show().siblings(
                                                     'img').hide()
                                         })
                                 } else {
-                                    ButtonStopRealRecordByWndNo_onclick(function () {
+                                    Sec.prototype.ButtonStopRealRecordByWndNo_onclick(function () {
                                         _that.removeClass(
                                             'monitor_modal_active')
                                             .find('.control_active').hide()
@@ -493,8 +534,8 @@ var Security = (function () {
                                 }
                                 break;
                             case '4': //抓图
-                                CapturePicture()
-                                break;
+                            Sec.prototype.CapturePicture()
+                            break;
                         }
                     })
                 })
@@ -515,7 +556,129 @@ var Security = (function () {
 
     }
 
+    // 移动巡检登录
+    Sec.prototype.DPSDK_login = function (node) {
+        if (!IsIe()) return
+        DPSDK_OCX = node
+        if (DPSDK_OCX.DPSDK_Login(DHConfig.szIp, DHConfig.nPort, DHConfig.szUsername, DHConfig.szPassword) == '0') {
 
+        }
+    }
+
+    // 初始化窗口
+    Sec.prototype.YDXJinit = function () {
+        gWndId = DPSDK_OCX.DPSDK_CreateSmartWnd(0, 0, 100, 100);
+        DPSDK_OCX.DPSDK_SetWndCount(gWndId, 1)
+        DPSDK_OCX.DPSDK_SetSelWnd(gWndId, 0);
+    }
+
+    // 开始播放
+    Sec.prototype.YDXJplay = function (cameraId,cb) {
+        var nWndNo = DPSDK_OCX.DPSDK_GetSelWnd(gWndId);
+        // console.log(cameraId, 'cameraId')
+        var nResult = DPSDK_OCX.DPSDK_StartRealplayByWndNo(gWndId, nWndNo, cameraId, videoConfig.nStreamType, videoConfig.nMediaType, videoConfig.nTransType)
+        // nResult == '0' ? cb && cb() :alert('播放异常！')
+        if (nResult == '0') {
+            cb && cb()
+        }else{
+            alert('播放异常')
+            return;
+        }
+    }
+    //停止播放
+    Sec.prototype.stopPlay = function (cb) {
+        var nWndNo = DPSDK_OCX.DPSDK_GetSelWnd(gWndId);
+        var result = DPSDK_OCX.DPSDK_StopRealplayByWndNo(gWndId, nWndNo)
+        // result == '0' ? cb && cb() : alert('停止播放异常！')
+        if (result == '0') {
+            cb && cb()
+        }else{
+            alert('停止播放异常')
+            return;
+        }
+    }
+
+    // 打开语音对讲
+    Sec.prototype.ButtonStartTalk_onclick=function(szCameraId,cb){
+        if (szCameraId) {
+            var CameraId = szCameraId.split('$')[0]
+            var nResult = DPSDK_OCX.DPSDK_StartTalk(CameraId, videoConfig.nAudioType, videoConfig.nBitType, videoConfig.nSampleType, videoConfig.nDevType, videoConfig.nTransType)
+            // nResult == '0' ? cb && cb() :alert('打开语音对讲失败')
+            if (nResult == '0') {
+                cb && cb()
+            }else{
+                alert('打开语音对讲失败')
+                return;
+            }
+           
+        }
+    }
+
+    // 关闭语音对讲
+    Sec.prototype.ButtonStopTalk_onclick=function(szCameraId,cb){
+        if (szCameraId) {
+            var CameraId = szCameraId.split('$')[0]
+            var result = DPSDK_OCX.DPSDK_StopTalk(CameraId)
+            if (nResult == '0') {
+                cb && cb()
+            }else{
+                alert('关闭语音对讲失败')
+                return;
+            }
+        }
+    }
+
+    // 开启录像
+    Sec.prototype.ButtonStartRealRecordByWndNo_onclick=function(cb){
+        var path = "C:\\dhvideo\\" + new Date().getTime() + ".avi";
+        var nWndNo = DPSDK_OCX.DPSDK_GetSelWnd(gWndId);
+        var nResult = DPSDK_OCX.DPSDK_StartRealRecordByWndNo(gWndId, nWndNo, path);
+        if (nResult == 0) {
+            alert('开始录像,视频地址:' + path)
+            cb && cb()
+        } else {
+            alert('录像开启失败')
+            return;
+        }
+    }
+
+    // 关闭录像
+    Sec.prototype.ButtonStopRealRecordByWndNo_onclick=function(cb){
+        var nWndNo = DPSDK_OCX.DPSDK_GetSelWnd(gWndId);
+        var nResult = DPSDK_OCX.DPSDK_StopRealRecordByWndNo(gWndId, nWndNo);
+        if (nResult == 0) {
+            cb && cb()
+        } else {
+            alert('录像关闭失败')
+            return;
+        }
+    }
+
+    // 抓图
+    Sec.prototype.CapturePicture=function(cb){
+        var nWndNo = DPSDK_OCX.DPSDK_GetSelWnd(gWndId);
+        var path = "C:\\dhphoto\\" + new Date().getTime() + ".jpg";
+        var nResult = DPSDK_OCX.DPSDK_CapturePictureByWndNo(gWndId, nWndNo, path);
+        if (nResult == 0) {
+            alert('图片抓取成功:' + path)
+        } else {
+            alert('图片抓取失败')
+            return;
+        }
+
+    }
+    function IsIe() {
+        var state = false
+        try {
+            var obj = new ActiveXObject("DPSDK_OCX.DPSDK_OCXCtrl.1");
+            state = true
+        } catch (e) {
+            if (window.confirm('大华控件未安装或浏览器不支持，请先安装控件，用IE打开！\n现在是否下载安装？')) {
+                window.open('http://' + window.location.host + '/dh.exe');
+            }
+        }
+        return state
+    }
     //验收结果
     Sec.prototype.renderYSJGList = function () {
         var list = ''
@@ -1132,8 +1295,8 @@ var Security = (function () {
 
     // 工人违规
     Sec.prototype.renderillegal = function (engineeringId) {
-        global.ajax.getViolationLog(engineeringId, 1,function (res) {
-            if (res.data.violationRecordList.length ===0) {
+        global.ajax.getViolationLog(engineeringId, 1, function (res) {
+            if (res.data.violationRecordList.length === 0) {
                 parent.window.$("#illgelRecord").empty()
             } else {
                 // 初始化分页
@@ -1142,7 +1305,7 @@ var Security = (function () {
                     totalNum: Math.ceil(res.data.totalSize / 8), // 总页码
                     totalList: res.data.totalSize, // 记录总数量
                     callback: function (num) { //回调函数
-                        global.ajax.getViolationLog(engineeringId,num,function(RES){
+                        global.ajax.getViolationLog(engineeringId, num, function (RES) {
                             Sec.prototype.illegal(RES)
                         })
                     }

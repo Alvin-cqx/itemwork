@@ -106,10 +106,11 @@ a{
     height: 837px;
 }
 .gxys .wrap-nav{
-    position: absolute;
-    top: 20px;
+    /* position: absolute;
+    top: 20px; */
     /* right: 81px; */
     /* color: #9193BF; */
+    width: 100%
 }
 .gxys .wrap-nav1{
     float: right;
@@ -217,6 +218,12 @@ a{
 }
 
 /* 实测实量 */
+.scsl .wrap-nav{
+    width: 100%;
+}
+.scsl .wrap-nav .box{
+    justify-content:flex-end;
+}
 .scsl .wrap-nav1{
     float: right;
     margin-right: 20px;
@@ -275,6 +282,9 @@ a{
 .ybys{
     height: 310px;
 }
+.ybys .tab_nav3{
+    width: 100%;
+}
 .ybys .wrap-nav1{
     float: right;
     margin-right: 20px;
@@ -310,10 +320,11 @@ a{
     height: 600px;
 }
 .xcjd .wrap-nav {
-    position: absolute;
+    /* position: absolute;
     top: 20px;
-    right: 30px;
+    right: 30px; */
     /* color: #9193BF */
+    width: 100%;
 }
 
 .itemList{
@@ -351,7 +362,7 @@ a{
 
 .rwtj ul{
     position: absolute;
-    right: 130px;
+    right: 30%;
     top: 100px;
 }
 .rwtj ul li{
@@ -576,12 +587,13 @@ a{
     margin-right: 8px;
 }
 .problem{
-    padding:20px 40px 0px 40px
+    /* padding:20px 40px 0px 40px */
+    padding: 2% 6% 0 6%;
 }
 .problem li{
     display: flex;
     text-align: center;
-    height: 30px;
+    /* height: 30px; */
     line-height: 30px;
 }
 .problem li .square::before{
@@ -595,4 +607,7 @@ a{
 }
 .problem li span{
     flex: 1;
+}
+.box.itemName{
+    justify-content: flex-end;
 }

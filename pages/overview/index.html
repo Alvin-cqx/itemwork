@@ -162,20 +162,25 @@
         }
 
         .dwzzjg .wrap-nav {
-            position: absolute;
+            /* position: absolute;
             top: 20px;
-            right: 34px;
+            right: 34px; */
             /* color: #A8ABE2 */
+            width: 100%;
         }
 
         .dwzzjg li {
+            width: 10%;
             padding: 0 4px;
         }
 
         .dwzzjg li span {
             padding: 4px 0;
             cursor: pointer;
-        }
+            display: inline-block;
+            width: 80%;
+}
+        
 
         .dwzzjg .wrap-img {
             height: 220px;
@@ -460,7 +465,7 @@
         }
 
         #djsij1 {
-            width: 94px !important;
+            width: 28% !important;
         }
 
         #djsij1 img,
@@ -591,6 +596,9 @@
         .zzjgimg .example2 {
             width: 100% !important;
         }
+        .box.vtu{
+            justify-content: flex-end;
+        }
     </style>
 </head>
 
@@ -671,7 +679,7 @@
                                             <table class="table" id='gtdqkTable'>
                                                 <thead>
                                                     <tr>
-                                                        <th style="width:70px">楼栋</th>
+                                                        <th style="width:25%">楼栋</th>
                                                         <th>建筑高度</th>
                                                         <th>楼层</th>
                                                         <th>功能</th>
@@ -1442,7 +1450,7 @@
         // $(".zzjgimg").append(picHtml);
         // global.page.pic_view()
         $("#tableList").empty()
-        $("#tableList").append('<thead><tr><th id="djsij1" style="width:94px">单位名称</th><th id="djsij2">职务</th><th class="name">姓名</th><th lass="phone">电话</th></tr></thead>')
+        $("#tableList").append('<thead><tr><th id="djsij1" style="width:28%">单位名称</th><th id="djsij2">职务</th><th class="name">姓名</th><th lass="phone">电话</th></tr></thead>')
         // jsdwimg = jsdw[0].fileUrls //建设单位的图片的数据
         // $(".zzjgimg").empty()
         // jsdwimg.forEach(function (currentValue, index) { //渲染图片
@@ -1464,7 +1472,7 @@
             // console.log(currentValue.companyName,'currentValuecurrentValuecurrentValue');
             dwmc.push(currentValue.companyName);
             zwu.push(currentValue.position);
-            tableHtml += '<tr class="applyList"><td style="width:94px">' + currentValue.companyName + '</td><td>' + currentValue.position + '</td><td lass="name">' + currentValue.userName + '</td><td lass="phone">' + currentValue.userPhone + '</td></tr>'
+            tableHtml += '<tr class="applyList"><td style="width:28%">' + currentValue.companyName + '</td><td>' + currentValue.position + '</td><td lass="name">' + currentValue.userName + '</td><td lass="phone">' + currentValue.userPhone + '</td></tr>'
         })
         tableHtml += '</tbody>'
         $("#tableList").append(tableHtml)
@@ -1484,12 +1492,12 @@
                 $(".chaxgn").toggle()
                 var efasf = $(this).text()
                 $("#tableList").empty()
-                $("#tableList").append('<thead><tr><th id="djsij1" tyle="width:94px">单位名称</th><th id="djsij2">职务</th><th>姓名</th><th>电话</th></tr></thead>')
+                $("#tableList").append('<thead><tr><th id="djsij1" tyle="width:28%">单位名称</th><th id="djsij2">职务</th><th>姓名</th><th>电话</th></tr></thead>')
                 var tableHtlm1 = '<tbody>';
                 jsdw.forEach(function (currentValue, index) {
                     // console.log(current,currentValue);
                     if (efasf == currentValue.companyName) {
-                        tableHtlm1 += '<tr class="applyList"><td style="width:94px">' + currentValue.companyName + '</td><td>' + currentValue.position + '</td><td>' + currentValue.userName + '</td><td>' + currentValue.userPhone + '</td></tr>'
+                        tableHtlm1 += '<tr class="applyList"><td style="width:28%">' + currentValue.companyName + '</td><td>' + currentValue.position + '</td><td>' + currentValue.userName + '</td><td>' + currentValue.userPhone + '</td></tr>'
                     }
                 })
                 tableHtlm1 += '</tbody>';
@@ -1509,13 +1517,13 @@
                 //console.log(zwu);
                 var efasf = $(this).text()
                 $("#tableList").empty()
-                $("#tableList").append('<thead><tr><th id="djsij1" tyle="width:94px">单位名称</th><th id="djsij2">职务</th><th>姓名</th><th>电话</th></tr></thead>')
+                $("#tableList").append('<thead><tr><th id="djsij1" tyle="width:28%">单位名称</th><th id="djsij2">职务</th><th>姓名</th><th>电话</th></tr></thead>')
 
                 var tableHtlm2 = '<tbody>';
                 jsdw.forEach(function (currentValue, index) {
 
                     if (efasf == currentValue.position) {
-                        tableHtlm2 += '<tr class="applyList"><td style="width:94px">' + currentValue.companyName + '</td><td>' + currentValue.position + '</td><td>' + currentValue.userName + '</td><td>' + currentValue.userPhone + '</td></tr>'
+                        tableHtlm2 += '<tr class="applyList"><td style="width:28%">' + currentValue.companyName + '</td><td>' + currentValue.position + '</td><td>' + currentValue.userName + '</td><td>' + currentValue.userPhone + '</td></tr>'
                     }
                 })
                 tableHtlm2 += '</tbody>';
@@ -1675,7 +1683,7 @@
             var projectTower = res.data.projectInfo.projectTower; //塔楼塔楼数据
             var tlqkHtml = '<tbody>'
             for (var a = 0; a <= projectTower.length - 1; a++) { //塔楼数据
-                tlqkHtml += '<tr class="applyList"><td style="width:70px">' + projectTower[a].buildingName + '</td><td>' + projectTower[a].buildingHeight + '</td><td>' + projectTower[a].buildingFloor + '</td><td>' + projectTower[a].function + '</td><td>' + projectTower[a].deliveryStandard + '</td></tr>'
+                tlqkHtml += '<tr class="applyList"><td style="width:25%">' + projectTower[a].buildingName + '</td><td>' + projectTower[a].buildingHeight + '</td><td>' + projectTower[a].buildingFloor + '</td><td>' + projectTower[a].function + '</td><td>' + projectTower[a].deliveryStandard + '</td></tr>'
             }
             tlqkHtml += '</tbody>';
             $("#gtdqkTable").append(tlqkHtml);
@@ -1856,9 +1864,9 @@
             console.log(res,'切换')
             $("#tableList").empty()
             var appOrgRelation=res.data.appOrgRelation;
-            var html='<thead><tr><th id="djsij1" style="width:94px">单位名称</th><th id="djsij2">职务</th><th class="name">姓名</th><th lass="phone">电话</th></tr></thead><tbody>'
+            var html='<thead><tr><th id="djsij1" style="width:28%">单位名称</th><th id="djsij2">职务</th><th class="name">姓名</th><th lass="phone">电话</th></tr></thead><tbody>'
             appOrgRelation.forEach(function(item){
-                html+='<tr class="applyList"><td style="width:94px">' + item.companyName + '</td><td>' + item.position + '</td><td>' + item.userName + '</td><td>' + item.userPhone + '</td></tr>'
+                html+='<tr class="applyList"><td style="width:28%">' + item.companyName + '</td><td>' + item.position + '</td><td>' + item.userName + '</td><td>' + item.userPhone + '</td></tr>'
             })
             html += '</tbody>';
             $("#tableList").append(html)

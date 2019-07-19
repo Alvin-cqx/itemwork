@@ -447,7 +447,18 @@
             margin-right: 5px;
             text-align: center
         }
-
+        #hjjc_engineering_list,.sbjc .box,.ysjg .box{
+            justify-content:flex-end;
+        }
+        .hjjc .wrap-nav,.ysjg .wrap-nav{
+            width: 100%;
+        }
+        .sbjc .wrap-nav{
+            width: 100%;
+        }
+        .sbjc .wrap-nav li,.ysjg .wrap-nav li{
+            width: 10%;
+        }
         .hjjc .hjyjz p,
         .hjjc .hjyjz .box>li span:first-child {
             /* color: #A8ABE2 */
@@ -1177,7 +1188,7 @@
                     <div class="content-body">
                         <!-- 劳务统计 -->
                         <div class="item_lwtj">
-                            <div id="item_lwtj_chart" style="height:340px"></div>
+                            <!-- <div id="item_lwtj_chart" style="height:340px"></div> -->
                         </div>
                         <!-- 劳务投入 -->
                         <div class="item_lwtr" id="item_lwtr">
@@ -2791,12 +2802,25 @@
 </body>
 
 </html>
-<script src="/js/ocx.js"></script>
+<!-- <script src="/js/ocx.js"></script> -->
 <script src="/js/request.js"></script>
 <script src="./js/security.js"></script>
 
 <script type="text/javascript">
+    global.page.tabNav('.workManger',function(_this){
+        var contentnode=_this.attr('contentnode');
+        if(contentnode=='item_lwtj'){
+            $('.item_lwtj').html('<div id="item_lwtj_chart" style="height:340px"></div>')
+            Security.statisticsList()
+        }
 
+
+
+
+
+    
+    });
+    global.page.tabNav('.workManger')
     //解决区域滚动bug
     document.getElementById('item_glrykq').addEventListener('mousewheel', function (e) {
         e.stopPropagation()
@@ -2822,6 +2846,8 @@
         }, 15000)
 
         renderHJJCHTML() //环境监测
+
+        $('.item_lwtj').html('<div id="item_lwtj_chart" style="height:340px"></div>')
         Security.statisticsList() //劳务统计
 
         $('#stage').on('click', function () {
@@ -3118,7 +3144,7 @@
 
                 var first = engineeringList[0];
 
-       
+
 
                 first.companyTypeList.forEach(function (item1, i) {
                     // var l = item1.companyNameList.length;
@@ -3180,67 +3206,72 @@
                     $(ite1).append(html)
                 })
 
-                var second = engineeringList[1];
-                
-                second.companyTypeList.forEach(function (item1, i) {
-                    // var l = item1.companyNameList.length;
-                    // console.log(l, '长度')
-                    var ite2 = '.item_002';
-                    var num1 = 0;
-                    item1.companyNameList.forEach(function (item2) {
-                        item2.attTeamList.forEach(function (item3) {
-                            item3.workTypeNameList.forEach(function (item4) {
-                                num1 += item4.personStatistics.count
-                            })
-                        })
-                    })
+                try {
+                    var second = engineeringList[1];
 
-                    html = '<div>' +
-                        '<p class="title">' +
-                        '<span>' + item1.companyTypeName + '</span>' +
-                        '<span style="float:right">在岗人员（' + num1 + '）</span>' +
-                        '</p>' +
-                        '<table>' +
-                        '<tbody><tr>' +
-                        '<td style="width:20%">所属单位</td>' +
-                        '<td style="width:20%">班组名称</td>' +
-                        '<td style="width:20%">工种</td>' +
-                        '<td style="width:20%">人数</td>' +
-                        '<td style="width:20%">姓名</td>' +
-                        '</tr>'
-                    // html += '<tr><td rowspan="' + l + '">' + item1.companyName + '</td>'
-                    item1.companyNameList.forEach(function (item2) {
-                        var c = 0;
-
-                        item2.attTeamList.forEach(function (item4) {
-                            c += item4.workTypeNameList.length
-                            // console.log(item4, '长度',c)
-                        })
-
-                        html += '<tr><td rowspan="' + c + '">' + item2.companyName + '</td>';
-                        item2.attTeamList.forEach(function (item3) {
-                            var l = item3.workTypeNameList.length;
-                            html += '<td rowspan="' + l + '">' + item3.teamName + '</td>';
-
-                            item3.workTypeNameList.forEach(function (item4) {
-                                // item4.personStatistics.personNameList=['asdasd','asdasdasd','asdasdasd','asdasdasd','asdasd','asdasdasd','asdasdasd','asdasdasd','asdasd','asdasdasd','asdasdasd','asdasdasd']
-                                html += '<td>' + item4.workTypeName + '</td><td>' + item4.personStatistics.count + '</td><td>'
-                                item4.personStatistics.personNameList.forEach(function (name, i) {
-                                    html += (i % 2 == 0) ? name + '&nbsp&nbsp' : name + '&nbsp' + '<br>'
-
+                    second.companyTypeList.forEach(function (item1, i) {
+                        // var l = item1.companyNameList.length;
+                        // console.log(l, '长度')
+                        var ite2 = '.item_002';
+                        var num1 = 0;
+                        item1.companyNameList.forEach(function (item2) {
+                            item2.attTeamList.forEach(function (item3) {
+                                item3.workTypeNameList.forEach(function (item4) {
+                                    num1 += item4.personStatistics.count
                                 })
-                                html += '</td><tr>'
-                                // item4.personStatistics.forEach(function(item5){
-                                // html+='<td>' + item5.count + '</td>' 
-                                // })
                             })
                         })
+
+                        html = '<div>' +
+                            '<p class="title">' +
+                            '<span>' + item1.companyTypeName + '</span>' +
+                            '<span style="float:right">在岗人员（' + num1 + '）</span>' +
+                            '</p>' +
+                            '<table>' +
+                            '<tbody><tr>' +
+                            '<td style="width:20%">所属单位</td>' +
+                            '<td style="width:20%">班组名称</td>' +
+                            '<td style="width:20%">工种</td>' +
+                            '<td style="width:20%">人数</td>' +
+                            '<td style="width:20%">姓名</td>' +
+                            '</tr>'
+                        // html += '<tr><td rowspan="' + l + '">' + item1.companyName + '</td>'
+                        item1.companyNameList.forEach(function (item2) {
+                            var c = 0;
+
+                            item2.attTeamList.forEach(function (item4) {
+                                c += item4.workTypeNameList.length
+                                // console.log(item4, '长度',c)
+                            })
+
+                            html += '<tr><td rowspan="' + c + '">' + item2.companyName + '</td>';
+                            item2.attTeamList.forEach(function (item3) {
+                                var l = item3.workTypeNameList.length;
+                                html += '<td rowspan="' + l + '">' + item3.teamName + '</td>';
+
+                                item3.workTypeNameList.forEach(function (item4) {
+                                    // item4.personStatistics.personNameList=['asdasd','asdasdasd','asdasdasd','asdasdasd','asdasd','asdasdasd','asdasdasd','asdasdasd','asdasd','asdasdasd','asdasdasd','asdasdasd']
+                                    html += '<td>' + item4.workTypeName + '</td><td>' + item4.personStatistics.count + '</td><td>'
+                                    item4.personStatistics.personNameList.forEach(function (name, i) {
+                                        html += (i % 2 == 0) ? name + '&nbsp&nbsp' : name + '&nbsp' + '<br>'
+
+                                    })
+                                    html += '</td><tr>'
+                                    // item4.personStatistics.forEach(function(item5){
+                                    // html+='<td>' + item5.count + '</td>' 
+                                    // })
+                                })
+                            })
+                        })
+                        html += '</tbody></table>'
+                        html += '</div>'
+                        $(ite2).append(html);
+                        $(ite2).hide()
                     })
-                    html += '</tbody></table>'
-                    html += '</div>'
-                    $(ite2).append(html);
-                    $(ite2).hide()
-                })
+
+                } catch (e) {
+
+                }
 
 
                 // 调用模态窗
@@ -3294,38 +3325,47 @@
 
                 $('.sloty').append(HTML)
 
-                // 在线统计时长
-                var onLineData = res.data.nowTimeCompanyList;
-                // console.log('onLineData',onLineData)
-                onLineData.forEach(function (item1, index) {
-                    var g = 0;
-                    HTMLL += '<table>' +
-                        '<tbody>' +
-                        '<tr>' +
-                        '<td style="width:25%">所属单位</td>' +
-                        '<td style="width:25%">管理人员类型</td>' +
-                        '<td style="width:25%">姓名</td>' +
-                        '<td style="width:25%">在岗时长</td>' +
-                        '</tr>'
-                    item1.manageTypeList.forEach(function (item2, index) {
-                        g += item2.personList.length || 0
+                try {
+                    // 在线统计时长
+                    var onLineData = res.data.nowTimeCompanyList;
+                    // console.log('onLineData',onLineData)
+                    onLineData.forEach(function (item1, index) {
+                        var g = 0;
+                        HTMLL += '<table>' +
+                            '<tbody>' +
+                            '<tr>' +
+                            '<td style="width:25%">所属单位</td>' +
+                            '<td style="width:25%">管理人员类型</td>' +
+                            '<td style="width:25%">姓名</td>' +
+                            '<td style="width:25%">在岗时长</td>' +
+                            '</tr>'
+                        item1.manageTypeList.forEach(function (item2, index) {
+                            g += item2.personList.length || 0
 
-                    })
-                    HTMLL += '<tr><td  rowspan="' + g + '">' + item1.companyName + '</td>'
-                    item1.manageTypeList.forEach(function (item2, index) {
-                        var s = item2.personList.length;
-                        HTMLL += '<td rowspan="' + s + '">' + item2.manageTypeName + '</td>'
-                        item2.personList.forEach(function (item3) {
-                            var count = item3.count ? item3.count : ''
-                            HTMLL += '<td>' + item3.personnelName + '</td><td ><a href="#" NameId="' + item3.personnelId + '">' + count + '</a></td><tr>'
+                        })
+                        HTMLL += '<tr><td  rowspan="' + g + '">' + item1.companyName + '</td>'
+                        item1.manageTypeList.forEach(function (item2, index) {
+                            var s = item2.personList.length;
+                            HTMLL += '<td rowspan="' + s + '">' + item2.manageTypeName + '</td>'
+                            item2.personList.forEach(function (item3) {
+                                var count = item3.count ? item3.count : ''
+                                HTMLL += '<td>' + item3.personnelName + '</td><td ><a href="#" NameId="' + item3.personnelId + '">' + count + '</a></td><tr>'
+                            })
+
                         })
 
+                        HTMLL += '<tbody></table>'
                     })
 
-                    HTMLL += '<tbody></table>'
-                })
+                    $('.sloty-2').append(HTMLL);
 
-                $('.sloty-2').append(HTMLL);
+                } catch (e) {
+                    $('.sloty-2').append('<p style="text-align:center">暂无数据</p>');
+                }
+
+
+
+
                 // 弹出模态窗
                 Security.showModal('glrs_modal', '管理人数')
 
@@ -3874,10 +3914,10 @@
                         '<th colspan="5">' + item.companyTypeName + '</th>' +
                         '</tr>' +
                         '<tr>' +
-                        '<td><span>在职：</span><a class="modal_active" href="#" companyTypeId="' + item.companyTypeId + '" companyTypeName="'+item.companyTypeName+'">' + onJobAmount + '</a></td>' +
-                        '<td><span>在岗：</span><a class="modal_active" href="#" companyTypeId="' + item.companyTypeId + '" companyTypeName="'+item.companyTypeName+'">' + workingAmount + '</a></td>' +
-                        '<td><span>缺勤：</span><a class="modal_active" href="#" companyTypeId="' + item.companyTypeId + '" companyTypeName="'+item.companyTypeName+'">' + (onJobAmount-workingAmount-leaveAmout) + '</a></td>' +
-                        '<td><span>请假：</span><a class="modal_active" href="#" companyTypeId="' + item.companyTypeId + '" companyTypeName="'+item.companyTypeName+'">' + leaveAmout + '</a></td>' +
+                        '<td><span>在职：</span><a class="modal_active" href="#" companyTypeId="' + item.companyTypeId + '" companyTypeName="' + item.companyTypeName + '">' + onJobAmount + '</a></td>' +
+                        '<td><span>在岗：</span><a class="modal_active" href="#" companyTypeId="' + item.companyTypeId + '" companyTypeName="' + item.companyTypeName + '">' + workingAmount + '</a></td>' +
+                        '<td><span>缺勤：</span><a class="modal_active" href="#" companyTypeId="' + item.companyTypeId + '" companyTypeName="' + item.companyTypeName + '">' + (onJobAmount - workingAmount - leaveAmout) + '</a></td>' +
+                        '<td><span>请假：</span><a class="modal_active" href="#" companyTypeId="' + item.companyTypeId + '" companyTypeName="' + item.companyTypeName + '">' + leaveAmout + '</a></td>' +
                         '</tr>' +
                         '</table>' +
                         '</div>'
@@ -3900,8 +3940,8 @@
                 $('.item_glrykq').find('.modal_active').each(function () {
                     $(this).on('click', function () {
                         var companyTypeId = $(this).attr('companyTypeId')
-                        var companyTypeName=$(this).attr('companyTypeName')
-                        manageDetail(companyTypeName,companyTypeId)
+                        var companyTypeName = $(this).attr('companyTypeName')
+                        manageDetail(companyTypeName, companyTypeId)
                         Security.showModal('rykq_detais_modal', '管理人员考勤')
                     })
                 })
@@ -3924,11 +3964,11 @@
 
 
         // 管理人员考勤详情
-        function manageDetail(companyTypeName,companyTypeId) {
+        function manageDetail(companyTypeName, companyTypeId) {
             global.ajax.getmanageAttendanceDetail(companyTypeId, function (res) {
                 // console.log(res, '管理人员考勤详情')
                 var data = res.data;
-                var html = '<p class="title">'+companyTypeName+'</p>';
+                var html = '<p class="title">' + companyTypeName + '</p>';
                 if (data.length === 0) {
                     parent.window.$('#rykq_detais_modal .content').html('<p style="text-align:center">暂无数据</p>');
                     return;
@@ -3949,12 +3989,12 @@
                         var outTime = v.outTime ? v.outTime : ''
                         var typeName = v.typeName ? v.typeName : ''
                         var personnelName = v.personnelName ? v.personnelName : ''
-                        var aticve = inTime ? '' : 'square3'  
+                        var aticve = inTime ? '' : 'square3'
 
                         var leaveEndTime = v.leaveEndTime ? v.leaveEndTime : ''
                         var leaveStartTime = v.leaveStartTime ? v.leaveStartTime : ''
-                        if(leaveEndTime){
-                            aticve='' 
+                        if (leaveEndTime) {
+                            aticve = ''
                         }
                         html += '<tr>' +
                             '<td rowspan="1">' + typeName + '</td>' +
@@ -3978,51 +4018,51 @@
         function getmanageAttendanceOndutyDetail() {
             global.ajax.getmanageAttendanceOndutyDetail(function (res) {
                 // console.log(res, '值班表详情')
-               if(res.data.length===0){
-                parent.window.$('.workItem').empty()
-                parent.window.$('.worklists').empty()
-                parent.window.$('.workItem').append('<p style="text-align:center">暂无数据</p>')
-                return;
-               }
+                if (res.data.length === 0) {
+                    parent.window.$('.workItem').empty()
+                    parent.window.$('.worklists').empty()
+                    parent.window.$('.workItem').append('<p style="text-align:center">暂无数据</p>')
+                    return;
+                }
                 var data = res.data;
                 var HTML = ''
-                var html=' <p class="workerList">值班表(2019年3月13日)</p>'+
-                    '<table>'+
-                        '<tr>'+
-                            '<td>单位名称</td>'+
-                            '<td>管理人员类型</td>'+
-                            '<td>姓名</td>'+
+                var html = ' <p class="workerList">值班表(2019年3月13日)</p>' +
+                    '<table>' +
+                    '<tr>' +
+                    '<td>单位名称</td>' +
+                    '<td>管理人员类型</td>' +
+                    '<td>姓名</td>' +
                     '</tr>'
                 // $('.workerList').html(unit.formatDate(new Date(), 'yyyy-MM-dd'))
                 data.forEach(function (item) {
-                    HTML += '<div>'+
-                        '<p class="title"> '+item.companyTypeName+'</p>'+
-                            '<table>'+
-                                '<tr>'+
-                                    '<td style="width:25%">单位名称</td>'+
-                                    '<td style="width:25%">管理人员类型</td>'+
-                                    '<td style="width:25%">姓名</td>'+
-                                    '<td style="width:25%">上班 | 下班 </td>'+
-                                '</tr>'
-                    item.personList.forEach(function(v){
+                    HTML += '<div>' +
+                        '<p class="title"> ' + item.companyTypeName + '</p>' +
+                        '<table>' +
+                        '<tr>' +
+                        '<td style="width:25%">单位名称</td>' +
+                        '<td style="width:25%">管理人员类型</td>' +
+                        '<td style="width:25%">姓名</td>' +
+                        '<td style="width:25%">上班 | 下班 </td>' +
+                        '</tr>'
+                    item.personList.forEach(function (v) {
                         var inTime = v.inTime ? v.inTime : ''
                         var outTime = v.outTime ? v.outTime : ''
-                        HTML+='<tr>'+
-                                    '<td rowspan="1">'+(v.companyName?v.companyName:'')+'</td>'+
-                                    '<td>'+(v.typeName?v.typeName:'')+'</td>'+
-                                    '<td>'+(v.personnelName?v.personnelName:'')+'</td>'+
-                                    '<td>' + (inTime + '-' + outTime) + '</td>'+
+                        HTML += '<tr>' +
+                            '<td rowspan="1">' + (v.companyName ? v.companyName : '') + '</td>' +
+                            '<td>' + (v.typeName ? v.typeName : '') + '</td>' +
+                            '<td>' + (v.personnelName ? v.personnelName : '') + '</td>' +
+                            '<td>' + (inTime + '-' + outTime) + '</td>' +
                             '</tr>';
-                        html+=' <tr>'+
-                                '<td rowspan="1">'+(v.companyName?v.companyName:'')+'</td>'+
-                                '<td>'+(v.typeName?v.typeName:'')+'</td>'+
-                                '<td>'+(v.personnelName?v.personnelName:'')+'</td>'+
+                        html += ' <tr>' +
+                            '<td rowspan="1">' + (v.companyName ? v.companyName : '') + '</td>' +
+                            '<td>' + (v.typeName ? v.typeName : '') + '</td>' +
+                            '<td>' + (v.personnelName ? v.personnelName : '') + '</td>' +
                             '</tr>'
                     })
-                    HTML+='</table></div>'
+                    HTML += '</table></div>'
 
                 })
-                html+='</table>'
+                html += '</table>'
                 parent.window.$('.workItem').html(HTML)
                 parent.window.$('.worklists').html(html)
             })

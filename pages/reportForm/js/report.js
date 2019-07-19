@@ -26,7 +26,7 @@ var Security = (function () {
         var inde = 2
         var shuj = [] //考勤机数据
         $(".astwsf").empty()//整体布局的删除
-        $(".astwsf").append(' <table cellspacing="0" id="dyzt01">    <tr>        <td style="width:50px">序</td>        <td style="width:200px">单位 </td>        <td style="width:100px">职务</td>        <td style="width:100px" id="dyzt01-index">姓名</td>            <td style="width:100px;">总出勤天数</td>    </tr></table>')
+        $(".astwsf").append(' <table cellspacing="0" id="dyzt01">    <tr>        <td style="width:50px">序</td>        <td style="width:15%">单位 </td>        <td style="width:7%">职务</td>        <td style="width:7%" id="dyzt01-index">姓名</td>            <td style="width:100px;">总出勤天数</td>    </tr></table>')
         //$("#dyzt01").append('<tr><td style="width:50px">序</td><td style="width:200px">单位 </td><td style="width:100px">职务</td><td style="width:100px">姓名</td><td style="width:100px" id="dyzt01-index">月份</td><td style="width:100px">总出勤天数</td></tr>')
 
         res.personAttenceList.forEach(function (currentValue, index) {
@@ -109,8 +109,8 @@ var Security = (function () {
         var inde = 2
         var shuj = [] //门禁数据
         $(".table_bott").empty()//整体布局的删除
-        // $(".table_bott").append('<div class="form_table" id="dyzt02">        <table cellspacing="0">            <tr>                <td style="width:50px">序</td>                <td style="width:150px">单位 </td>                <td style="width:100px">职务</td>                <td style="width:50px">姓名</td>                <td style="width:100px">身份证</td>                <td style="width:100px" id="dyzt02-index">月份</td>                <td style="width:100px;">月总时长统计</td>            </tr>        </table>    </div>')
-        $(".table_bott").append('<div class="form_table" id="dyzt02">        <table cellspacing="0">            <tr>                <td style="width:50px">序</td>                <td style="width:150px">单位 </td>                <td style="width:100px">职务</td>                <td style="width:100px" id="dyzt02-index">姓名</td>                           <td style="width:100px;">月总时长统计</td>            </tr>        </table>    </div>')
+        // $(".table_bott").append('<div class="form_table" id="dyzt02">        <table cellspacing="0">            <tr>                <td style="width:50px">序</td>                <td style="width:15%">单位 </td>                <td style="width:7%">职务</td>                <td style="width:7%">姓名</td>                <td style="width:100px">身份证</td>                <td style="width:100px" id="dyzt02-index">月份</td>                <td style="width:100px;">月总时长统计</td>            </tr>        </table>    </div>')
+        $(".table_bott").append('<div class="form_table" id="dyzt02">        <table cellspacing="0">            <tr>                <td style="width:50px">序</td>                <td style="width:15%">单位 </td>                <td style="width:100px">职务</td>                <td style="width:7%" id="dyzt02-index">姓名</td>                           <td style="width:7%;">月总时长统计</td>            </tr>        </table>    </div>')
         res.personelInJobList.forEach(function (currentValue, index) {
             //console.log(currentValue);
             inde++
@@ -171,7 +171,7 @@ var Security = (function () {
         var inde = 2
         var shuj = [] //考勤机数据
         $(".dyzt-lp").empty()//整体布局的删除
-        $(".dyzt-lp").append('<div class="form_table" id="dyzt03"><table cellspacing="0"><tr>                <td style="width:50px">序</td>                <td style="width:150px">单位 </td>                <td style="width:100px">班组</td>                <td style="width:100px">人员类型</td>                <td style="width:100px" id="dyzt03-index">姓名</td>           <td style="width:100px">月总时长统计</td>            </tr>        </table>    </div>')
+        $(".dyzt-lp").append('<div class="form_table" id="dyzt03"><table cellspacing="0"><tr>                <td style="width:50px">序</td>                <td style="width:15%">单位 </td>                <td style="width:7%">班组</td>                <td style="width:7%">人员类型</td>                <td style="width:100px" id="dyzt03-index">姓名</td>           <td style="width:7%">月总时长统计</td>            </tr>        </table>    </div>')
         res.personelInJobList.forEach(function (currentValue, index) {
             //console.log(currentValue);
             inde++
@@ -240,7 +240,7 @@ var Security = (function () {
         // console.log(res);
         //console.log($("#dyzt05"));
         $(".table_05-bott").empty()//整体布局的删除
-        $(".table_05-bott").append('<div class="form_table" id="dyzt05">        <table cellspacing="0">            <tr>                <td style="width:150px">单位</td>                <td style="width:100px">姓名 </td>                <td style="width:100px">工种</td>                <td style="width:100px">班组</td>                <td style="width:100px" id="dyzt05-index">入职日期</td>                           <td style="width:100px">实勤工时</td>            </tr>        </table>    </div>')
+        $(".table_05-bott").append('<div class="form_table" id="dyzt05">        <table cellspacing="0">            <tr>                <td style="width:15%">单位</td>                <td style="width:7%">姓名 </td>                <td style="width:7%">工种</td>                <td style="width:7%">班组</td>                <td style="width:7%" id="dyzt05-index">入职日期</td>                           <td style="width:100px">实勤工时</td>            </tr>        </table>    </div>')
         var inde = 2
         var shuj = [] //住建局数据
         res.personelInJobList.forEach(function (currentValue, index) {

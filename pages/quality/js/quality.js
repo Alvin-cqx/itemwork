@@ -1041,7 +1041,7 @@ var Quality = (function () {
                 name: '工程',
                 type: 'pie',
                 radius: ['50%', '70%'],
-                center: ['30%', '50%'],
+                center: ['50%', '50%'],
                 labelLine: {
                     normal: {
                         length: 2,

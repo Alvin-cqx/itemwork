@@ -268,7 +268,9 @@
             display: block;
             width: 100%;
             color: #A8ABE2;
-
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
 
         .chooseAll ul li a:hover {
@@ -282,14 +284,16 @@
 
         .allChoose {
             /* float: left; */
-            line-height: 16px;
-            /* padding-left: 10px;
-            margin-left: 6px; */
+            line-height: 15px;
             color: #A8ABE2;
             width: 78%;
             display: inline-block;
             /* margin-right: 30px; */
             cursor: pointer;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            width: 78%;
         }
 
         .qdgc {
@@ -624,6 +628,13 @@
 
     // 默认查询第一个
     function checkEngineer(engineeringId) {
+        try {
+            // 用户id  cookie
+            var admin_id = global.unit.getCookie('admin_id')
+         
+        } catch (e) {
+
+        }
         global.ajax.dsgsrgt(function (res) {
             // console.log(res);
             if (res.data.fatherList.length == 0) {
@@ -682,7 +693,7 @@
 
 
 
-        }, engineeringId)
+        }, engineeringId,admin_id)
     }
 
 

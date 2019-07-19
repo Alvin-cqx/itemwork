@@ -342,6 +342,15 @@
         .item {
             color: #9193BF;
         }
+
+        #recordActive {
+            position: absolute;
+            display: inline-block;
+            right: 6px;
+            top: 30%;
+            width: 21px;
+            display: none;
+        }
     </style>
 </head>
 
@@ -361,7 +370,8 @@
                     <div class="box">
                         <div class="video-list">
                             <object id="DPSDK_OCX" classid="CLSID:D3E383B6-765D-448D-9476-DFD8B499926D"
-                                style="width: 100%; height: 100%" codebase="http://localhost:8084/JS/DpsdkOcx.CAB#version=1.0.0.0"></object>
+                                style="width: 100%; height: 100%"
+                                codebase="http://localhost:8084/JS/DpsdkOcx.CAB#version=1.0.0.0"></object>
                         </div>
                         <div class="video-control">
                             <div class="control-c">
@@ -430,6 +440,7 @@
                                         <li id="record">
                                             <img state=false src="/images/icon_lx.png" alt="">
                                             <p>录像</p>
+                                            <img src="./img/play.gif" alt="" id="recordActive">
                                         </li>
                                     </div>
                                 </div>
@@ -528,7 +539,7 @@
             groupList.forEach(function (item, i) {
                 list +=
                     '<li groupId="' + item.cameraGroupId + '"><span>' + item.groupName + "(" + item
-                    .cameraCount + ")" + '</span></li>'
+                        .cameraCount + ")" + '</span></li>'
             })
             $('#movieLsit').html(list);
 
@@ -570,10 +581,12 @@
                         _that.css('background', 'rgb(44, 46, 156)')
                     })
                     $('#record p').html('录像中')
+                    $('#recordActive').show()
                 } else {
                     ButtonStopRealRecordByWndNo_onclick()
                     _that.css('background', 'rgba(18, 20, 101, 0.5)')
                     $('#record p').html('录像')
+                    $('#recordActive').hide()
                 }
 
             })
@@ -595,10 +608,11 @@
     function DPSDK_login() {
         if (!IsIe()) return
         if (DPSDK_OCX.DPSDK_Login(DHConfig.szIp, DHConfig.nPort, DHConfig.szUsername, DHConfig.szPassword) == '0') {
+            // 加载组织架构
             //DPSDK_OCX.DPSDK_LoadDGroupInfo()
             console.log('DH login success')
         }
-        
+
     }
 
     function DPSDK_LivePlay() {
@@ -688,13 +702,13 @@
     }
 
     // 开启录像
-    
+
     function ButtonStartRealRecordByWndNo_onclick(cb) {
         var path = "C:\\dhvideo\\" + new Date().getTime() + ".avi";
         var nWndNo = DPSDK_OCX.DPSDK_GetSelWnd(gWndId);
         var nResult = DPSDK_OCX.DPSDK_StartRealRecordByWndNo(gWndId, nWndNo, path);
         if (nResult == 0) {
-           alert('开始录像,视频地址:'+path)
+            alert('开始录像,视频地址:' + path)
             cb && cb()
         } else {
             alert('录像开启失败')
@@ -705,7 +719,7 @@
         var nWndNo = DPSDK_OCX.DPSDK_GetSelWnd(gWndId);
         var nResult = DPSDK_OCX.DPSDK_StopRealRecordByWndNo(gWndId, nWndNo);
         if (nResult == 0) {
-            
+
         } else {
             alert('录像关闭失败')
         }
